@@ -1,4 +1,4 @@
-package Modele.Gestion_Service.record;
+package Modeles.Gestion_Service.record;
 import java.time.LocalDate;
 import java.util.List;
 import Modeles.Stocks.Fourniture;
