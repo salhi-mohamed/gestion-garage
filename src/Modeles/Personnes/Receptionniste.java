@@ -659,6 +659,146 @@ public class Receptionniste extends Employe
 
 
 
+    ///////////////////////////Gestion des factures//
+    public void creerFacture(int numeroFacture, Date dateFacture, int idClient, boolean avecRemise) {
+        // Vérification du client
+        Optional<Client> clientOpt = listeClients.stream()
+                .filter(client -> client.get_id() == idClient)
+                .findFirst();
+
+        if (clientOpt.isEmpty()) {
+            System.out.println("Erreur : Client avec l'ID " + idClient + " introuvable.");
+            return; // Sortie de la méthode si le client n'existe pas
+        }
+
+        Client client = clientOpt.get();
+
+        // Récupération des services associés à ce client
+        List<Service> servicesClient = ListeServices.stream()
+                .filter(service -> service.getClient().get_id() == idClient)
+                .toList();
+
+        if (servicesClient.isEmpty()) {
+            System.out.println("Erreur : Aucun service associé au client avec l'ID " + idClient + ".");
+            return; // Sortie de la méthode si aucun service n'est trouvé
+        }
+
+        // Calcul du montant total des services
+        double montantTotal = servicesClient.stream()
+                .mapToDouble(Service::getCout)
+                .sum();
+
+        // Création de la facture
+        Facture nouvelleFacture = new Facture(numeroFacture, montantTotal, dateFacture, client, new ArrayList<>(servicesClient), avecRemise);
+
+        // Ajout à la liste des factures
+        ListeFactures.add(nouvelleFacture);
+
+        System.out.println("Facture créée avec succès :");
+        System.out.println(nouvelleFacture.toString());
+    }
+
+
+
+
+
+
+    public void supprimerFacture(int numeroFacture) {
+        // Recherche de la facture par numéro
+        Optional<Facture> factureOpt = ListeFactures.stream()
+                .filter(facture -> facture.getNumeroFacture() == numeroFacture)
+                .findFirst();
+
+        if (factureOpt.isEmpty()) {
+            System.out.println("Erreur : Facture avec le numéro " + numeroFacture + " introuvable.");
+            return; // Sortie de la méthode si la facture n'existe pas
+        }
+
+        Facture factureASupprimer = factureOpt.get();
+
+        // Suppression de la facture de la liste
+        ListeFactures.remove(factureASupprimer);
+
+        System.out.println("Facture avec le numéro " + numeroFacture + " supprimée avec succès.");
+    }
+
+
+
+
+
+
+
+    public void modifierFacture(int numeroFacture, Date nouvelleDate, boolean avecNouvelleRemise) {
+        // Recherche de la facture par numéro
+        Optional<Facture> factureOpt = ListeFactures.stream()
+                .filter(facture -> facture.getNumeroFacture() == numeroFacture)
+                .findFirst();
+
+        if (factureOpt.isEmpty()) {
+            System.out.println("Erreur : Facture avec le numéro " + numeroFacture + " introuvable.");
+            return; // Sortie de la méthode si la facture n'existe pas
+        }
+
+        Facture factureAModifier = factureOpt.get();
+
+        // Modification des attributs
+        factureAModifier.setDateFacture(nouvelleDate);
+        factureAModifier.setAvecRemise(avecNouvelleRemise);
+
+        System.out.println("Facture modifiée avec succès :");
+        System.out.println(factureAModifier.toString());
+    }
+
+
+
+
+
+
+
+
+
+
+    public void afficherFacture(int numeroFacture) {
+        // Recherche de la facture par numéro
+        Optional<Facture> factureOpt = ListeFactures.stream()
+                .filter(facture -> facture.getNumeroFacture() == numeroFacture)
+                .findFirst();
+
+        if (factureOpt.isEmpty()) {
+            System.out.println("Erreur : Facture avec le numéro " + numeroFacture + " introuvable.");
+            return; // Sortie de la méthode si la facture n'existe pas
+        }
+
+        Facture facture = factureOpt.get();
+
+        // Affichage des détails de la facture
+        System.out.println("Détails de la facture :");
+        System.out.println(facture.toString());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void afficherToutesLesFactures() {
+        if (ListeFactures.isEmpty()) {
+            System.out.println("Aucune facture disponible !");
+            return;
+        }
+
+        System.out.println("Liste des factures :");
+        ListeFactures.forEach(facture -> System.out.println(facture.toString()));
+    }
+
+
 
 
 
