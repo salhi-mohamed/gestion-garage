@@ -19,7 +19,7 @@ public class Garage_Manager extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Vues/WelcomeView.fxml"));
+Parent root = FXMLLoader.load(getClass().getResource("/Vues/Bienvenue.fxml"));
         
         Scene scene = new Scene(root);
         
@@ -34,17 +34,7 @@ public class Garage_Manager extends Application {
         launch(args);
         
         
-        Receptionniste r=new Receptionniste(0, "d", "f", 22, "ff",32 ,  5, "d");
-        try
-        {
-            r.creerClient(0, "dd", "df", 0, "ffffff", "ff");
-            
-        }
-        catch(ClientExisteException ce)
-        {
-            System.out.println("");
-        }
-        
+       
     }
     
 }
