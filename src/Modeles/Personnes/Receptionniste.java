@@ -30,7 +30,7 @@ public class Receptionniste extends Employe
     private ArrayList<Piece_Rechange> listPiecesRechange;
     private ArrayList<Employe> ListeEmployes;
     private ArrayList<Service> ListeServices;
-
+   private ArrayList<Facture> ListeFactures;
 
     // Constructeur
     public Receptionniste(int id, String nom, String prenom, int telephone, String adresse,double salaire ,  int numeroBureau, String email) {
@@ -43,6 +43,7 @@ public class Receptionniste extends Employe
         this.listeFournitures=new ArrayList<Fourniture>();
         this.ListeEmployes=new ArrayList<Employe>();
         this.ListeServices=new ArrayList<Service>();
+        this.ListeFactures=new ArrayList<Facture>();
         
 
     }
