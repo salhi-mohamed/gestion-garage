@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXML.java to edit this template
- */
 package garage_manager;
 
 import javafx.application.Application;
@@ -11,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Modeles.Personnes.*;
 import Modeles.Exceptions.*;
+
 /**
  *
  * @author LENOVO
@@ -19,22 +16,21 @@ public class Garage_Manager extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-Parent root = FXMLLoader.load(getClass().getResource("/Vues/Bienvenue.fxml"));
+        // Charger le fichier FXML qui contient la scène
+        Parent root = FXMLLoader.load(getClass().getResource("/Vues/Bienvenue.fxml"));
         
-        Scene scene = new Scene(root);
+        // Créer la scène et associer l'élément root
+        Scene scene = new Scene(root , 900,600);
         
-        stage.setScene(scene);
+        // Appliquer la scène à la fenêtre (stage)
+        stage.setScene(scene );
+        
+        // Afficher la fenêtre
+        stage.setTitle("Garage Manager");
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
-        
-        
-       
     }
-    
 }
