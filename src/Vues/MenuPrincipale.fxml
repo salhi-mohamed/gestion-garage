@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="controlleurs.MenuPrincipaleController" 
+           prefHeight="879.0" prefWidth="1237.0">
+
+    <!-- Image de fond -->
+    <ImageView fx:id="backgroundImage" fitWidth="1237.0" fitHeight="879.0">
+        <image>
+            <Image url="https://assets.newatlas.com/dims4/default/89191df/2147483647/strip/true/crop/4508x3005+0+0/resize/2880x1920!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2F24%2F6f%2F92f2defe4a4998c6bcaa9c2cfb3f%2Fabt-audi-rs6-gr-22-glossyblack-4.jpg"/>
+        </image>
+    </ImageView>
+
+    <!-- Conteneur principal avec un GridPane pour organiser les boutons -->
+    <GridPane alignment="CENTER" hgap="20" vgap="20" style="-fx-background-color: rgba(236, 240, 241, 0.5); -fx-padding: 20px;">
+
+        <!-- Titre du menu avec un style personnalisé -->
+        <Text text="Menu Principal" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-fill: linear-gradient(to right, #3498db, #2ecc71);" GridPane.columnSpan="2" />
+
+        <!-- Première ligne de boutons -->
+        <Button text="Gestion des Clients" fx:id="btnClients" onAction="#ouvrirClients" 
+                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15px; -fx-border-radius: 20px;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Button text="Gestion des Voitures" fx:id="btnVoitures" onAction="#ouvrirVoitures" 
+                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15px; -fx-border-radius: 20px;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <!-- Deuxième ligne de boutons -->
+        <Button text="Gestion des Employés" fx:id="btnEmployes" onAction="#ouvrirEmployes" 
+                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15px; -fx-border-radius: 20px;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Button text="Gestion des Rendez-vous" fx:id="btnRendezVous" onAction="#ouvrirRendezVous" 
+                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15px; -fx-border-radius: 20px;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <!-- Troisième ligne de boutons -->
+        <Button text="Gestion des Factures" fx:id="btnFactures" onAction="#ouvrirFactures" 
+                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15px; -fx-border-radius: 20px;" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Button text="Gestion du Stock" fx:id="btnStock" onAction="#ouvrirStock" 
+                style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15px; -fx-border-radius: 20px;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <!-- Espacement dynamique en bas -->
+        <GridPane.margin>
+            <Insets top="30" />
+        </GridPane.margin>
+
+    </GridPane>
+</StackPane>
