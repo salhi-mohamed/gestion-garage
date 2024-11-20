@@ -1,13 +1,27 @@
 package Controlleurs;
 
+import Modeles.Personnes.Client;
 import Modeles.Personnes.Receptionniste;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class AfficherClientsController {
 
     @FXML
-    private ListView<String> clientsListView;
+    private TableView<Client> tableClients;
+    @FXML
+    private TableColumn<Client, Integer> colID;
+    @FXML
+    private TableColumn<Client, String> colNom;
+    @FXML
+    private TableColumn<Client, String> colPrenom;
+    @FXML
+    private TableColumn<Client, String> colTelephone;
+    @FXML
+    private TableColumn<Client, String> colAdresse;
 
     @FXML
     public void initialize() {
@@ -15,23 +29,33 @@ public class AfficherClientsController {
         Receptionniste receptionniste = AjouterClientController.receptionnisteConnecte;
 
         if (receptionniste != null) {
-            // Récupérer la liste des clients du réceptionniste fictif
+            // Initialiser les colonnes et afficher les clients
+            initialiserColonnes();
             afficherClients(receptionniste);
         }
     }
 
-    private void afficherClients(Receptionniste receptionniste) {
-        // Vider la ListView avant de l'afficher
-        clientsListView.getItems().clear();
+    private void initialiserColonnes() {
+        // Configurer les colonnes pour qu'elles affichent les propriétés des clients
+        colID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().get_id()).asObject());
+        colNom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get_nom()));
+        colPrenom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get_prenom()));
+        // Convertir le téléphone (int) en String
+        colTelephone.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(String.valueOf(cellData.getValue().get_telephone())));
+        colAdresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get_adresse()));
+    }
 
-        // Ajouter les clients à la ListView
-        for (Modeles.Personnes.Client client : receptionniste.get_liste_clients()) {
-            clientsListView.getItems().add(client.get_nom() + " " + client.get_prenom());
-        }
+    private void afficherClients(Receptionniste receptionniste) {
+        // Vider la TableView avant d'ajouter des données
+        tableClients.getItems().clear();
+
+        // Ajouter les clients récupérés de la liste du réceptionniste
+        tableClients.getItems().addAll(receptionniste.get_liste_clients());
     }
 
     // Méthode pour retourner (fermer ou revenir à l'écran précédent)
     public void retour() {
-        // Implémentation du retour à la page précédente, ou retour dans l'interface principale
+        // Implémentation du retour à la page précédente
     }
 }

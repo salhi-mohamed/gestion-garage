@@ -298,23 +298,22 @@ public ArrayList<Voiture> getListeVoitures()
 
 
     // Méthode pour créer une voiture
-    public void creerVoiture(int idClient, String marque, String modele, int annee, long kilometrage, String immatriculation) throws VoitureDejaExistanteClientException {
+   public void creerVoiture(int idClient, String marque, String modele, int annee, long kilometrage, String immatriculation) 
+        throws VoitureDejaExistanteClientException, VoitureDejaExistanteException {
     // Vérifier si le client avec l'ID donné existe dans la liste des clients
-    Optional<Client> clientExist = listeClients.stream()
+    Client clientExist = listeClients.stream()
             .filter(client -> client.get_id() == idClient)
-            .findFirst();
+            .findFirst()
+            .orElse(null);
 
-    if (!clientExist.isPresent()) {
+    if (clientExist == null) {
         // Si le client n'existe pas, afficher un message et sortir de la méthode
         System.out.println("Client avec ID " + idClient + " n'existe pas. La voiture n'a pas été créée.");
         return;
     }
 
-    // Récupérer le client existant pour les opérations suivantes
-    Client client = clientExist.get();
-
     // Vérifier si la voiture existe déjà pour ce client
-    for (Voiture v : client.getVoitures()) {
+    for (Voiture v : clientExist.getVoitures()) {
         if (v.get_immatriculation().equals(immatriculation)) {
             throw new VoitureDejaExistanteClientException("Cette voiture est déjà associée à ce client.");
         }
@@ -323,19 +322,18 @@ public ArrayList<Voiture> getListeVoitures()
     // Vérifier si la voiture existe déjà dans la liste générale des voitures
     for (Voiture v : ListeVoitures) {
         if (v.get_immatriculation().equals(immatriculation)) {
-            System.out.println("Cette voiture existe déjà dans la liste générale.");
-            return; // On sort de la méthode si la voiture existe déjà
+            throw new VoitureDejaExistanteException("Cette voiture existe déjà dans la liste générale.");
         }
     }
 
     // Création de la nouvelle voiture avec les informations fournies
-    Voiture voiture = new Voiture(marque, modele, annee, kilometrage, immatriculation, client);
+    Voiture voiture = new Voiture(marque, modele, annee, kilometrage, immatriculation, clientExist);
 
     // Ajouter la voiture à la liste générale des voitures
     ListeVoitures.add(voiture);
 
     // Ajouter la voiture à la liste des voitures du client
-    client.ajouterVoiture(voiture);
+    clientExist.ajouterVoiture(voiture);
 
     System.out.println("Voiture créée et ajoutée au client avec succès.");
 }

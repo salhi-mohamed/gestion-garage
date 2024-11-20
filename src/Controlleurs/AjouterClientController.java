@@ -42,7 +42,6 @@ public class AjouterClientController {
             // Utiliser le réceptionniste fictif pour ajouter un client avec le nouvel ID
             receptionnisteConnecte.creerClient(dernierIdClient, nom, prenom, telephone, adresse, statutFinancier);
             showAlert("Succès", "Client ajouté avec succès !");
-            System.out.println("id : " + dernierIdClient );
         } catch (ClientExisteException e) {
             showAlert("Erreur", "Ce client existe déjà.");
         } catch (Exception e) {

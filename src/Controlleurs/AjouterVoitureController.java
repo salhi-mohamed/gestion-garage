@@ -1,6 +1,7 @@
 package Controlleurs;
 
 import Modeles.Exceptions.VoitureDejaExistanteClientException;
+import Modeles.Exceptions.VoitureDejaExistanteException;
 import Modeles.Gestion_Service.Voiture;
 import Modeles.Personnes.Client;
 import Modeles.Personnes.Receptionniste;
@@ -61,7 +62,13 @@ public class AjouterVoitureController {
         showAlert("Erreur", "Cette voiture est déjà associée au client.");
     } catch (NumberFormatException e) {
         showAlert("Erreur", "Veuillez vérifier les champs numériques (ID, année, kilométrage).");
-    } catch (Exception e) {
+        
+    }
+    catch (VoitureDejaExistanteException vde)
+    {
+        showAlert("Erreur" , "Cette voiture existe déja pour un autre client . ");
+    }
+    catch (Exception e) {
         showAlert("Erreur", "Une erreur est survenue : " + e.getMessage());
     }
 }
