@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="controlleurs.GestionClientsController"
+fx:controller="Controlleurs.GestionVoituresController"
 
            prefHeight="879.0" prefWidth="1237.0">
 
@@ -22,8 +22,8 @@ fx:controller="controlleurs.GestionClientsController"
 
     <!-- Conteneur principal avec un StackPane pour le titre en haut -->
     <StackPane alignment="TOP_CENTER">
-        <!-- Titre de la gestion des clients avec un style personnalisé -->
-        <Text text="Gestion des Clients" 
+        <!-- Titre de la gestion des voitures avec un style personnalisé -->
+        <Text text="Gestion des Voitures" 
               style="-fx-font-family: 'Montserrat', sans-serif; 
                      -fx-font-size: 36px; 
                      -fx-font-weight: bold; 
@@ -39,45 +39,26 @@ fx:controller="controlleurs.GestionClientsController"
     <GridPane alignment="CENTER" hgap="30" vgap="30" style="-fx-background-color: rgba(236, 240, 241, 0.5); -fx-padding: 20px;">
 
         <!-- Première ligne de boutons -->
-        <Button text="Ajouter un client" fx:id="btnAjouterClient" onAction="#ajouterClient" 
+        <Button text="Ajouter une voiture" fx:id="btnAjouterVoiture" onAction="#ajouterVoiture" 
         style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
         minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-<Button text="Supprimer un client" fx:id="btnSupprimerClient" onAction="#supprimerClient" 
+<Button text="Supprimer une voiture" fx:id="btnSupprimerVoiture" onAction="#supprimerVoiture" 
         style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
         minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-<Button text="Modifier un client" fx:id="btnModifierClient" onAction="#modifierClient" 
+<Button text="Modifier une voiture" fx:id="btnModifierVoiture" onAction="#modifierVoiture" 
         style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
         minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
-<Button text="Afficher les clients" fx:id="btnAfficherClients" onAction="#afficherClients" 
+<Button text="Afficher les voitures" fx:id="btnAfficherVoitures" onAction="#afficherVoitures" 
         style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
         minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-<Button text="Ajouter une voiture à un client" fx:id="btnAjouterVoiture" onAction="#ajouterVoiture" 
-        style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
-        minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-
-<Button text="Supprimer une voiture d'un client" fx:id="btnSupprimerVoiture" onAction="#supprimerVoiture" 
-        style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
-        minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
-<Button text="Ajouter une fourniture à un client" fx:id="btnAjouterFourniture" onAction="#ajouterFourniture" 
-        style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
-        minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-
-<Button text="Supprimer une fourniture d'un client" fx:id="btnSupprimerFourniture" onAction="#supprimerFourniture" 
-        style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
-        minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-
 
         <!-- Espacement dynamique en bas -->
         <GridPane.margin>
             <Insets top="30" />
         </GridPane.margin>
-<Button text="Retour" fx:id="btnRetour" onAction="#retour" 
-        style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #e74c3c, #c0392b); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
-        minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+
     </GridPane>
 </StackPane>

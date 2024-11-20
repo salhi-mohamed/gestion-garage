@@ -20,35 +20,23 @@ public class Employe extends Personne{
     private double salaire;
 
     //constructeur
-    public Employe(int id , String nom , String prenom , int telephone , String adresse,double salaire)
-    {
-        super(id,nom,prenom,telephone,adresse);
-        this.salaire=salaire;
-       
+   public Employe(int id, String nom, String prenom, int telephone, String adresse, double salaire, String dateEmbaucheStr) {
+        super(id, nom, prenom, telephone, adresse);
+        this.salaire = salaire;
+        
+        // Define the date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        Scanner scanner = new Scanner(System.in);
-        boolean dateValide = false;
-        
-        // Boucle jusqu'à ce que l'utilisateur entre une date valide
-        while (!dateValide) {
-            System.out.println("Veuillez entrer la date d'embauche (format: dd/MM/yyyy) : ");
-            String dateInput = scanner.nextLine();
-            
-            try {
-                // Convertir la chaîne saisie en LocalDate
-                this.date_embauche = LocalDate.parse(dateInput, formatter);
-                System.out.println("Date d'embauche enregistrée : " + this.date_embauche);
-                dateValide = true;  // Si aucune exception, la date est valide, on sort de la boucle
-            } catch (DateTimeParseException e) {
-                // En cas de format de date incorrect
-                System.out.println("Format de date invalide. Utilisez le format dd/MM/yyyy.");
-            } 
-        
-        
+        // Parse the date from the provided string
+        try {
+            this.date_embauche = LocalDate.parse(dateEmbaucheStr, formatter);
+            System.out.println("Date d'embauche enregistrée : " + this.date_embauche);
+        } catch (DateTimeParseException e) {
+            // Handle the exception if the date format is incorrect
+            System.out.println("Format de date invalide. Utilisez le format dd/MM/yyyy.");
+            throw e;  // Optionally throw the exception or handle it as needed
+        }
     }
-
-}
 
                                 //***********/Methodes////////////////
 

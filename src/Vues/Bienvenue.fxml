@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="879.0" prefWidth="1237.0" style="-fx-alignment: center; -fx-padding: 50px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleurs.BienvenueController">
+<StackPane prefHeight="879.0" prefWidth="1237.0" style="-fx-alignment: center; -fx-padding: 50px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.BienvenueController">
     
     <!-- Image de fond -->
     <ImageView fx:id="backgroundImage" fitHeight="600" fitWidth="900" />

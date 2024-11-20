@@ -23,34 +23,38 @@ public class Laveur extends Employe implements GestionExperience{
 
     //constructeur
 
-  public Laveur(int id, String nom, String prenom, int telephone, String adresse, double salaire) {
-    super(id, nom, prenom, telephone, adresse, salaire);
-    Scanner sc = new Scanner(System.in);    
-    char specialite; // Déclaration de la variable 'specialite'
-    
-    do {
-        System.out.println("Quelle est la spécialité de ce laveur ? I : Intérieur / E : Extérieur ");
-        specialite = sc.next().charAt(0); // Affectation à la variable specialite
+   public Laveur(int id, String nom, String prenom, int telephone, String adresse, double salaire, String dateEmbaucheStr) {
+        // Call the parent constructor (Employe) to initialize the shared attributes
+        super(id, nom, prenom, telephone, adresse, salaire, dateEmbaucheStr);
+        
+        // Initialize the Scanner for input and the specialisation choice
+        Scanner sc = new Scanner(System.in);    
+        char specialite; // Déclaration de la variable 'specialite'
+        
+        // Loop until a valid specialization is chosen
+        do {
+            System.out.println("Quelle est la spécialité de ce laveur ? I : Intérieur / E : Extérieur ");
+            specialite = sc.next().charAt(0); // Affectation à la variable specialite
 
-        switch (specialite) {
-            case 'E':
-            case 'e':
-                this.specialise_exterieur = true;
-                this.specialise_interieur = false;
-                break;
-            case 'I':
-            case 'i':  
-                this.specialise_interieur = true;
-                this.specialise_exterieur = false;
-                break;
-            default: 
-                System.out.println("Choix invalide !");
-        }
-    } while (specialite != 'I' && specialite != 'i' && specialite != 'E' && specialite != 'e');
-    
-    voitures = new ArrayList<Voiture>();
-}
-
+            switch (specialite) {
+                case 'E':
+                case 'e':
+                    this.specialise_exterieur = true;
+                    this.specialise_interieur = false;
+                    break;
+                case 'I':
+                case 'i':  
+                    this.specialise_interieur = true;
+                    this.specialise_exterieur = false;
+                    break;
+                default: 
+                    System.out.println("Choix invalide !");
+            }
+        } while (specialite != 'I' && specialite != 'i' && specialite != 'E' && specialite != 'e');
+        
+        // Initialize the list of voitures
+        voitures = new ArrayList<Voiture>();
+    }
 
 
 

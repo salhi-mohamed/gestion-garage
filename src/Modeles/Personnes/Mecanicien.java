@@ -40,14 +40,14 @@ public class Mecanicien extends Employe implements GestionExperience{
     }*/
   
      
-     public Mecanicien(int id, String nom, String prenom, int telephone, String adresse, double salaire, String specialite, Expertise expertise) {
-    // Appel du constructeur de la classe Employe
-    super(id, nom, prenom, telephone, adresse, salaire);
-    
+  public Mecanicien(int id, String nom, String prenom, int telephone, String adresse, double salaire, String specialite, Expertise expertise, String date_embauche) {
+    // Appel du constructeur de la classe Employe avec la date d'embauche
+    super(id, nom, prenom, telephone, adresse, salaire, date_embauche);
+
     // Initialisation des attributs spécifiques à Mecanicien
     this.specialite = specialite;
     this.expertise = expertise;  // Initialisation de l'expertise
-    
+
     // Initialisation de la liste de voitures (Historique_voitures)
     this.historique_voitures = new ArrayList<Voiture>(); // Important : spécifier le type Voiture
 }

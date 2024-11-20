@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Modeles.Personnes.*;
 import Modeles.Exceptions.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,6 +33,15 @@ public class Garage_Manager extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        try {
+             launch(args);
+            Receptionniste r=new Receptionniste(0, "dd", "dd", 222, "dd", 2500, "01/02/2002", 5, "dd", "fff");
+            
+            r.creerClient(0, "dddd", "ddd", 0, "ddd", "dddd");
+            r.afficherListeClients();
+        } catch (ClientExisteException ex) {
+            Logger.getLogger(Garage_Manager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
 }

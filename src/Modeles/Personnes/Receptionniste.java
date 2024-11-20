@@ -31,25 +31,44 @@ public class Receptionniste extends Employe
     private ArrayList<Employe> ListeEmployes;
     private ArrayList<Service> ListeServices;
    private ArrayList<Facture> ListeFactures;
+   String mdp;
 
     // Constructeur
-    public Receptionniste(int id, String nom, String prenom, int telephone, String adresse,double salaire ,  int numeroBureau, String email) {
-        super(id, nom, prenom, telephone, adresse,salaire);
-        this.numeroBureau = numeroBureau;
-        this.email = email;
-        this.listeRendezVous = new ArrayList<>();
-        this.listeClients = new ArrayList<>();
-        this.ListeVoitures=new ArrayList<Voiture>();
-        this.listeFournitures=new ArrayList<Fourniture>();
-        this.ListeEmployes=new ArrayList<Employe>();
-        this.ListeServices=new ArrayList<Service>();
-        this.ListeFactures=new ArrayList<Facture>();
-        
+   public Receptionniste(int id, String nom, String prenom, int telephone, String adresse, double salaire, String date_embauche, int numeroBureau, String email, String mdp) {
+    // Appel du constructeur de la classe parente Employe pour initialiser les attributs hérités
+    super(id, nom, prenom, telephone, adresse, salaire, date_embauche);
 
-    }
+    // Initialisation des attributs spécifiques à Receptionniste
+    this.numeroBureau = numeroBureau;
+    this.email = email;
+    this.mdp = mdp; // Initialisation du mot de passe (à ajouter selon votre logique)
+    
+    // Initialisation des listes pour gérer les différentes entités associées
+    this.listeRendezVous = new ArrayList<>();
+    this.listeClients = new ArrayList<>();
+    this.ListeVoitures = new ArrayList<Voiture>();
+    this.listeFournitures = new ArrayList<Fourniture>();
+    this.ListeEmployes = new ArrayList<Employe>();
+    this.ListeServices = new ArrayList<Service>();
+    this.ListeFactures = new ArrayList<Facture>();
+}
 
-
-
+public String get_email()
+{
+    return this.email;
+}
+public void set_mdp(String mdp)
+{
+    this.mdp=mdp;
+}
+public String get_password()
+{
+    return this.mdp;
+}
+public ArrayList<Voiture> getListeVoitures()
+{
+    return this.ListeVoitures;
+}
 
 
                                                     /////////GESTION DES FOURNITURES///////////
@@ -1057,7 +1076,10 @@ public void creerClient(int id, String nom, String prenom, int telephone, String
     listeClients.add(client);
     System.out.println("Client créé et ajouté à la liste des clients. ");
 }
-
+public ArrayList<Client> get_liste_clients()
+{
+    return this.listeClients;
+}
 
 
   
@@ -1489,7 +1511,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
 }*/
     //*************CREER EMPLOYE*****************
 //sans expertise
-    public void creerEmploye(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye) {
+    public void creerEmploye(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye,String date_embauche) {
     // Vérifier si un employé avec cet ID existe déjà
     for (Employe e : ListeEmployes) {
         if (e.get_id() == id) {
@@ -1503,7 +1525,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
     switch (typeEmploye.toLowerCase()) {
         case "laveur":
             // Créer un laveur
-            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire , date_embauche);
             break;
 
         case "mécanicien":
@@ -1524,7 +1546,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
 
         case "chef":
             // Créer un chef
-            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire,date_embauche);
             break;
 
         default:
@@ -1539,7 +1561,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
     }
 }
     //avec expertise
-    public void creer_employe(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye) {
+    public void creer_employe(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye,String date_emb) {
     // Vérifier si un employé avec cet ID existe déjà
     for (Employe e : ListeEmployes) {
         if (e.get_id() == id) {
@@ -1553,7 +1575,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
     switch (typeEmploye.toLowerCase()) {
         case "laveur":
             // Créer un laveur
-            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire,date_emb);
             break;
 
         case "mécanicien":
@@ -1578,12 +1600,12 @@ private Fourniture trouverFournitureParId(int idFourniture) {
             }
 
             // Créer un mécanicien avec la spécialité et l'expertise
-            nouvelEmploye = new Mecanicien(id, nom, prenom, telephone, adresse, salaire, specialite, expertise);
+            nouvelEmploye = new Mecanicien(id, nom, prenom, telephone, adresse, salaire, specialite, expertise,date_emb);
             break;
 
         case "chef":
             // Créer un chef
-            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire,date_emb);
             break;
 
         default:

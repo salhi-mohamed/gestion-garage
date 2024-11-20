@@ -15,8 +15,9 @@ public class Chef extends Employe implements GestionExperience {
     private Set<Employe> equipe; // L'équipe du chef (ensemble d'employés)
 
     // Constructeur
-    public Chef(int id, String nom, String prenom, int telephone, String adresse, double salaire) {
-        super(id, nom, prenom, telephone, adresse, salaire); // Appel au constructeur parent (Employe)
+   public Chef(int id, String nom, String prenom, int telephone, String adresse, double salaire, String dateEmbaucheStr) {
+        // Appel au constructeur parent (Employe) pour initialiser les attributs communs
+        super(id, nom, prenom, telephone, adresse, salaire, dateEmbaucheStr);
         this.equipe = new HashSet<>(); // Initialisation de l'ensemble d'employés
     }
 
