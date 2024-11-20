@@ -21,7 +21,7 @@ public class MenuPrincipaleController {
 
     @FXML
     public void ouvrirVoitures(ActionEvent event) {
-        //ouvrirNouvelleScene("/path/to/Voitures.fxml", event);
+        ouvrirNouvelleScene("/Vues/GestionVoitures.fxml", event);
     }
 
     @FXML
@@ -41,7 +41,7 @@ public class MenuPrincipaleController {
 
     @FXML
     public void ouvrirStock(ActionEvent event) {
-       // ouvrirNouvelleScene("/path/to/Stock.fxml", event);
+        ouvrirNouvelleScene("/Vues/GestionStocks.fxml", event);
     }
 
     private void ouvrirNouvelleScene(String fxmlPath, ActionEvent event) {

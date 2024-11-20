@@ -1,10 +1,14 @@
-package controlleurs;
+package Controlleurs;
 
+import java.io.IOException;
+import java.net.URL;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class GestionClientsController {
 
@@ -17,63 +21,94 @@ public class GestionClientsController {
     @FXML private Button btnSupprimerVoiture;
     @FXML private Button btnAjouterFourniture;
     @FXML private Button btnSupprimerFourniture;
-
-    // Méthodes d'action pour chaque bouton
+    @FXML private Button btnRetour;
 
     // Ajouter un client
     @FXML
+
     private void ajouterClient() {
-        // Logique pour ajouter un client
-        // Par exemple, ouvrir un formulaire ou afficher une alerte
-        showAlert("Ajouter Client", "La fonctionnalité 'Ajouter Client' sera implémentée ici.");
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AjouterClient.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AjouterClient.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un Client");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Ajouter Client'.");
+        }
     }
+
 
     // Supprimer un client
     @FXML
     private void supprimerClient() {
-        // Logique pour supprimer un client
         showAlert("Supprimer Client", "La fonctionnalité 'Supprimer Client' sera implémentée ici.");
     }
 
     // Modifier un client
     @FXML
     private void modifierClient() {
-        // Logique pour modifier un client
         showAlert("Modifier Client", "La fonctionnalité 'Modifier Client' sera implémentée ici.");
     }
 
     // Afficher la liste des clients
     @FXML
     private void afficherClients() {
-        // Logique pour afficher la liste des clients
-        showAlert("Afficher Clients", "La fonctionnalité 'Afficher Clients' sera implémentée ici.");
-    }
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AfficherClients.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AjouterClient.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un Client");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Ajouter Client'.");
+        }    }
 
     // Ajouter une voiture à un client
     @FXML
     private void ajouterVoiture() {
-        // Logique pour ajouter une voiture à un client
         showAlert("Ajouter Voiture", "La fonctionnalité 'Ajouter Voiture' sera implémentée ici.");
     }
 
     // Supprimer une voiture d'un client
     @FXML
     private void supprimerVoiture() {
-        // Logique pour supprimer une voiture d'un client
         showAlert("Supprimer Voiture", "La fonctionnalité 'Supprimer Voiture' sera implémentée ici.");
     }
 
     // Ajouter une fourniture à un client
     @FXML
     private void ajouterFourniture() {
-        // Logique pour ajouter une fourniture à un client
         showAlert("Ajouter Fourniture", "La fonctionnalité 'Ajouter Fourniture' sera implémentée ici.");
     }
 
     // Supprimer une fourniture d'un client
     @FXML
     private void supprimerFourniture() {
-        // Logique pour supprimer une fourniture d'un client
         showAlert("Supprimer Fourniture", "La fonctionnalité 'Supprimer Fourniture' sera implémentée ici.");
     }
 
@@ -85,4 +120,39 @@ public class GestionClientsController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+
+
+    private void retour() {
+        try {
+            // Charger le fichier FXML du menu principal
+            URL fxmlLocation = getClass().getResource("/Vues/MenuPrincipale.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'MenuPrincipale.fxml' n'a pas été trouvé.");
+                return;
+            }
+
+            // Charger la scène du menu principal
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+
+            // Obtenir le Stage (fenêtre actuelle)
+            Stage stage = (Stage) btnRetour.getScene().getWindow();
+
+            // S'assurer que le Stage est valide
+            if (stage != null) {
+                stage.setTitle("Menu Principal");
+                stage.setScene(scene);  // Changer la scène pour le menu principal
+                stage.show();           // Afficher la nouvelle scène (menu principal)
+            } else {
+                System.out.println("Stage est nul. Impossible de changer la scène.");
+            }
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Menu Principal'.");
+        }
+    }
+
+
+
 }

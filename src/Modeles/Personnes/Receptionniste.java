@@ -31,25 +31,44 @@ public class Receptionniste extends Employe
     private ArrayList<Employe> ListeEmployes;
     private ArrayList<Service> ListeServices;
    private ArrayList<Facture> ListeFactures;
+   String mdp;
 
     // Constructeur
-    public Receptionniste(int id, String nom, String prenom, int telephone, String adresse,double salaire ,  int numeroBureau, String email) {
-        super(id, nom, prenom, telephone, adresse,salaire);
-        this.numeroBureau = numeroBureau;
-        this.email = email;
-        this.listeRendezVous = new ArrayList<>();
-        this.listeClients = new ArrayList<>();
-        this.ListeVoitures=new ArrayList<Voiture>();
-        this.listeFournitures=new ArrayList<Fourniture>();
-        this.ListeEmployes=new ArrayList<Employe>();
-        this.ListeServices=new ArrayList<Service>();
-        this.ListeFactures=new ArrayList<Facture>();
-        
+   public Receptionniste(int id, String nom, String prenom, int telephone, String adresse, double salaire, String date_embauche, int numeroBureau, String email, String mdp) {
+    // Appel du constructeur de la classe parente Employe pour initialiser les attributs hérités
+    super(id, nom, prenom, telephone, adresse, salaire, date_embauche);
 
-    }
+    // Initialisation des attributs spécifiques à Receptionniste
+    this.numeroBureau = numeroBureau;
+    this.email = email;
+    this.mdp = mdp; // Initialisation du mot de passe (à ajouter selon votre logique)
+    
+    // Initialisation des listes pour gérer les différentes entités associées
+    this.listeRendezVous = new ArrayList<>();
+    this.listeClients = new ArrayList<>();
+    this.ListeVoitures = new ArrayList<Voiture>();
+    this.listeFournitures = new ArrayList<Fourniture>();
+    this.ListeEmployes = new ArrayList<Employe>();
+    this.ListeServices = new ArrayList<Service>();
+    this.ListeFactures = new ArrayList<Facture>();
+}
 
-
-
+public String get_email()
+{
+    return this.email;
+}
+public void set_mdp(String mdp)
+{
+    this.mdp=mdp;
+}
+public String get_password()
+{
+    return this.mdp;
+}
+public ArrayList<Voiture> getListeVoitures()
+{
+    return this.ListeVoitures;
+}
 
 
                                                     /////////GESTION DES FOURNITURES///////////
@@ -279,43 +298,46 @@ public class Receptionniste extends Employe
 
 
     // Méthode pour créer une voiture
-    public void creerVoiture(int idClient, String marque, String modele, int annee, long kilometrage, String immatriculation) throws VoitureDejaExistanteClientException {
-        // Vérifier si le client avec l'ID donné existe dans la liste des clients
-        Client clientExist = listeClients.stream()
-                .filter(client -> client.get_id() == idClient)
-                .findFirst()
-                .orElse(null);
+   public void creerVoiture(int idClient, String marque, String modele, int annee, long kilometrage, String immatriculation) 
+        throws VoitureDejaExistanteClientException, VoitureDejaExistanteException {
+    // Vérifier si le client avec l'ID donné existe dans la liste des clients
+    Client clientExist = listeClients.stream()
+            .filter(client -> client.get_id() == idClient)
+            .findFirst()
+            .orElse(null);
 
-        if (clientExist != null) {
-            // Vérifier si la voiture existe déjà pour ce client
-            for (Voiture v : clientExist.getVoitures()) {
-                if (v.get_immatriculation().equals(immatriculation)) {
-                    throw new VoitureDejaExistanteClientException("Cette voiture est déjà associée à ce client.");
-                }
-            }
+    if (clientExist == null) {
+        // Si le client n'existe pas, afficher un message et sortir de la méthode
+        System.out.println("Client avec ID " + idClient + " n'existe pas. La voiture n'a pas été créée.");
+        return;
+    }
 
-            // Vérifier si la voiture existe déjà dans la liste générale des voitures
-            for (Voiture v : ListeVoitures) {
-                if (v.get_immatriculation().equals(immatriculation)) {
-                    System.out.println("Cette voiture existe déjà dans la liste générale.");
-                    return; // On sort de la méthode si la voiture existe déjà
-                }
-            }
-
-            // Création de la nouvelle voiture avec les informations fournies
-            Voiture voiture = new Voiture(marque, modele, annee, kilometrage, immatriculation, clientExist);
-
-            // Ajouter la voiture à la liste générale des voitures
-            ListeVoitures.add(voiture);
-
-            // Ajouter la voiture à la liste des voitures du client
-            clientExist.ajouterVoiture(voiture);
-
-            System.out.println("Voiture créée et ajoutée au client avec succès.");
-        } else {
-            System.out.println("Client avec ID " + idClient + " n'existe pas. La voiture n'a pas été créée.");
+    // Vérifier si la voiture existe déjà pour ce client
+    for (Voiture v : clientExist.getVoitures()) {
+        if (v.get_immatriculation().equals(immatriculation)) {
+            throw new VoitureDejaExistanteClientException("Cette voiture est déjà associée à ce client.");
         }
     }
+
+    // Vérifier si la voiture existe déjà dans la liste générale des voitures
+    for (Voiture v : ListeVoitures) {
+        if (v.get_immatriculation().equals(immatriculation)) {
+            throw new VoitureDejaExistanteException("Cette voiture existe déjà dans la liste générale.");
+        }
+    }
+
+    // Création de la nouvelle voiture avec les informations fournies
+    Voiture voiture = new Voiture(marque, modele, annee, kilometrage, immatriculation, clientExist);
+
+    // Ajouter la voiture à la liste générale des voitures
+    ListeVoitures.add(voiture);
+
+    // Ajouter la voiture à la liste des voitures du client
+    clientExist.ajouterVoiture(voiture);
+
+    System.out.println("Voiture créée et ajoutée au client avec succès.");
+}
+
 
 
     // Méthode pour supprimer une voiture en fonction de l'ID
@@ -1057,7 +1079,10 @@ public void creerClient(int id, String nom, String prenom, int telephone, String
     listeClients.add(client);
     System.out.println("Client créé et ajouté à la liste des clients. ");
 }
-
+public ArrayList<Client> get_liste_clients()
+{
+    return this.listeClients;
+}
 
 
   
@@ -1489,7 +1514,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
 }*/
     //*************CREER EMPLOYE*****************
 //sans expertise
-    public void creerEmploye(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye) {
+    public void creerEmploye(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye,String date_embauche) {
     // Vérifier si un employé avec cet ID existe déjà
     for (Employe e : ListeEmployes) {
         if (e.get_id() == id) {
@@ -1503,7 +1528,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
     switch (typeEmploye.toLowerCase()) {
         case "laveur":
             // Créer un laveur
-            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire , date_embauche);
             break;
 
         case "mécanicien":
@@ -1524,7 +1549,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
 
         case "chef":
             // Créer un chef
-            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire,date_embauche);
             break;
 
         default:
@@ -1539,7 +1564,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
     }
 }
     //avec expertise
-    public void creer_employe(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye) {
+    public void creer_employe(int id, String nom, String prenom, int telephone, String adresse, double salaire, String typeEmploye,String date_emb) {
     // Vérifier si un employé avec cet ID existe déjà
     for (Employe e : ListeEmployes) {
         if (e.get_id() == id) {
@@ -1553,7 +1578,7 @@ private Fourniture trouverFournitureParId(int idFourniture) {
     switch (typeEmploye.toLowerCase()) {
         case "laveur":
             // Créer un laveur
-            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Laveur(id, nom, prenom, telephone, adresse, salaire,date_emb);
             break;
 
         case "mécanicien":
@@ -1578,12 +1603,12 @@ private Fourniture trouverFournitureParId(int idFourniture) {
             }
 
             // Créer un mécanicien avec la spécialité et l'expertise
-            nouvelEmploye = new Mecanicien(id, nom, prenom, telephone, adresse, salaire, specialite, expertise);
+            nouvelEmploye = new Mecanicien(id, nom, prenom, telephone, adresse, salaire, specialite, expertise,date_emb);
             break;
 
         case "chef":
             // Créer un chef
-            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire);
+            nouvelEmploye = new Chef(id, nom, prenom, telephone, adresse, salaire,date_emb);
             break;
 
         default:

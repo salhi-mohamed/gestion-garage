@@ -65,6 +65,7 @@
         <GridPane.margin>
             <Insets top="30" />
         </GridPane.margin>
+    
 
     </GridPane>
 </StackPane>

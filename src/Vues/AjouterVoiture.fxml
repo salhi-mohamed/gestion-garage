@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Controlleurs.AjouterVoitureController" spacing="10" alignment="CENTER" style="-fx-padding: 20px;">
+    <Label text="Ajouter une nouvelle voiture" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <Label text="ID Client:"/>
+    <TextField fx:id="idClientField" promptText="Entrez l'ID du client"/>
+
+    <Label text="Marque:"/>
+    <TextField fx:id="marqueField" promptText="Entrez la marque"/>
+
+    <Label text="Modèle:"/>
+    <TextField fx:id="modeleField" promptText="Entrez le modèle"/>
+
+    <Label text="Année:"/>
+    <TextField fx:id="anneeField" promptText="Entrez l'année"/>
+
+    <Label text="Kilométrage:"/>
+    <TextField fx:id="kilometrageField" promptText="Entrez le kilométrage"/>
+
+    <Label text="Immatriculation:"/>
+    <TextField fx:id="immatriculationField" promptText="Entrez l'immatriculation"/>
+
+    <Button text="Ajouter Voiture" onAction="#ajouterVoiture" style="-fx-font-size: 18px; -fx-padding: 10px 20px; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+</VBox>
