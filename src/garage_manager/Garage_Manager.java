@@ -38,9 +38,12 @@ public class Garage_Manager extends Application {
             Receptionniste r=new Receptionniste(0, "dd", "dd", 222, "dd", 2500, "01/02/2002", 5, "dd", "fff");
             
             r.creerClient(0, "dddd", "ddd", 0, "ddd", "dddd");
-            r.afficherListeClients();
+            r.creerVoiture(7, STYLESHEET_MODENA, STYLESHEET_MODENA, 0, 0, STYLESHEET_CASPIAN);
         } catch (ClientExisteException ex) {
             Logger.getLogger(Garage_Manager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (VoitureDejaExistanteClientException ve)
+        {
+            System.out.println("existe deja");
         }
       
     }
