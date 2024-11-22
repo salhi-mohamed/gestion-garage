@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Controlleurs.AfficherClientsController" spacing="10" alignment="CENTER" style="-fx-padding: 20px;">
     <TableView fx:id="tableClients" prefHeight="300" prefWidth="500">
@@ -13,7 +13,10 @@
             <TableColumn fx:id="colPrenom" text="Prénom" />
             <TableColumn fx:id="colTelephone" text="Téléphone" />
             <TableColumn fx:id="colAdresse" text="Adresse" />
-            <TableColumn text="Actions"/> <!-- Colonne pour le bouton de modification -->
+            <!-- Colonne Actions -->
+            <TableColumn fx:id="colActions" text="Actions">
+                <!-- This column will be populated with buttons dynamically -->
+            </TableColumn>
         </columns>
     </TableView>
 </VBox>
