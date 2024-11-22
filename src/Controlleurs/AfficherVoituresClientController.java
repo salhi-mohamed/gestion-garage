@@ -23,13 +23,6 @@ public class AfficherVoituresClientController {
     @FXML
     private TableColumn<Voiture, String> colImmatriculation;
 
-    private Client client;
-
-    public void setClient(Client client) {
-        this.client = client;
-        afficherVoitures();
-    }
-
     @FXML
     public void initialize() {
         initialiserColonnes();
@@ -43,7 +36,7 @@ public class AfficherVoituresClientController {
         colImmatriculation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImmatriculation()));
     }
 
-    private void afficherVoitures() {
+    public void setClient(Client client) {
         if (client != null) {
             tableVoitures.getItems().clear();
             tableVoitures.getItems().addAll(client.getVoitures());

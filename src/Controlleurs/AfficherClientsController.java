@@ -5,9 +5,13 @@ import Modeles.Personnes.Receptionniste;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
 public class AfficherClientsController {
 
@@ -23,194 +27,190 @@ public class AfficherClientsController {
     private TableColumn<Client, String> colTelephone;
     @FXML
     private TableColumn<Client, String> colAdresse;
+    @FXML
+    private TableColumn<Client, String> colActions;
 
     @FXML
     public void initialize() {
-        // Récupérer le réceptionniste fictif depuis le contrôleur AjouterClientController
         Receptionniste receptionniste = AjouterClientController.receptionnisteConnecte;
 
         if (receptionniste != null) {
-            // Initialiser les colonnes et afficher les clients
             initialiserColonnes();
             afficherClients(receptionniste);
+
+            // Double-click handler to display client details
+            tableClients.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2) {
+                    Client clientSelectionne = tableClients.getSelectionModel().getSelectedItem();
+                    if (clientSelectionne != null) {
+                        afficherVoituresClient(clientSelectionne);
+                    }
+                }
+            });
+
+            // Charger les fichiers CSS
+            Scene scene = tableClients.getScene();
+            if (scene != null) {
+                scene.getStylesheets().add(getClass().getResource("/Vues/styles.css").toExternalForm());
+                scene.getStylesheets().add(getClass().getResource("/Vues/actions-buttons.css").toExternalForm());
+            }
         }
     }
 
     private void initialiserColonnes() {
-        // Configurer les colonnes pour afficher les propriétés des clients
         colID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().get_id()).asObject());
         colNom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get_nom()));
         colPrenom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get_prenom()));
-        colTelephone.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(String.valueOf(cellData.getValue().get_telephone())));
+        colTelephone.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().get_telephone())));
         colAdresse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().get_adresse()));
 
-        // Ajouter la colonne "Actions" avec un bouton de modification et de suppression
-        TableColumn<Client, Void> colActions = new TableColumn<>("Actions");
-
-        colActions.setCellFactory(new Callback<TableColumn<Client, Void>, TableCell<Client, Void>>() {
+        // Configurer la colonne d'actions avec les boutons Modifier et Supprimer
+        colActions.setCellFactory(column -> new TableCell<Client, String>() {
             @Override
-            public TableCell<Client, Void> call(TableColumn<Client, Void> param) {
-                return new TableCell<Client, Void>() {
-                    private final Button modifyButton = new Button("Modifier");
-                    private final Button deleteButton = new Button("Supprimer");
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
 
-                    {
-                        // Style moderne pour les boutons
-                        modifyButton.setStyle(
-                            "-fx-background-color: #4CAF50; " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 12px; " +  // Réduire la taille de la police
-                            "-fx-padding: 5px 15px; " +  // Réduire le padding
-                            "-fx-border-radius: 5px; " +
-                            "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
-                            "-fx-cursor: hand;" +
-                            "-fx-min-width: 100px; " +  // Définir une largeur minimale pour les deux boutons
-                            "-fx-max-width: 100px; " +  // Largeur maximale égale
-                            "-fx-pref-width: 100px;"    // Largeur préférée égale
-                        );
-                        deleteButton.setStyle(
-                            "-fx-background-color: #F44336; " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 12px; " +  // Réduire la taille de la police
-                            "-fx-padding: 5px 15px; " +  // Réduire le padding
-                            "-fx-border-radius: 5px; " +
-                            "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
-                            "-fx-cursor: hand;" +
-                            "-fx-min-width: 100px; " +  // Définir une largeur minimale pour les deux boutons
-                            "-fx-max-width: 100px; " +  // Largeur maximale égale
-                            "-fx-pref-width: 100px;"    // Largeur préférée égale
-                        );
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox actionBox = new HBox(10); // Espacement entre les boutons
+                    Button btnModifier = new Button("Modifier");
+                    Button btnSupprimer = new Button("Supprimer");
 
-                        // Ajouter les effets de survol
-                        modifyButton.setOnMouseEntered(event -> modifyButton.setStyle(
-                            "-fx-background-color: #45a049; " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 12px; " +
-                            "-fx-padding: 5px 15px; " +
-                            "-fx-border-radius: 5px; " +
-                            "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2); " +
-                            "-fx-cursor: hand;"
-                        ));
+                    // Appliquer les classes CSS
+                    btnModifier.getStyleClass().add("modifier");
+                    btnSupprimer.getStyleClass().add("supprimer");
 
-                        deleteButton.setOnMouseEntered(event -> deleteButton.setStyle(
-                            "-fx-background-color: #e53935; " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 12px; " +
-                            "-fx-padding: 5px 15px; " +
-                            "-fx-border-radius: 5px; " +
-                            "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2); " +
-                            "-fx-cursor: hand;"
-                        ));
+                    // Actions des boutons
+                    btnModifier.setOnAction(e -> {
+                        Client client = getTableView().getItems().get(getIndex());
+                        modifierClient(client);
+                    });
 
-                        modifyButton.setOnMouseExited(event -> modifyButton.setStyle(
-                            "-fx-background-color: #4CAF50; " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 12px; " +
-                            "-fx-padding: 5px 15px; " +
-                            "-fx-border-radius: 5px; " +
-                            "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
-                            "-fx-cursor: hand;"
-                        ));
+                    btnSupprimer.setOnAction(e -> {
+                        Client client = getTableView().getItems().get(getIndex());
+                        supprimerClient(client);
+                    });
 
-                        deleteButton.setOnMouseExited(event -> deleteButton.setStyle(
-                            "-fx-background-color: #F44336; " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 12px; " +
-                            "-fx-padding: 5px 15px; " +
-                            "-fx-border-radius: 5px; " +
-                            "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
-                            "-fx-cursor: hand;"
-                        ));
-
-                        modifyButton.setOnAction(event -> {
-                            Client client = getTableView().getItems().get(getIndex());
-                            modifierClient(client);
-                        });
-
-                        deleteButton.setOnAction(event -> {
-                            Client client = getTableView().getItems().get(getIndex());
-                            supprimerClient(client);
-                        });
-                    }
-
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            VBox buttons = new VBox(5, modifyButton, deleteButton);
-                            setGraphic(buttons);
-                        }
-                    }
-                };
+                    actionBox.getChildren().addAll(btnModifier, btnSupprimer);
+                    setGraphic(actionBox);
+                }
             }
         });
-
-        tableClients.getColumns().add(colActions); // Ajouter la colonne "Actions" à la TableView
     }
 
     private void afficherClients(Receptionniste receptionniste) {
-        // Vider la TableView avant d'ajouter des clients
         tableClients.getItems().clear();
-
-        // Ajouter les clients récupérés de la liste du réceptionniste
         tableClients.getItems().addAll(receptionniste.get_liste_clients());
     }
 
-    private void modifierClient(Client client) {
-        // Implémentation de la modification des données du client
-        Dialog<Client> dialog = new Dialog<>();
-        dialog.setTitle("Modifier Client");
-        dialog.setHeaderText("Modifier les informations du client");
-
-        // Créer des champs pour modifier les informations
-        TextField nomField = new TextField(client.get_nom());
-        TextField prenomField = new TextField(client.get_prenom());
-        TextField telephoneField = new TextField(String.valueOf(client.get_telephone()));
-        TextField adresseField = new TextField(client.get_adresse());
-
-        // Ajouter les champs au dialogue
-        dialog.getDialogPane().setContent(new VBox(10, nomField, prenomField, telephoneField, adresseField));
-
-        // Ajouter les boutons "OK" et "Annuler"
-        ButtonType okButtonType = new ButtonType("Modifier", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
-
-        // Attacher l'action du bouton "OK"
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == okButtonType) {
-                // Mettre à jour les informations du client
-                client.set_nom(nomField.getText());
-                client.set_prenom(prenomField.getText());
-                client.set_telephone(Integer.parseInt(telephoneField.getText()));
-                client.set_adresse(adresseField.getText());
-
-                // Mettre à jour l'affichage dans la TableView
-                tableClients.refresh();
-            }
-            return null;
-        });
-
-        // Afficher la fenêtre de dialogue
-        dialog.showAndWait();
+    private void afficherVoituresClient(Client client) {
+        // Gérer l'affichage des voitures associées au client
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Voitures du client");
+        alert.setHeaderText("Liste des voitures associées à " + client.get_nom() + " " + client.get_prenom());
+        alert.setContentText("Cette fonctionnalité est encore à implémenter.");
+        alert.showAndWait();
     }
 
-    private void supprimerClient(Client client) {
-        // Demander confirmation avant de supprimer le client
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Suppression");
-        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce client ?");
-        alert.setContentText("Cette action est irréversible.");
+    private void modifierClient(Client client) {
+    // Créer la fenêtre de modification
+    Stage modificationStage = new Stage();
+    modificationStage.setTitle("Modifier le client");
 
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                // Supprimer le client de la liste
-                Receptionniste receptionniste = AjouterClientController.receptionnisteConnecte;
-                receptionniste.get_liste_clients().remove(client);
-                afficherClients(receptionniste); // Réactualiser la TableView
-            }
-        });
+    // Créer le GridPane pour la fenêtre de modification (plus précis que VBox)
+    GridPane grid = new GridPane();
+    grid.setVgap(10); // Espacement vertical
+    grid.setHgap(10); // Espacement horizontal
+    grid.setStyle("-fx-padding: 20px;");
+
+    // Créer les labels et champs de texte pour les détails du client
+    Label lblNom = new Label("Nom:");
+    TextField txtNom = new TextField(client.get_nom());
+    txtNom.setPromptText("Nom du client");
+
+    Label lblPrenom = new Label("Prénom:");
+    TextField txtPrenom = new TextField(client.get_prenom());
+    txtPrenom.setPromptText("Prénom du client");
+
+    Label lblTelephone = new Label("Téléphone:");
+    TextField txtTelephone = new TextField(String.valueOf(client.get_telephone()));
+    txtTelephone.setPromptText("Téléphone du client");
+
+    // Ajouter un écouteur pour ne permettre que les chiffres dans le champ Téléphone
+    txtTelephone.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\d*")) {
+            txtTelephone.setText(oldValue);
+        }
+    });
+
+    Label lblAdresse = new Label("Adresse:");
+    TextField txtAdresse = new TextField(client.get_adresse());
+    txtAdresse.setPromptText("Adresse du client");
+
+    // Créer les boutons
+    Button btnSave = new Button("Sauvegarder");
+    Button btnCancel = new Button("Annuler");
+
+    // Gérer le clic sur le bouton Sauvegarder
+    btnSave.setOnAction(e -> {
+        try {
+            int telephone = Integer.parseInt(txtTelephone.getText());
+            client.set_nom(txtNom.getText());
+            client.set_prenom(txtPrenom.getText());
+            client.set_telephone(telephone);
+            client.set_adresse(txtAdresse.getText());
+            tableClients.refresh();
+            modificationStage.close();
+        } catch (NumberFormatException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText("Téléphone invalide");
+            alert.setContentText("Veuillez entrer un numéro de téléphone valide.");
+            alert.showAndWait();
+        }
+    });
+
+    // Gérer le clic sur le bouton Annuler
+    btnCancel.setOnAction(e -> modificationStage.close());
+
+    // Ajouter les éléments au GridPane (organisé en lignes et colonnes)
+    grid.add(lblNom, 0, 0);
+    grid.add(txtNom, 1, 0);
+    grid.add(lblPrenom, 0, 1);
+    grid.add(txtPrenom, 1, 1);
+    grid.add(lblTelephone, 0, 2);
+    grid.add(txtTelephone, 1, 2);
+    grid.add(lblAdresse, 0, 3);
+    grid.add(txtAdresse, 1, 3);
+
+    // Créer une HBox pour les boutons et les centrer
+    HBox hboxButtons = new HBox(20); // Espacement entre les boutons
+    hboxButtons.setStyle("-fx-alignment: center;"); // Centrer les boutons dans l'HBox
+    hboxButtons.getChildren().addAll(btnSave, btnCancel);
+
+    // Ajouter l'HBox de boutons au GridPane (dans la dernière ligne, à la colonne 0 et 1)
+    grid.add(hboxButtons, 0, 4, 2, 1); // Le '2' ici indique que la cellule s'étend sur deux colonnes
+
+    // Appliquer le fichier CSS
+    Scene scene = new Scene(grid);
+    scene.getStylesheets().add(getClass().getResource("/Vues/styles.css").toExternalForm());
+
+    // Définir la taille de la fenêtre (élargir la fenêtre)
+    modificationStage.setScene(scene);
+    modificationStage.setWidth(600);  // Modifier la largeur
+    modificationStage.setHeight(400); // Hauteur par défaut, ou vous pouvez la changer si nécessaire
+
+    // Afficher la fenêtre
+    modificationStage.show();
+}
+
+
+    private void supprimerClient(Client client) {
+        Receptionniste receptionniste = AjouterClientController.receptionnisteConnecte;
+        if (receptionniste != null) {
+            receptionniste.get_liste_clients().remove(client);
+            tableClients.getItems().remove(client);
+        }
     }
 }
