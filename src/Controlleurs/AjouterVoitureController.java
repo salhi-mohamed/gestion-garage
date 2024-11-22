@@ -32,14 +32,26 @@ public class AjouterVoitureController {
         return;
     }
 
+    // Récupérer les données saisies
+    String idClientText = idClientField.getText();
+    String marque = marqueField.getText();
+    String modele = modeleField.getText();
+    String anneeText = anneeField.getText();
+    String kilometrageText = kilometrageField.getText();
+    String immatriculation = immatriculationField.getText();
+
+    // Vérifier que tous les champs sont remplis
+    if (idClientText.isEmpty() || marque.isEmpty() || modele.isEmpty() || anneeText.isEmpty() 
+            || kilometrageText.isEmpty() || immatriculation.isEmpty()) {
+        showAlert("Erreur", "Tous les champs doivent être remplis.");
+        return;
+    }
+
     try {
-        // Récupérer les données saisies
-        int idClient = Integer.parseInt(idClientField.getText());
-        String marque = marqueField.getText();
-        String modele = modeleField.getText();
-        int annee = Integer.parseInt(anneeField.getText());
-        long kilometrage = Long.parseLong(kilometrageField.getText());
-        String immatriculation = immatriculationField.getText();
+        // Convertir les champs texte en valeurs appropriées
+        int idClient = Integer.parseInt(idClientText);
+        int annee = Integer.parseInt(anneeText);
+        long kilometrage = Long.parseLong(kilometrageText);
 
         // Vérifier si le client existe avant d'appeler la méthode creerVoiture
         Optional<Client> clientExist = receptionniste.listeClients.stream()
@@ -62,13 +74,9 @@ public class AjouterVoitureController {
         showAlert("Erreur", "Cette voiture est déjà associée au client.");
     } catch (NumberFormatException e) {
         showAlert("Erreur", "Veuillez vérifier les champs numériques (ID, année, kilométrage).");
-        
-    }
-    catch (VoitureDejaExistanteException vde)
-    {
-        showAlert("Erreur" , "Cette voiture existe déja pour un autre client . ");
-    }
-    catch (Exception e) {
+    } catch (VoitureDejaExistanteException vde) {
+        showAlert("Erreur", "Cette voiture existe déjà pour un autre client.");
+    } catch (Exception e) {
         showAlert("Erreur", "Une erreur est survenue : " + e.getMessage());
     }
 }

@@ -40,44 +40,45 @@
 
         <!-- Première ligne de boutons -->
         <Button text="Ajouter un client" fx:id="btnAjouterClient" onAction="#ajouterClient"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
         <Button text="Supprimer un client" fx:id="btnSupprimerClient" onAction="#supprimerClient"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
         <Button text="Modifier un client" fx:id="btnModifierClient" onAction="#modifierClient"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
         <Button text="Afficher les clients" fx:id="btnAfficherClients" onAction="#afficherClients"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
         <Button text="Ajouter une voiture à un client" fx:id="btnAjouterVoiture" onAction="#ajouterVoiture"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
         <Button text="Supprimer une voiture d'un client" fx:id="btnSupprimerVoiture" onAction="#supprimerVoiture"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
         <Button text="Ajouter une fourniture à un client" fx:id="btnAjouterFourniture" onAction="#ajouterFourniture"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
 
         <Button text="Supprimer une fourniture d'un client" fx:id="btnSupprimerFourniture" onAction="#supprimerFourniture"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
+                style="-fx-font-size: 18px; -fx-background-color: #2C3E50; -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5); -fx-cursor: hand;"
                 minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-
-        <!-- Espacement dynamique en bas -->
-        <GridPane.margin>
-            <Insets top="30" />
-        </GridPane.margin>
-        <Button text="Retour" fx:id="btnRetour" onAction="#retour"
-                style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #e74c3c, #c0392b); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
-                minWidth="350" maxWidth="350" prefWidth="350" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <!-- Effet Hover pour tous les boutons -->
+        <style>
+            Button:hover {
+                -fx-background-color: #34495e; /* Changer la couleur de fond au survol */
+                -fx-text-fill: #ecf0f1; /* Changer la couleur du texte */
+                -fx-scale-x: 1.05;
+                -fx-scale-y: 1.05;
+            }
+        </style>
     </GridPane>
 </StackPane>
