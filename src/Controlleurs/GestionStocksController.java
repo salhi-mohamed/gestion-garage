@@ -35,7 +35,27 @@ public class GestionStocksController {
     // Ajouter une fourniture
     @FXML
     private void ajouterFourniture() {
-        showAlert("Ajouter Fourniture", "La fonctionnalité 'Ajouter Fourniture' sera implémentée ici.");
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AjouterFourniture.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AjouterFourniture.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter une Fourniture");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Ajouter Fourniture'.");
+        }
     }
 
     @FXML
@@ -63,8 +83,27 @@ public class GestionStocksController {
     // Afficher les fournitures
     @FXML
     private void afficherFournitures() {
-        showAlert("Afficher Fournitures", "La fonctionnalité 'Afficher Fournitures' sera implémentée ici.");
-    }
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AfficherFournitures.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AfficherFournitures.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Afficher Fournitures");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Afficher Fournitures'.");
+        }    }
 
     // Modifier une pièce de rechange
     @FXML

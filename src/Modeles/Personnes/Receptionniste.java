@@ -73,8 +73,13 @@ public ArrayList<Voiture> getListeVoitures()
 
                                                     /////////GESTION DES FOURNITURES///////////
 
+
+    public ArrayList<Fourniture> getListeFournitures() {
+        return this.listeFournitures;
+    }
+
     // ******** Méthode pour créer une fourniture ***********
-    public void creerFourniture(int idFourniture, String nom, String description, double prix, int quantiteStock) {
+    public void creerFourniture(int idFourniture, String nom, String description, double prix, int quantiteStock) throws FournitureExisteClientException {
         try {
             // Vérifier les arguments
             if (nom == null || nom.isEmpty()) {
@@ -90,6 +95,13 @@ public ArrayList<Voiture> getListeVoitures()
                 throw new QuantiteNegatifException("La quantité en stock ne peut pas être négative.");
             }
 
+            // Vérifier si une fourniture avec le même nom existe déjà
+            for (Fourniture fourniture : listeFournitures) {
+                if (fourniture.getNom().equalsIgnoreCase(nom)) {
+                    throw new FournitureExisteClientException("Une fourniture avec ce nom existe déjà.");
+                }
+            }
+
             // Créer et ajouter la nouvelle fourniture
             Fourniture nouvelleFourniture = new Fourniture(idFourniture, nom, description, prix, quantiteStock);
             listeFournitures.add(nouvelleFourniture);
@@ -98,6 +110,7 @@ public ArrayList<Voiture> getListeVoitures()
             System.out.println("Erreur : " + e.getMessage());
         }
     }
+
 
 
 

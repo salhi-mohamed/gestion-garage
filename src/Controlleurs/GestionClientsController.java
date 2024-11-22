@@ -71,7 +71,7 @@ public class GestionClientsController {
             URL fxmlLocation = getClass().getResource("/Vues/AfficherClients.fxml");
             if (fxmlLocation == null) {
                 System.out.println("FXML file not found!");
-                showAlert("Erreur", "Le fichier FXML 'AjouterClient.fxml' n'a pas été trouvé.");
+                showAlert("Erreur", "Le fichier FXML 'AfficherClients.fxml' n'a pas été trouvé.");
                 return;  // Exit the method if the FXML is not found
             } else {
                 System.out.println("FXML file loaded successfully.");
@@ -81,11 +81,11 @@ public class GestionClientsController {
             FXMLLoader loader = new FXMLLoader(fxmlLocation);
             Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
-            stage.setTitle("Ajouter un Client");
+            stage.setTitle("Afficher clients");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert("Erreur", "Impossible de charger la page 'Ajouter Client'.");
+            showAlert("Erreur", "Impossible de charger la page 'Afficher Client'.");
         }    }
 
     // Ajouter une voiture à un client
