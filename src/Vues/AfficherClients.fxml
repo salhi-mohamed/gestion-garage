@@ -13,7 +13,7 @@
             <TableColumn fx:id="colPrenom" text="Prénom" />
             <TableColumn fx:id="colTelephone" text="Téléphone" />
             <TableColumn fx:id="colAdresse" text="Adresse" />
-            <TableColumn text="Actions"/> <!-- Colonne pour le bouton de modification -->
+            <TableColumn text="Actions"/> <!-- Colonne pour les boutons Modifier/Supprimer -->
         </columns>
     </TableView>
 </VBox>

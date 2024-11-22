@@ -60,28 +60,34 @@ public class AfficherClientsController {
                         modifyButton.setStyle(
                             "-fx-background-color: #4CAF50; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-padding: 5px 10px; " +
+                            "-fx-font-size: 12px; " +  // Réduire la taille de la police
+                            "-fx-padding: 5px 15px; " +  // Réduire le padding
                             "-fx-border-radius: 5px; " +
                             "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
-                            "-fx-cursor: hand;"  // Ajouter le pointeur de souris
+                            "-fx-cursor: hand;" +
+                            "-fx-min-width: 100px; " +  // Définir une largeur minimale pour les deux boutons
+                            "-fx-max-width: 100px; " +  // Largeur maximale égale
+                            "-fx-pref-width: 100px;"    // Largeur préférée égale
                         );
                         deleteButton.setStyle(
                             "-fx-background-color: #F44336; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-padding: 5px 10px; " +
+                            "-fx-font-size: 12px; " +  // Réduire la taille de la police
+                            "-fx-padding: 5px 15px; " +  // Réduire le padding
                             "-fx-border-radius: 5px; " +
                             "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
-                            "-fx-cursor: hand;"  // Ajouter le pointeur de souris
+                            "-fx-cursor: hand;" +
+                            "-fx-min-width: 100px; " +  // Définir une largeur minimale pour les deux boutons
+                            "-fx-max-width: 100px; " +  // Largeur maximale égale
+                            "-fx-pref-width: 100px;"    // Largeur préférée égale
                         );
 
-                        // Ajout des effets de survol
+                        // Ajouter les effets de survol
                         modifyButton.setOnMouseEntered(event -> modifyButton.setStyle(
                             "-fx-background-color: #45a049; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-padding: 5px 10px; " +
+                            "-fx-font-size: 12px; " +
+                            "-fx-padding: 5px 15px; " +
                             "-fx-border-radius: 5px; " +
                             "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2); " +
                             "-fx-cursor: hand;"
@@ -90,8 +96,8 @@ public class AfficherClientsController {
                         deleteButton.setOnMouseEntered(event -> deleteButton.setStyle(
                             "-fx-background-color: #e53935; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-padding: 5px 10px; " +
+                            "-fx-font-size: 12px; " +
+                            "-fx-padding: 5px 15px; " +
                             "-fx-border-radius: 5px; " +
                             "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2); " +
                             "-fx-cursor: hand;"
@@ -100,8 +106,8 @@ public class AfficherClientsController {
                         modifyButton.setOnMouseExited(event -> modifyButton.setStyle(
                             "-fx-background-color: #4CAF50; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-padding: 5px 10px; " +
+                            "-fx-font-size: 12px; " +
+                            "-fx-padding: 5px 15px; " +
                             "-fx-border-radius: 5px; " +
                             "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
                             "-fx-cursor: hand;"
@@ -110,8 +116,8 @@ public class AfficherClientsController {
                         deleteButton.setOnMouseExited(event -> deleteButton.setStyle(
                             "-fx-background-color: #F44336; " +
                             "-fx-text-fill: white; " +
-                            "-fx-font-size: 14px; " +
-                            "-fx-padding: 5px 10px; " +
+                            "-fx-font-size: 12px; " +
+                            "-fx-padding: 5px 15px; " +
                             "-fx-border-radius: 5px; " +
                             "-fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);" +
                             "-fx-cursor: hand;"
@@ -192,25 +198,19 @@ public class AfficherClientsController {
     }
 
     private void supprimerClient(Client client) {
-        // Demander une confirmation avant de supprimer le client
-        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Confirmation de suppression");
-        confirmationAlert.setHeaderText("Voulez-vous vraiment supprimer ce client ?");
-        confirmationAlert.setContentText(client.get_nom() + " " + client.get_prenom());
+        // Demander confirmation avant de supprimer le client
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce client ?");
+        alert.setContentText("Cette action est irréversible.");
 
-        confirmationAlert.showAndWait().ifPresent(response -> {
+        alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Supprimer le client de la liste et mettre à jour la TableView
+                // Supprimer le client de la liste
                 Receptionniste receptionniste = AjouterClientController.receptionnisteConnecte;
                 receptionniste.get_liste_clients().remove(client);
-                tableClients.getItems().remove(client);
-                receptionniste.afficherListeClients();
+                afficherClients(receptionniste); // Réactualiser la TableView
             }
         });
-    }
-
-    // Méthode pour retourner (fermer ou revenir à l'écran précédent)
-    public void retour() {
-        // Implémentation du retour à la page précédente
     }
 }
