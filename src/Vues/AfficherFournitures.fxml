@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
@@ -13,7 +12,8 @@
             <TableColumn fx:id="colDescription" text="Description" />
             <TableColumn fx:id="colPrix" text="Prix" />
             <TableColumn fx:id="colQuantite" text="Quantité" />
-            <TableColumn text="Actions"/> <!-- Colonne pour le bouton de modification -->
+            <TableColumn fx:id="colActions" text="Actions"/> <!-- Colonne pour le bouton de modification -->
+
         </columns>
     </TableView>
 </VBox>

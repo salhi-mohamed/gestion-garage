@@ -80,7 +80,7 @@ public class GestionClientsController {
     // Modifier un client
     @FXML
     private void modifierClient() {
- try {
+        try {
             // Check if the FXML file exists
             URL fxmlLocation = getClass().getResource("/Vues/ModifierClient.fxml");
             if (fxmlLocation == null) {
