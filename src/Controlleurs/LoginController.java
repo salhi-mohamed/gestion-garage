@@ -64,19 +64,21 @@ public class LoginController {
         alert.show();
     }
 
-    private void navigateToMenuPrincipale() {
-        try {
-            // Charger le fichier FXML de la page MenuPrincipale
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vues/MenuPrincipale.fxml"));
-            Scene menuScene = new Scene(loader.load());
+  private void navigateToMenuPrincipale() {
+    try {
+        // Charger le fichier FXML de la page MenuPrincipale
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vues/MenuPrincipale.fxml"));
+        Scene menuScene = new Scene(loader.load());
 
-            // Récupérer la fenêtre actuelle et changer la scène
-            Stage currentStage = (Stage) emailField.getScene().getWindow();
-            currentStage.setScene(menuScene);
+        // Récupérer la fenêtre actuelle et changer la scène
+        Stage currentStage = (Stage) emailField.getScene().getWindow();
+        currentStage.setScene(menuScene);
 
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page MenuPrincipale : " + e.getMessage());
-        }
+    } catch (IOException e) {
+        e.printStackTrace();  // Affiche l'erreur dans la console pour plus de détails
+        showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger la page MenuPrincipale : " + e.getMessage());
     }
+}
+
 }
 

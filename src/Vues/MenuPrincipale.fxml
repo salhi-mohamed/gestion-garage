@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" 
-           fx:controller="controlleurs.MenuPrincipaleController" 
+           fx:controller="Controlleurs.MenuPrincipaleController" 
            prefHeight="879.0" prefWidth="1237.0">
 
     <!-- Image de fond -->

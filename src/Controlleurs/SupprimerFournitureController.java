@@ -39,33 +39,33 @@ public class SupprimerFournitureController {
     private Receptionniste receptionnisteConnecte;
     private ObservableList<Fourniture> fournitures;
 
-    public void initialize() {
-        // Vérifier que le réceptionniste connecté est récupéré correctement
-        if (receptionnisteConnecte == null) {
-            receptionnisteConnecte = AjouterFournitureController.receptionnisteConnecte; // Assurez-vous que c'est bien configuré
-        }
-
-        // Si réceptionnisteConnecte est nul, afficher une erreur
-        if (receptionnisteConnecte == null) {
-            showAlert("Erreur", "Aucun réceptionniste connecté.");
-            return;
-        }
-
-        // Charger la liste des fournitures associées au réceptionniste connecté
-        fournitures = FXCollections.observableArrayList(receptionnisteConnecte.getListeFournitures());
-
-        // Configurer les colonnes de la TableView
-        columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getNom()));
-        columnPrix.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
-        columnQuantite.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantiteStock()).asObject());
-        columnDescription.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getDescription()));
-
-        // Afficher les fournitures dans la TableView
-        tableViewFournitures.setItems(fournitures);
-
-        // Ajouter un écouteur d'événements pour le filtrage en temps réel
-        searchField.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> filterFournitures());
+  public void initialize() {
+    // Vérifier que le réceptionniste connecté est récupéré correctement
+    if (receptionnisteConnecte == null) {
+        receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte; // Utilisation du receptionniste du MenuPrincipaleController
     }
+
+    // Si réceptionnisteConnecte est nul, afficher une erreur
+    if (receptionnisteConnecte == null) {
+        showAlert("Erreur", "Aucun réceptionniste connecté.");
+        return;
+    }
+
+    // Charger la liste des fournitures associées au réceptionniste connecté
+    fournitures = FXCollections.observableArrayList(receptionnisteConnecte.getListeFournitures());
+
+    // Configurer les colonnes de la TableView
+    columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getNom()));
+    columnPrix.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
+    columnQuantite.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantiteStock()).asObject());
+    columnDescription.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getDescription()));
+
+    // Afficher les fournitures dans la TableView
+    tableViewFournitures.setItems(fournitures);
+
+    // Ajouter un écouteur d'événements pour le filtrage en temps réel
+    searchField.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> filterFournitures());
+}
 
     // Méthode de filtrage par nom
     private void filterFournitures() {

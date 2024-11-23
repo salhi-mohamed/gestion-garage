@@ -19,7 +19,7 @@ public class AjouterVoitureClientController {
 
     public void initialize() {
         // Charger la liste des clients dans le ComboBox
-        clientsList = FXCollections.observableArrayList(AjouterClientController.receptionnisteConnecte.get_liste_clients());
+        clientsList = FXCollections.observableArrayList(MenuPrincipaleController.receptionnisteConnecte.get_liste_clients());  // Utiliser receptionnisteConnecte du MenuPrincipaleController
         comboBoxClients.setItems(clientsList);
     }
 
@@ -49,7 +49,7 @@ public class AjouterVoitureClientController {
             Voiture nouvelleVoiture = new Voiture(marque, modele, 2024, kilometrage, immatriculation, selectedClient);
 
             // Appeler la méthode pour ajouter la voiture au client
-            AjouterClientController.receptionnisteConnecte.ajouterVoitureAuClient(selectedClient.get_id(), nouvelleVoiture);
+            MenuPrincipaleController.receptionnisteConnecte.ajouterVoitureAuClient(selectedClient.get_id(), nouvelleVoiture); // Utiliser receptionnisteConnecte du MenuPrincipaleController
 
             showAlert("Succès", "La voiture a été ajoutée au client avec succès.");
 

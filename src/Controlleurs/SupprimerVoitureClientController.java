@@ -39,8 +39,8 @@ public class SupprimerVoitureClientController {
 
     // Méthode d'initialisation pour remplir le ComboBox et la TableView
     public void initialize() {
-        // Initialiser le ComboBox avec la liste des clients (récupérés de Receptionniste)
-        comboBoxClients.setItems(FXCollections.observableArrayList(AjouterClientController.receptionnisteConnecte.get_liste_clients()));
+        // Initialiser le ComboBox avec la liste des clients (récupérés de MenuPrincipaleController)
+        comboBoxClients.setItems(FXCollections.observableArrayList(MenuPrincipaleController.receptionnisteConnecte.get_liste_clients()));
 
         // Initialiser les colonnes de la TableView
         colCarMarque.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMarque()));
@@ -88,7 +88,7 @@ public class SupprimerVoitureClientController {
         // Appeler la méthode pour supprimer la voiture
         try {
             String idVoiture = selectedVoiture.get_immatriculation();  // ID de la voiture
-            AjouterClientController.receptionnisteConnecte.supprimerVoitureClient(selectedClient.get_id(), idVoiture);
+            MenuPrincipaleController.receptionnisteConnecte.supprimerVoitureClient(selectedClient.get_id(), idVoiture);
             showAlert("Succès", "La voiture a été supprimée du client.");
 
             // Mettre à jour la table après suppression

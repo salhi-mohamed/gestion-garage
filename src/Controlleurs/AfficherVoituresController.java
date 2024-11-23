@@ -1,6 +1,5 @@
 package Controlleurs;
 
-import Controlleurs.AjouterClientController;
 import Modeles.Personnes.Receptionniste;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -29,8 +28,8 @@ public class AfficherVoituresController {
 
     @FXML
     public void initialize() {
-        // Récupérer le réceptionniste fictif depuis le contrôleur AjouterVoitureController
-        Receptionniste receptionniste = AjouterClientController.receptionnisteConnecte;
+        // Récupérer le réceptionniste connecté depuis MenuPrincipaleController
+        Receptionniste receptionniste = MenuPrincipaleController.receptionnisteConnecte;
 
         if (receptionniste != null) {
             // Récupérer la liste des voitures du réceptionniste
@@ -49,8 +48,8 @@ public class AfficherVoituresController {
         colPrix.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getKilometrage()).asObject());
 
         // Ajouter l'ID et le nom du client
-colClientID.setCellValueFactory(cellData -> 
-    new SimpleStringProperty(Integer.toString(cellData.getValue().getClient().get_id())));
+        colClientID.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(Integer.toString(cellData.getValue().getClient().get_id())));
         colClientNom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClient().get_nom()));
 
         // Ajouter les voitures à la TableView

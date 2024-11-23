@@ -31,7 +31,8 @@ public class AfficherFournituresController {
 
     @FXML
     public void initialize() {
-        Receptionniste receptionniste = AjouterFournitureController.receptionnisteConnecte;
+        // Récupérer le réceptionniste connecté depuis MenuPrincipaleController
+        Receptionniste receptionniste = MenuPrincipaleController.receptionnisteConnecte;
 
         if (receptionniste != null) {
             initialiserColonnes();
@@ -50,8 +51,7 @@ public class AfficherFournituresController {
         colID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getIdFourniture()).asObject());
         colNom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
         colQuantite.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantiteStock()).asObject());
-        colPrix.setCellValueFactory(cellData ->
-                new SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
+        colPrix.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
 
         // Configurer la colonne d'actions avec les boutons Modifier et Supprimer
         colActions.setCellFactory(column -> new TableCell<Fourniture, String>() {
@@ -173,7 +173,7 @@ public class AfficherFournituresController {
     }
 
     private void supprimerFourniture(Fourniture fourniture) {
-        Receptionniste receptionniste = AjouterFournitureController.receptionnisteConnecte;
+        Receptionniste receptionniste = MenuPrincipaleController.receptionnisteConnecte;
         if (receptionniste != null) {
             receptionniste.getListeFournitures().remove(fourniture);
             tableFournitures.getItems().remove(fourniture);

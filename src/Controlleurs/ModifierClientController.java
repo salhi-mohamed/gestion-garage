@@ -49,27 +49,28 @@ public class ModifierClientController {
     private ObservableList<Client> clients;
     private Receptionniste receptionnisteConnecte;
 
-    public void initialize() {
-        // Récupérer le réceptionniste connecté
-        receptionnisteConnecte = AjouterClientController.receptionnisteConnecte;
+  public void initialize() {
+    // Récupérer le réceptionniste connecté
+    receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte; // Utilisation du receptionniste du MenuPrincipaleController
 
-        if (receptionnisteConnecte == null) {
-            showAlert("Erreur", "Aucun réceptionniste connecté.");
-            return;
-        }
-
-        // Charger la liste des clients
-        clients = FXCollections.observableArrayList(receptionnisteConnecte.get_liste_clients());
-
-        // Configurer les colonnes
-        columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_nom()));
-        columnPrenom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_prenom()));
-        columnTelephone.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().get_telephone()).asObject());
-        columnAdresse.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_adresse()));
-
-        // Ajouter la liste des clients à la TableView
-        tableViewClients.setItems(clients);
+    if (receptionnisteConnecte == null) {
+        showAlert("Erreur", "Aucun réceptionniste connecté.");
+        return;
     }
+
+    // Charger la liste des clients
+    clients = FXCollections.observableArrayList(receptionnisteConnecte.get_liste_clients());
+
+    // Configurer les colonnes
+    columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_nom()));
+    columnPrenom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_prenom()));
+    columnTelephone.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().get_telephone()).asObject());
+    columnAdresse.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_adresse()));
+
+    // Ajouter la liste des clients à la TableView
+    tableViewClients.setItems(clients);
+}
+
 
     @FXML
     private void ouvrirFormulaireModification() {

@@ -1,5 +1,6 @@
 package Controlleurs;
 
+
 import Modeles.Exceptions.ClientExisteException;
 import Modeles.Personnes.Receptionniste;
 import javafx.fxml.FXML;
@@ -9,7 +10,7 @@ import javafx.scene.control.TextField;
 
 public class AjouterClientController {
 
-    public static Receptionniste receptionnisteConnecte;  // Référence au réceptionniste fictif (partagée)
+    private Receptionniste receptionnisteConnecte;  // Référence au réceptionniste connecté
 
     private static int dernierIdClient = 0;  // Variable statique pour générer des IDs uniques
 
@@ -18,12 +19,11 @@ public class AjouterClientController {
 
     @FXML
     public void initialize() {
-        // Créer un réceptionniste fictif avec des valeurs par défaut
-        if (receptionnisteConnecte == null) {
-            receptionnisteConnecte = new Receptionniste(
-                1, "NomFictif", "PrenomFictif", 123456789, "Adresse Fictive",
-                2000.0, "12/03/2022", 101, "email@fictif.com", "password123"
-            );
+        // Récupérer le réceptionniste connecté depuis le MenuPrincipaleController
+        if (MenuPrincipaleController.receptionnisteConnecte != null) {
+            receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte;
+        } else {
+            showAlert("Erreur", "Aucun réceptionniste connecté.");
         }
     }
 
@@ -39,7 +39,7 @@ public class AjouterClientController {
         dernierIdClient++;  // Incrémente l'ID à chaque ajout
 
         try {
-            // Utiliser le réceptionniste fictif pour ajouter un client avec le nouvel ID
+            // Utiliser le réceptionniste pour ajouter un client avec le nouvel ID
             receptionnisteConnecte.creerClient(dernierIdClient, nom, prenom, telephone, adresse, statutFinancier);
             showAlert("Succès", "Client ajouté avec succès !");
         } catch (ClientExisteException e) {

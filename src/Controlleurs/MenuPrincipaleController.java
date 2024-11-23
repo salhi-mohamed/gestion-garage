@@ -1,5 +1,6 @@
-package controlleurs;
+package Controlleurs;
 
+import Modeles.Personnes.Receptionniste;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -11,8 +12,30 @@ import java.io.IOException;
 
 public class MenuPrincipaleController {
 
+    // Déclaration de la variable static pour le réceptionniste connecté
+    public static Receptionniste receptionnisteConnecte;
+
     private static final double MAIN_MENU_WIDTH = 1237.0;
     private static final double MAIN_MENU_HEIGHT = 879.0;
+
+    @FXML
+    public void initialize() {
+        // Initialisation du réceptionniste avec des valeurs spécifiques pour le constructeur
+        if (receptionnisteConnecte == null) {
+            receptionnisteConnecte = new Receptionniste(
+                1,  // id
+                "Dupont",  // nom
+                "Pierre",  // prénom
+                123456789,  // téléphone
+                "123 rue Exemple",  // adresse
+                2500.00,  // salaire
+                "12/03/2022",  // date d'embauche
+                101,  // numéro du bureau
+                "pierre.dupont@example.com",  // email
+                "password123"  // mot de passe
+            );
+        }
+    }
 
     @FXML
     public void ouvrirClients(ActionEvent event) {

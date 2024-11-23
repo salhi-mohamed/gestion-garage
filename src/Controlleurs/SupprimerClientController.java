@@ -41,34 +41,34 @@ public class SupprimerClientController {
     private Receptionniste receptionnisteConnecte;
     private ObservableList<Client> clients;
 
-    public void initialize() {
-        // Vérifier que le réceptionniste connecté est récupéré correctement
-        if (receptionnisteConnecte == null) {
-            receptionnisteConnecte = AjouterClientController.receptionnisteConnecte; // Assurez-vous que c'est bien configuré
-        }
-
-        // Si réceptionnisteConnecte est nul, afficher une erreur
-        if (receptionnisteConnecte == null) {
-            showAlert("Erreur", "Aucun réceptionniste connecté.");
-            return;
-        }
-
-        // Charger la liste des clients associés au réceptionniste connecté
-        clients = FXCollections.observableArrayList(receptionnisteConnecte.get_liste_clients());
-
-        // Configurer les colonnes de la TableView
-        columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_nom()));
-        columnPrenom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_prenom()));
-columnTelephone.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().get_telephone()).asObject());
-        columnAdresse.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_adresse()));
-        columnStatutFinancier.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getStatutFinancier()));
-
-        // Afficher les clients dans la TableView
-        tableViewClients.setItems(clients);
-
-        // Ajouter un écouteur d'événements pour le filtrage en temps réel
-        searchField.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> filterClients());
+   public void initialize() {
+    // Vérifier que le réceptionniste connecté est récupéré correctement
+    if (receptionnisteConnecte == null) {
+        receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte; // Utilisation du receptionniste du MenuPrincipaleController
     }
+
+    // Si réceptionnisteConnecte est nul, afficher une erreur
+    if (receptionnisteConnecte == null) {
+        showAlert("Erreur", "Aucun réceptionniste connecté.");
+        return;
+    }
+
+    // Charger la liste des clients associés au réceptionniste connecté
+    clients = FXCollections.observableArrayList(receptionnisteConnecte.get_liste_clients());
+
+    // Configurer les colonnes de la TableView
+    columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_nom()));
+    columnPrenom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_prenom()));
+    columnTelephone.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().get_telephone()).asObject());
+    columnAdresse.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_adresse()));
+    columnStatutFinancier.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getStatutFinancier()));
+
+    // Afficher les clients dans la TableView
+    tableViewClients.setItems(clients);
+
+    // Ajouter un écouteur d'événements pour le filtrage en temps réel
+    searchField.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> filterClients());
+}
 
     // Méthode de filtrage par nom
     private void filterClients() {

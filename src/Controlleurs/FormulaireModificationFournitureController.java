@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * Contrôleur pour la modification d'une fourniture.
  */
 public class FormulaireModificationFournitureController {
 
@@ -27,9 +26,8 @@ public class FormulaireModificationFournitureController {
     private Fourniture fourniture;
 
     /**
-     * Initialise le formulaire avec les données de la fourniture sélectionnée.
-     *
-     * @param fourniture Fourniture à modifier.
+
+*
      */
     public void setFourniture(Fourniture fourniture) {
         this.fourniture = fourniture;

@@ -43,26 +43,27 @@ public class ModifierFournitureController {
     private Receptionniste receptionnisteConnecte;
 
     public void initialize() {
-        // Récupérer le réceptionniste connecté
-        receptionnisteConnecte = AjouterFournitureController.receptionnisteConnecte;
+    // Récupérer le réceptionniste connecté
+    receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte; // Utilisation du receptionniste du MenuPrincipaleController
 
-        if (receptionnisteConnecte == null) {
-            showAlert("Erreur", "Aucun réceptionniste connecté.");
-            return;
-        }
-
-        // Charger la liste des fournitures
-        fournitures = FXCollections.observableArrayList(receptionnisteConnecte.getListeFournitures());
-
-        // Configurer les colonnes
-        columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getNom()));
-        columnCategorie.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getDescription()));
-        columnPrix.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
-        columnQuantite.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantiteStock()).asObject());
-
-        // Ajouter la liste des fournitures à la TableView
-        tableViewFournitures.setItems(fournitures);
+    if (receptionnisteConnecte == null) {
+        showAlert("Erreur", "Aucun réceptionniste connecté.");
+        return;
     }
+
+    // Charger la liste des fournitures
+    fournitures = FXCollections.observableArrayList(receptionnisteConnecte.getListeFournitures());
+
+    // Configurer les colonnes
+    columnNom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getNom()));
+    columnCategorie.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getDescription()));
+    columnPrix.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
+    columnQuantite.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getQuantiteStock()).asObject());
+
+    // Ajouter la liste des fournitures à la TableView
+    tableViewFournitures.setItems(fournitures);
+}
+
 
     @FXML
     private void ouvrirFormulaireModification() {
