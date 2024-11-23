@@ -8,6 +8,7 @@
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Controlleurs.AfficherVoituresController" spacing="10" alignment="CENTER" style="-fx-padding: 20px;">
     <TableView fx:id="tableVoitures" prefHeight="300" prefWidth="400">
     <columns>
+        <TableColumn fx:id="colImmatriculation" text="Immatriculation" />
         <TableColumn fx:id="colMarque" text="Marque" />
         <TableColumn fx:id="colModele" text="Modèle" />
         <TableColumn fx:id="colAnnee" text="Année" />

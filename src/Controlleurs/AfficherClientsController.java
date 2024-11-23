@@ -3,6 +3,7 @@ package Controlleurs;
 import Modeles.Personnes.Client;
 import Modeles.Personnes.Receptionniste;
 import Modeles.Gestion_Service.Voiture;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
@@ -10,10 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class AfficherClientsController {
 
@@ -41,12 +40,12 @@ public class AfficherClientsController {
             initialiserColonnes();
             afficherClients(receptionniste);
 
-            // Double-click handler to display client details
+            // Double-click handler to display client options
             tableClients.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     Client clientSelectionne = tableClients.getSelectionModel().getSelectedItem();
                     if (clientSelectionne != null) {
-                        afficherVoituresClient(clientSelectionne);
+                        afficherDetailsClient(clientSelectionne); // Nouvelle méthode
                     }
                 }
             });
@@ -76,15 +75,13 @@ public class AfficherClientsController {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    HBox actionBox = new HBox(10); // Espacement entre les boutons
+                    HBox actionBox = new HBox(10);
                     Button btnModifier = new Button("Modifier");
                     Button btnSupprimer = new Button("Supprimer");
 
-                    // Appliquer les classes CSS
                     btnModifier.getStyleClass().add("modifier");
                     btnSupprimer.getStyleClass().add("supprimer");
 
-                    // Actions des boutons
                     btnModifier.setOnAction(e -> {
                         Client client = getTableView().getItems().get(getIndex());
                         modifierClient(client);
@@ -107,25 +104,34 @@ public class AfficherClientsController {
         tableClients.getItems().addAll(receptionniste.get_liste_clients());
     }
 
+    private void afficherDetailsClient(Client client) {
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Afficher Voitures", "Afficher Voitures", "Afficher Fournitures");
+        dialog.setTitle("Choisir une option");
+        dialog.setHeaderText("Sélectionnez une action pour le client : " + client.get_nom() + " " + client.get_prenom());
+        dialog.setContentText("Action :");
+
+        dialog.showAndWait().ifPresent(choix -> {
+            if ("Afficher Voitures".equals(choix)) {
+                afficherVoituresClient(client);
+            } else if ("Afficher Fournitures".equals(choix)) {
+                afficherFournituresClient(client);
+            }
+        });
+    }
+
     private void afficherVoituresClient(Client client) {
-        // Gérer l'affichage des voitures associées au client
         Stage stage = new Stage();
         stage.setTitle("Voitures associées à " + client.get_nom() + " " + client.get_prenom());
 
-        // Utilisation de VBox pour un design plus moderne
-        VBox vbox = new VBox(20); // Espacement vertical entre les éléments
+        VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 20px; -fx-background-color: #f4f7fa; -fx-border-radius: 10px; -fx-background-radius: 10px;");
 
-        // Titre
         Label title = new Label("Voitures associées à " + client.get_nom() + " " + client.get_prenom());
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333;");
 
-        // TableView pour afficher les voitures
         TableView<Voiture> tableVoitures = new TableView<>();
-        tableVoitures.setPrefHeight(300); // Hauteur de la TableView
-        tableVoitures.setStyle("-fx-border-color: #ddd; -fx-background-color: #ffffff; -fx-border-radius: 5px;");
+        tableVoitures.setPrefHeight(300);
 
-        // Colonnes de la TableView
         TableColumn<Voiture, String> colModel = new TableColumn<>("Modèle");
         colModel.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModele()));
 
@@ -138,39 +144,69 @@ public class AfficherClientsController {
         TableColumn<Voiture, String> colImmatriculation = new TableColumn<>("Immatriculation");
         colImmatriculation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImmatriculation()));
 
-        // Ajouter les colonnes à la TableView
         tableVoitures.getColumns().addAll(colModel, colMarque, colAnnee, colImmatriculation);
-
-        // Ajouter les données des voitures du client à la TableView
         tableVoitures.getItems().addAll(client.getVoitures());
 
-        // Si aucune voiture n'est associée, ajouter un message
-        if (client.getVoitures().isEmpty()) {
-            Label noCarsLabel = new Label("Aucune voiture associée à ce client.");
-            noCarsLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #999;");
-            vbox.getChildren().add(noCarsLabel);
-        }
-
-        // Ajouter la TableView à la VBox
         vbox.getChildren().addAll(title, tableVoitures);
 
-        // Bouton pour fermer la fenêtre
         Button btnClose = new Button("Fermer");
-        btnClose.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-border-radius: 5px; -fx-padding: 10px 20px;");
+        btnClose.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
         btnClose.setOnAction(e -> stage.close());
 
-        // Ajouter le bouton Fermer à la VBox principale
         vbox.getChildren().add(btnClose);
 
-        // Créer une scène avec la VBox
         Scene scene = new Scene(vbox);
-
-        // Définir la scène et la taille
         stage.setScene(scene);
         stage.setWidth(600);
         stage.setHeight(450);
         stage.show();
     }
+
+    private void afficherFournituresClient(Client client) {
+    Stage stage = new Stage();
+    stage.setTitle("Fournitures achetées par " + client.get_nom() + " " + client.get_prenom());
+
+    VBox vbox = new VBox(20);
+    vbox.setStyle("-fx-padding: 20px; -fx-background-color: #f4f7fa;");
+
+    Label title = new Label("Fournitures achetées par " + client.get_nom() + " " + client.get_prenom());
+    title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+    TableView<String> tableFournitures = new TableView<>();
+    tableFournitures.setPrefHeight(300);
+
+    TableColumn<String, String> colFourniture = new TableColumn<>("Fourniture");
+    colFourniture.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
+
+    tableFournitures.getColumns().add(colFourniture);
+
+    // Conversion des objets Fourniture en String
+    List<String> fournituresAsStrings = client.getFournituresAchetees().stream()
+        .map(fourniture -> fourniture.toString()) // Ou utilisez une méthode spécifique, ex. fourniture.getNom()
+        .toList();
+
+    tableFournitures.getItems().addAll(fournituresAsStrings);
+
+    vbox.getChildren().addAll(title, tableFournitures);
+
+    Button btnClose = new Button("Fermer");
+    btnClose.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+    btnClose.setOnAction(e -> stage.close());
+
+    vbox.getChildren().add(btnClose);
+
+    Scene scene = new Scene(vbox);
+    stage.setScene(scene);
+    stage.setWidth(600);
+    stage.setHeight(450);
+    stage.show();
+}
+
+
+  
+
+   
+
 
     private void modifierClient(Client client) {
         // Créer la fenêtre de modification
