@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controlleurs.AjouterVoitureClientController" stylesheets="@ajouterVoitureClient.css">
+    <VBox spacing="10" alignment="CENTER" layoutX="50" layoutY="50">
+        <Label text="Ajouter une voiture au client" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        
+        <!-- ComboBox pour sélectionner un client -->
+        <ComboBox fx:id="comboBoxClients" promptText="Sélectionner un client" prefWidth="300" />
+
+        <!-- TextField pour saisir les données de la voiture -->
+        <TextField fx:id="textFieldMarque" promptText="Marque" prefWidth="300"/>
+        <TextField fx:id="textFieldModele" promptText="Modèle" prefWidth="300"/>
+        <TextField fx:id="textFieldKilometrage" promptText="Kilométrage" prefWidth="300"/>
+        <TextField fx:id="textFieldImmatriculation" promptText="Immatriculation" prefWidth="300"/>
+        
+        <Button text="Ajouter la voiture" onAction="#ajouterVoiture" style="-fx-font-size: 14px;" />
+        <Button text="Annuler" onAction="#fermerFormulaire" style="-fx-font-size: 14px;" />
+    </VBox>
+</AnchorPane>
