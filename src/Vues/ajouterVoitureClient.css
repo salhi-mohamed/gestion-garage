@@ -1,104 +1,65 @@
-/* Style général pour le formulaire */
+/* Définir la police principale */
 .root {
-    -fx-background-color: #f5f5f5;
-    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    -fx-padding: 20px;
-    -fx-alignment: center;
+    -fx-font-family: "Arial", sans-serif;
 }
 
-VBox {
-    -fx-spacing: 20px;
-    -fx-alignment: center;
-    -fx-background-color: #ffffff;
-    -fx-border-radius: 10px;
-    -fx-border-color: #e0e0e0;
-    -fx-border-width: 2px;
-    -fx-padding: 20px;
-    -fx-effect: dropshadow(gaussian, #bbbbbb, 10, 0.5, 0, 0);
-}
-
-Label {
-    -fx-font-size: 16px;
+/* Style pour les labels */
+.label {
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: #333;
 }
 
-TextField {
+/* Style des TextFields */
+.text-field {
     -fx-font-size: 14px;
-    -fx-padding: 10px;
-    -fx-background-color: #f0f0f0;
+    -fx-padding: 8px;
+    -fx-border-color: #ddd;
     -fx-border-radius: 5px;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
-    -fx-pref-width: 300px;
-    -fx-focus-color: #00aaff;
 }
 
-TextField:focused {
-    -fx-border-color: #00aaff;
-    -fx-background-color: #ffffff;
-}
-
-ComboBox {
+/* Style des ComboBox */
+.combo-box {
     -fx-font-size: 14px;
-    -fx-padding: 10px;
-    -fx-background-color: #f0f0f0;
+    -fx-padding: 8px;
+    -fx-border-color: #ddd;
     -fx-border-radius: 5px;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
-    -fx-pref-width: 300px;
 }
 
-ComboBox:focused {
-    -fx-border-color: #00aaff;
-    -fx-background-color: #ffffff;
-}
-
-/* Boutons professionnels */
-Button {
-    -fx-font-size: 14px;
-    -fx-font-weight: 500;
-    -fx-background-color: #6c757d; /* Gris neutre pour un aspect professionnel */
+/* Style pour le bouton Ajouter Voiture */
+.btn-ajouter {
+    -fx-background-color: #4CAF50;
     -fx-text-fill: white;
-    -fx-padding: 10px 20px;
-    -fx-background-radius: 5px;
-    -fx-cursor: hand;
-    -fx-border-width: 1px;
-    -fx-border-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.2, 0, 2);
-    -fx-transition: all 0.3s ease-in-out;
-}
-
-/* Effet au survol du bouton */
-Button:hover {
-    -fx-background-color: #5a6268; /* Gris foncé sur survol */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 2);
-}
-
-Button:focused {
-    -fx-background-color: #4e555b; /* Gris plus foncé lorsqu'il est en focus */
-    -fx-border-color: #007bff; /* Bordure bleu professionnelle */
-}
-
-Button:disabled {
-    -fx-background-color: #adb5bd; /* Gris clair lorsqu'il est désactivé */
-    -fx-cursor: not-allowed;
-}
-
-/* Styles pour les alertes */
-.alert {
-    -fx-background-color: #f8d7da;
-    -fx-text-fill: #721c24;
-    -fx-padding: 10px;
-    -fx-border-radius: 5px;
-    -fx-border-color: #f5c6cb;
-    -fx-border-width: 1px;
-}
-
-.alert .header {
-    -fx-font-weight: bold;
-}
-
-.alert .message {
     -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.btn-ajouter:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Style pour le bouton Annuler */
+.btn-annuler {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.btn-annuler:hover {
+    -fx-background-color: #e53935;
+}
+
+/* Style des éléments de la ComboBox */
+.combo-box > .list-cell {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.combo-box .list-cell:filled:hover {
+    -fx-background-color: #e0e0e0;
 }
