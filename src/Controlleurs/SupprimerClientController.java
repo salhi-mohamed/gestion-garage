@@ -84,32 +84,37 @@ columnTelephone.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellDa
     }
 
     @FXML
-    private void supprimerClient() {
-        // Vérifier si un client est sélectionné
-        Client selectedClient = tableViewClients.getSelectionModel().getSelectedItem();
-        if (selectedClient == null) {
-            showAlert("Erreur", "Veuillez sélectionner un client à supprimer.");
-            return;
-        }
-
-        // Créer une fenêtre de confirmation avant suppression
-        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Confirmation");
-        confirmationAlert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce client ?");
-        confirmationAlert.setContentText("Client : " + selectedClient.get_nom() + " " + selectedClient.get_prenom());
-
-        Optional<ButtonType> result = confirmationAlert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Supprimer le client
-            receptionnisteConnecte.supprimerClient(selectedClient.get_id());
-
-            // Mettre à jour la TableView
-            clients.remove(selectedClient);
-
-            // Afficher un message de succès
-            showAlert("Succès", "Client supprimé avec succès !");
-        }
+    
+private void supprimerClient() {
+    // Vérifier si un client est sélectionné
+    Client selectedClient = tableViewClients.getSelectionModel().getSelectedItem();
+    if (selectedClient == null) {
+        showAlert("Erreur", "Veuillez sélectionner un client à supprimer.");
+        return;
     }
+
+    // Créer une fenêtre de confirmation avant suppression
+    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+    confirmationAlert.setTitle("Confirmation");
+    confirmationAlert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce client ?");
+    confirmationAlert.setContentText("Client : " + selectedClient.get_nom() + " " + selectedClient.get_prenom());
+
+    Optional<ButtonType> result = confirmationAlert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        // Supprimer le client dans la base de données via le réceptionniste
+        receptionnisteConnecte.supprimerClient(selectedClient.get_id());
+
+        // Supprimer le client de la liste observable
+        clients.remove(selectedClient);
+
+        // Filtrer à nouveau la liste pour respecter le texte de recherche
+        filterClients();
+
+        // Afficher un message de succès
+        showAlert("Succès", "Client supprimé avec succès !");
+    }
+}
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

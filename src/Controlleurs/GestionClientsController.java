@@ -80,8 +80,27 @@ public class GestionClientsController {
     // Modifier un client
     @FXML
     private void modifierClient() {
-        showAlert("Modifier Client", "La fonctionnalité 'Modifier Client' sera implémentée ici.");
-    }
+ try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/ModifierClient.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'ModifierClient' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Modifier ");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Modifier Client'.");
+        }     }
 
     // Afficher la liste des clients
     @FXML
