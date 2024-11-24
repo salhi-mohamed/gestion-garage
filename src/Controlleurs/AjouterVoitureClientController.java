@@ -21,6 +21,33 @@ public class AjouterVoitureClientController {
         // Charger la liste des clients dans le ComboBox
         clientsList = FXCollections.observableArrayList(MenuPrincipaleController.receptionnisteConnecte.get_liste_clients());  // Utiliser receptionnisteConnecte du MenuPrincipaleController
         comboBoxClients.setItems(clientsList);
+        
+        // Utiliser un cell factory pour personnaliser l'affichage des éléments dans la ComboBox
+        comboBoxClients.setCellFactory(listView -> new ListCell<Client>() {
+            @Override
+            protected void updateItem(Client item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Afficher le nom, prénom et ID du client
+                    setText(item.get_nom() + " " + item.get_prenom() + " (ID: " + item.get_id() + ")");
+                }
+            }
+        });
+
+        // Lorsque l'utilisateur sélectionne un client, on met à jour le texte du bouton (ou un autre champ si nécessaire)
+        comboBoxClients.setButtonCell(new ListCell<Client>() {
+            @Override
+            protected void updateItem(Client item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.get_nom() + " " + item.get_prenom() + " (ID: " + item.get_id() + ")");
+                }
+            }
+        });
     }
 
     @FXML

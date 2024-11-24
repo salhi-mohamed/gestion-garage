@@ -50,8 +50,24 @@ public class GestionVoituresController {
     @FXML
     private void supprimerVoiture() {
         // Placeholder pour la fonctionnalité de suppression
-        showAlert("Supprimer Voiture", "La fonctionnalité 'Supprimer Voiture' sera implémentée ici.");
-    }
+ try {
+            // Vérifier le chemin du fichier FXML
+            URL fxmlLocation = getClass().getResource("/Vues/SupprimerVoiture.fxml");
+            if (fxmlLocation == null) {
+                showAlert("Erreur", "Le fichier FXML 'SupprimerVoiture' n'a pas été trouvé.");
+                return;
+            }
+
+            // Charger le fichier FXML
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Supprimer  une Voiture");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Supprimer une  Voiture' : " + e.getMessage());
+        }    }
 
     @FXML
     private void modifierVoiture() {

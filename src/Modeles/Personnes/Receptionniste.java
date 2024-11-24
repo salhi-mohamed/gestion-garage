@@ -1323,15 +1323,34 @@ public void supprimerClient(int idClient) {
     try {
         // Tenter de retirer la voiture du client
         clientTrouve.retirerVoiture(idVoiture);  // On laisse la gestion de la voiture à cette méthode
-        System.out.println("La voiture avec l'ID " + idVoiture + " a été supprimée du client "+ clientTrouve.get_nom()+" "+clientTrouve.get_prenom());
+        
+        // Supprimer la voiture de la liste générale des voitures
+        Voiture voitureASupprimer = null;
+        for (Voiture voiture : this.ListeVoitures) {
+            if (voiture.get_immatriculation().equals(idVoiture)) {
+                voitureASupprimer = voiture;
+                break;
+            }
+        }
+
+        // Si la voiture est trouvée dans la liste générale, on la retire
+        if (voitureASupprimer != null) {
+            this.ListeVoitures.remove(voitureASupprimer);
+            System.out.println("La voiture avec l'ID " + idVoiture + " a été supprimée de la liste générale.");
+        } else {
+            System.out.println("Erreur : La voiture avec l'ID " + idVoiture + " n'a pas été trouvée dans la liste générale.");
+        }
+        
+        System.out.println("La voiture avec l'ID " + idVoiture + " a été supprimée du client " + clientTrouve.get_nom() + " " + clientTrouve.get_prenom());
     } catch (VoitureNonTrouveeClientException e) {
         // En cas d'erreur si la voiture n'est pas trouvée pour ce client
-        System.out.println("Erreur : " + e.getMessage()+" pour ce client");
+        System.out.println("Erreur : " + e.getMessage() + " pour ce client");
     } catch (ArgumentInvalideException e) {
         // En cas d'argument invalide dans la méthode retirerVoiture
         System.out.println("Erreur : " + e.getMessage());
     }
 }
+
     //afficher voitures par client : 
     public void afficher_voitures_par_client(int idclient)
     {

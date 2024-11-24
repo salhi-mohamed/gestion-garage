@@ -12,19 +12,28 @@ public class AfficherVoituresController {
 
     @FXML
     private TableView<Modeles.Gestion_Service.Voiture> tableVoitures;
+    
     @FXML
     private TableColumn<Modeles.Gestion_Service.Voiture, String> colMarque;
+    
     @FXML
     private TableColumn<Modeles.Gestion_Service.Voiture, String> colModele;
+    
     @FXML
     private TableColumn<Modeles.Gestion_Service.Voiture, Integer> colAnnee;
+    
     @FXML
     private TableColumn<Modeles.Gestion_Service.Voiture, Double> colPrix;
-    // Nouvelles colonnes pour l'ID et le nom du client
+    
+    // Nouvelles colonnes pour l'ID, le nom du client et l'immatriculation
     @FXML
     private TableColumn<Modeles.Gestion_Service.Voiture, String> colClientID;
+    
     @FXML
     private TableColumn<Modeles.Gestion_Service.Voiture, String> colClientNom;
+    
+    @FXML
+    private TableColumn<Modeles.Gestion_Service.Voiture, String> colImmatriculation;
 
     @FXML
     public void initialize() {
@@ -50,7 +59,12 @@ public class AfficherVoituresController {
         // Ajouter l'ID et le nom du client
         colClientID.setCellValueFactory(cellData -> 
             new SimpleStringProperty(Integer.toString(cellData.getValue().getClient().get_id())));
-        colClientNom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClient().get_nom()));
+        colClientNom.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getClient().get_nom()));
+
+        // Ajouter l'immatriculation de la voiture
+        colImmatriculation.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getImmatriculation()));
 
         // Ajouter les voitures à la TableView
         for (Modeles.Gestion_Service.Voiture voiture : receptionniste.getListeVoitures()) {
