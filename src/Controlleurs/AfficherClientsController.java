@@ -6,6 +6,7 @@ import Modeles.Gestion_Service.Voiture;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -143,8 +144,11 @@ public class AfficherClientsController {
 
         TableColumn<Voiture, String> colImmatriculation = new TableColumn<>("Immatriculation");
         colImmatriculation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImmatriculation()));
+        
+        TableColumn<Voiture, Long> colKilometrage = new TableColumn<>("Kilometrage");
+        colKilometrage.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().getKilometrage()).asObject());
 
-        tableVoitures.getColumns().addAll(colModel, colMarque, colAnnee, colImmatriculation);
+        tableVoitures.getColumns().addAll(colModel, colMarque, colAnnee, colImmatriculation , colKilometrage);
         tableVoitures.getItems().addAll(client.getVoitures());
 
         vbox.getChildren().addAll(title, tableVoitures);

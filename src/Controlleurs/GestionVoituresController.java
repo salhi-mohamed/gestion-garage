@@ -52,7 +52,7 @@ public class GestionVoituresController {
         // Placeholder pour la fonctionnalité de suppression
  try {
             // Vérifier le chemin du fichier FXML
-            URL fxmlLocation = getClass().getResource("/Vues/SupprimerVoiture.fxml");
+            URL fxmlLocation = getClass().getResource("/Vues/ModifierVoiture.fxml");
             if (fxmlLocation == null) {
                 showAlert("Erreur", "Le fichier FXML 'SupprimerVoiture' n'a pas été trouvé.");
                 return;
@@ -71,8 +71,40 @@ public class GestionVoituresController {
 
     @FXML
     private void modifierVoiture() {
-        // Placeholder pour la fonctionnalité de modification
-        showAlert("Modifier Voiture", "La fonctionnalité 'Modifier Voiture' sera implémentée ici.");
+      try {
+        // Log: Afficher le chemin du fichier FXML
+        String fxmlPath = "/Vues/ModifierVoiture.fxml";
+        System.out.println("Chargement du fichier FXML : " + fxmlPath);
+
+        // Charger le fichier FXML avec un chemin relatif à partir de src
+        URL fxmlLocation = getClass().getResource(fxmlPath);
+
+        // Log: Vérification si le fichier est trouvé
+        if (fxmlLocation == null) {
+            System.err.println("Le fichier FXML '" + fxmlPath + "' n'a pas été trouvé.");
+            showAlert("Erreur", "Le fichier FXML 'AfficherVoitures.fxml' n'a pas été trouvé.");
+            return;
+        }
+
+        // Log: Afficher le chemin complet du fichier FXML trouvé
+        System.out.println("Le fichier FXML a été trouvé : " + fxmlLocation);
+
+        FXMLLoader loader = new FXMLLoader(fxmlLocation);
+        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Afficher les Voitures");
+        stage.setScene(scene);
+        stage.show();
+
+        // Log: Indication que la scène a été chargée et affichée
+        System.out.println("La scène 'Afficher les Voitures' a été chargée et affichée.");
+
+    } catch (IOException e) {
+        // Log: Détails de l'exception en cas d'échec du chargement
+        System.err.println("Erreur lors du chargement du fichier FXML : " + e.getMessage());
+        e.printStackTrace(); // Affiche le stack trace complet pour diagnostiquer l'erreur
+        showAlert("Erreur", "Impossible de charger la page 'Afficher Voitures'.");
+    }
     }
 
     @FXML
