@@ -1,4 +1,7 @@
 package Modeles.Stocks;
+import Modeles.Exceptions.ArgumentInvalideException;
+import Modeles.Exceptions.QuantiteNegatifException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +56,10 @@ public class Piece_Rechange {
         return prix;
     }
 
-    public void setPrix(double prix) {
+    public void setPrix(double prix) throws ArgumentInvalideException {
+        if (prix < 0) {
+            throw new ArgumentInvalideException("Le prix de la fourniture ne peut pas être négatif.");
+        }
         this.prix = prix;
     }
 
@@ -61,7 +67,11 @@ public class Piece_Rechange {
         return quantiteStock;
     }
 
-    public void setQuantiteStock(int quantiteStock) {
+    public void setQuantiteStock(int quantiteStock) throws QuantiteNegatifException  {
+
+        if (quantiteStock < 0) {
+            throw new QuantiteNegatifException("La quantité en stock ne peut pas être négative.");
+        }
         this.quantiteStock = quantiteStock;
     }
 

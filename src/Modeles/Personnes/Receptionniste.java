@@ -51,6 +51,7 @@ public class Receptionniste extends Employe
     this.ListeEmployes = new ArrayList<Employe>();
     this.ListeServices = new ArrayList<Service>();
     this.ListeFactures = new ArrayList<Facture>();
+    this.listPiecesRechange = new ArrayList<Piece_Rechange>();
 }
 
 public String get_email()
@@ -211,23 +212,53 @@ public ArrayList<Voiture> getListeVoitures()
                                                               ///////////GESTION DES PIECES DE RECHANGE //////////////
 
 
+    public ArrayList<Piece_Rechange> getListPiecesRechange() {
+        return this.listPiecesRechange;
+    }
 
+    // ******** Méthode pour créer une pièce de rechange ***********
+    public void creerPieceRechange(int idPiece, String nom, String description, double prix, int quantiteStock)
+            throws PieceRechangeExisteException, ArgumentInvalideException, QuantiteNegatifException {
+        // Vérification que la liste des pièces de rechange est initialisée
+        if (listPiecesRechange == null) {
+            listPiecesRechange = new ArrayList<>();
+        }
 
-    //**************** Créer Piece_Rechange
+        // Vérification des arguments
+        if (nom == null || nom.isEmpty()) {
+            throw new ArgumentInvalideException("Le nom de la pièce de rechange ne peut pas être vide.");
+        }
+        if (description == null || description.isEmpty()) {
+            throw new ArgumentInvalideException("La description de la pièce de rechange ne peut pas être vide.");
+        }
+        if (prix <= 0) {
+            throw new ArgumentInvalideException("Le prix de la pièce de rechange doit être supérieur à 0.");
+        }
+        if (quantiteStock < 0) {
+            throw new QuantiteNegatifException("La quantité en stock ne peut pas être négative.");
+        }
 
-    public void creerPieceRechange(int idPiece, String nom, String description, double prix, int quantiteStock) {
+        // Vérification des doublons dans la liste
+        for (Piece_Rechange piece : listPiecesRechange) {
+            if (piece.getNom().equalsIgnoreCase(nom)) {
+                throw new PieceRechangeExisteException("Une pièce de rechange avec ce nom existe déjà.");
+            }
+        }
+
+        // Création de la nouvelle pièce
         Piece_Rechange nouvellePiece = new Piece_Rechange(idPiece, nom, description, prix, quantiteStock);
-
         listPiecesRechange.add(nouvellePiece);
 
-        System.out.println("La pièce de rechange a été créée et ajoutée avec succès.");
+        // Message de confirmation
+        System.out.println("La pièce de rechange " + nom + " a été ajoutée avec succès.");
     }
 
 
 
 
 
- //******Supprimer piece rechange
+
+    //******Supprimer piece rechange
     public void supprimerPieceRechange(int idPiece) {
         Iterator<Piece_Rechange> iterator = listPiecesRechange.iterator();
 

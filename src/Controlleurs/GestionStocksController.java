@@ -60,8 +60,28 @@ public class GestionStocksController {
 
     @FXML
     private void ajouterPiece() {
-        showAlert("Ajouter Piece", "La fonctionnalité 'Ajouter Piece' sera implémentée ici.");
-    }
+
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AjouterPieceRechange.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AjouterPieceRechange.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter PieceRechange");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Ajouter PieceRechange'.");
+        }    }
 
     // Supprimer une fourniture
     @FXML
@@ -86,11 +106,32 @@ public class GestionStocksController {
             stage.show();
         } catch (IOException e) {
             showAlert("Erreur", "Impossible de charger la page 'Supprimer Fourniture'.");
-        }     }
+        }
+    }
 
     @FXML
     private void supprimerPiece() {
-        showAlert("supprimer Piece ","La fonctionnalité 'Supprimer Piece' sera implémentée ici.");
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/SupprimerPieceRechange.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'SupprimerPieceRechange' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Supprimer une PieceRechange ");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Supprimer PieceRechange'.");
+        }
     }
 
     // Modifier une fourniture
@@ -143,19 +184,59 @@ public class GestionStocksController {
         } catch (IOException e) {
             e.printStackTrace(); // Affiche les détails de l'exception dans la console
             showAlert("Erreur", "Impossible de charger la page 'Afficher Fournitures'.\n" + e.getMessage());
-        }    }
+        }
+    }
 
     // Modifier une pièce de rechange
     @FXML
     private void modifierPiece() {
-        showAlert("Modifier Pièce de Rechange", "La fonctionnalité 'Modifier Pièce de Rechange' sera implémentée ici.");
-    }
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/ModifierPieceRechange.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'ModifierPieceRechange' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Modifier PieceRechange");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Modifier PieceRechange'.");
+        }    }
 
     // Afficher les pièces de rechange
     @FXML
     private void afficherPieces() {
-        showAlert("Afficher Pièces de Rechange", "La fonctionnalité 'Afficher Pièces de Rechange' sera implémentée ici.");
-    }
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AfficherPieceRechange.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AfficherPieceRechange.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Afficher PieceRechange");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace(); // Affiche les détails de l'exception dans la console
+            showAlert("Erreur", "Impossible de charger la page 'Afficher PieceRechange'.\n" + e.getMessage());
+        }    }
 
     // Méthode pour afficher une alerte
     private void showAlert(String title, String message) {
