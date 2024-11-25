@@ -127,8 +127,9 @@ public class AjouterEmployeController {
                     showAlert("Erreur", "Veuillez sélectionner une spécialité pour le laveur.");
                     return;
                 }
-                Laveur laveur = new Laveur(idCounter, nom, prenom, telephone, adresse, salaire, dateEmbaucheStr, specialiteLaveur);  // Pass the String date and specialization
-                // Ajouter le laveur à la liste ou effectuer l'action nécessaire
+                Laveur laveur = new Laveur(idCounter, nom, prenom, telephone, adresse, salaire, dateEmbaucheStr, specialiteLaveur); 
+                this.receptionniste.getListeEmployes().add(laveur);
+                // Pass the String date and specialization
                 showAlert("Succès", "Laveur ajouté avec succès.");
                 break;
             case "Mécanicien":
@@ -139,19 +140,19 @@ public class AjouterEmployeController {
                     return;
                 }
                 Mecanicien mecanicien = new Mecanicien(idCounter, nom, prenom, telephone, adresse, salaire, specialite, expertise, dateEmbaucheStr);  // Pass the String date
-                // Ajouter le mécanicien à la liste ou effectuer l'action nécessaire
+                this.receptionniste.getListeEmployes().add(mecanicien);
                 showAlert("Succès", "Mécanicien ajouté avec succès.");
                 break;
             case "Chef":
                 Chef chef = new Chef(idCounter, nom, prenom, telephone, adresse, salaire, dateEmbaucheStr);  // Pass the String date
-                // Ajouter le chef à la liste ou effectuer l'action nécessaire
+                this.receptionniste.getListeEmployes().add(chef);
                 showAlert("Succès", "Chef ajouté avec succès.");
                 break;
             default:
                 showAlert("Erreur", "Type d'employé inconnu.");
                 break;
         }
-        System.out.println(this);
+        this.receptionniste.afficherTousLesEmployes();
     }
 
     // Méthode pour afficher une alerte
