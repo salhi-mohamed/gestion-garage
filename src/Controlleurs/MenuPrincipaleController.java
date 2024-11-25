@@ -49,7 +49,7 @@ public class MenuPrincipaleController {
 
     @FXML
     public void ouvrirEmployes(ActionEvent event) {
-       // ouvrirNouvelleScene("/path/to/Employes.fxml", event);
+       ouvrirNouvelleScene("/Vues/GestionEmploye.fxml", event);
     }
 
     @FXML

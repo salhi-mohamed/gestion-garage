@@ -70,7 +70,10 @@ public ArrayList<Voiture> getListeVoitures()
 {
     return this.ListeVoitures;
 }
-
+public ArrayList<Employe> getListeEmployes()
+{
+    return this.ListeEmployes;
+}
 
                                                     /////////GESTION DES FOURNITURES///////////
 

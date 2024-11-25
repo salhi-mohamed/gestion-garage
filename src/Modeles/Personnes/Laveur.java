@@ -55,6 +55,25 @@ public class Laveur extends Employe implements GestionExperience{
         // Initialize the list of voitures
         voitures = new ArrayList<Voiture>();
     }
+    public Laveur(int id, String nom, String prenom, int telephone, String adresse, double salaire, String dateEmbaucheStr, String specialiteLaveur) {
+        super(id, nom, prenom, telephone, adresse, salaire, dateEmbaucheStr);
+        
+        // Set the specialization directly from the passed parameter
+        if ("Extérieur".equalsIgnoreCase(specialiteLaveur)) {
+            this.specialise_exterieur = true;
+            this.specialise_interieur = false;
+        } else if ("Intérieur".equalsIgnoreCase(specialiteLaveur)) {
+            this.specialise_interieur = true;
+            this.specialise_exterieur = false;
+        } else {
+            // Default case if something goes wrong (although this shouldn't happen in the controller)
+            this.specialise_interieur = false;
+            this.specialise_exterieur = false;
+        }
+
+        // Initialize the list of voitures
+        voitures = new ArrayList<Voiture>();
+    }
 
 
 
