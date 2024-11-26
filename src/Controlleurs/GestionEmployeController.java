@@ -13,14 +13,14 @@ import javafx.stage.Stage;
 public class GestionEmployeController {
 
     // Attributs pour les éléments de l'interface utilisateur
-    @FXML private Button btnAjouterClient;
-    @FXML private Button btnSupprimerClient;
-    @FXML private Button btnModifierClient;
-    @FXML private Button btnAfficherClients;
-    @FXML private Button btnAjouterVoiture;
+    @FXML private Button btnAjouterEmploye;
+    @FXML private Button btnSupprimerEmploye;
+    @FXML private Button btnModifierEmploye;
+    @FXML private Button btnAfficherEmployes;
+    /*@FXML private Button btnAjouterVoiture;
     @FXML private Button btnSupprimerVoiture;
     @FXML private Button btnAjouterFourniture;
-    @FXML private Button btnSupprimerFourniture;
+    @FXML private Button btnSupprimerFourniture;*/
     @FXML private Button btnRetour;
 
     // Ajouter un client
@@ -106,13 +106,13 @@ public class GestionEmployeController {
 
     // Afficher la liste des clients
     @FXML
-    private void afficherClients() {
-        try {
+    private void afficherEmployes() {
+         try {
             // Check if the FXML file exists
-            URL fxmlLocation = getClass().getResource("/Vues/AfficherEmploye.fxml");
+            URL fxmlLocation = getClass().getResource("/Vues/AfficherEmployes.fxml");
             if (fxmlLocation == null) {
                 System.out.println("FXML file not found!");
-                showAlert("Erreur", "Le fichier FXML 'AfficherEmploye.fxml' n'a pas été trouvé.");
+                showAlert("Erreur", "Le fichier FXML 'AfficherEmployes.fxml' n'a pas été trouvé.");
                 return;  // Exit the method if the FXML is not found
             } else {
                 System.out.println("FXML file loaded successfully.");
@@ -122,12 +122,14 @@ public class GestionEmployeController {
             FXMLLoader loader = new FXMLLoader(fxmlLocation);
             Scene scene = new Scene(loader.load());
             Stage stage = new Stage();
-            stage.setTitle("Afficher Employes");
+            stage.setTitle("Afficher Employés ");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            showAlert("Erreur", "Impossible de charger la page 'Afficher Employe'.");
-        }    }
+                    e.printStackTrace();  // This will print the full stack trace of the exception
+
+            showAlert("Erreur", "Impossible de charger la page 'Afficher Employes'.");
+        }  }
 
     // Ajouter une voiture à un client
     @FXML

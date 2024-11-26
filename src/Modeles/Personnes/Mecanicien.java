@@ -527,6 +527,15 @@ public String toString() {
             System.out.println("Mécanicien : Niveau Senior - "+experience+" années de travail dans ce garage. ");
         }
     }
+   
+
+    // Setter pour l'expertise
+   
+
+    // Vous pouvez aussi ajouter un autre getter qui retourne l'expertise en tant que chaîne de caractères
+    public String getExpertiseAsString() {
+        return expertise != null ? expertise.toString() : "Aucune expertise";
+    }
   
 }
 
