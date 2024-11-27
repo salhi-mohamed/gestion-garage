@@ -214,4 +214,8 @@ public class Employe extends Personne{
     public void setSalaire(double salaire) {
         this.salaire = salaire;
     }
+
+    public void set_poste(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
