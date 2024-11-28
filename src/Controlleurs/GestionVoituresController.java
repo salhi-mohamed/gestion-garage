@@ -26,33 +26,36 @@ public class GestionVoituresController {
     @FXML
     private Button btnRetour;
     @FXML
-    private void ajouterVoiture() {
-        try {
-            // Vérifier le chemin du fichier FXML
-            URL fxmlLocation = getClass().getResource("/Vues/AjouterVoiture.fxml");
-            if (fxmlLocation == null) {
-                showAlert("Erreur", "Le fichier FXML 'AjouterVoiture.fxml' n'a pas été trouvé.");
-                return;
-            }
-
-            // Charger le fichier FXML
-            FXMLLoader loader = new FXMLLoader(fxmlLocation);
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter une Voiture");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Erreur", "Impossible de charger la page 'Ajouter Voiture' : " + e.getMessage());
+   private void ajouterVoiture() {
+    try {
+        // Vérifier le chemin du fichier FXML
+        URL fxmlLocation = getClass().getResource("/Vues/AjouterVoiture.fxml");
+        if (fxmlLocation == null) {
+            showAlert("Erreur", "Le fichier FXML 'AjouterVoiture.fxml' n'a pas été trouvé.");
+            System.err.println("Erreur : Le fichier FXML 'AjouterVoiture.fxml' n'a pas été trouvé.");
+            return;
         }
+
+        // Charger le fichier FXML
+        FXMLLoader loader = new FXMLLoader(fxmlLocation);
+        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Ajouter une Voiture");
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+        showAlert("Erreur", "Impossible de charger la page 'Ajouter Voiture' : " + e.getMessage());
+        e.printStackTrace(); // Afficher l'exception dans la console
     }
+}
+
 
     @FXML
     private void supprimerVoiture() {
         // Placeholder pour la fonctionnalité de suppression
  try {
             // Vérifier le chemin du fichier FXML
-            URL fxmlLocation = getClass().getResource("/Vues/ModifierVoiture.fxml");
+            URL fxmlLocation = getClass().getResource("/Vues/SupprimerVoiture.fxml");
             if (fxmlLocation == null) {
                 showAlert("Erreur", "Le fichier FXML 'SupprimerVoiture' n'a pas été trouvé.");
                 return;
