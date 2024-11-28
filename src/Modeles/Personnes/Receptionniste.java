@@ -1,5 +1,10 @@
 package Modeles.Personnes;
+//import DAO.ClientDAO;
 import Modeles.Personnes.Client;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.time.LocalDate;
@@ -33,6 +38,10 @@ public class Receptionniste extends Employe
    private ArrayList<Facture> ListeFactures;
    String mdp;
 
+   ///////////////////db/////////////////
+   // private ClientDAO clientDAO;
+
+
     // Constructeur
    public Receptionniste(int id, String nom, String prenom, int telephone, String adresse, double salaire, String date_embauche, int numeroBureau, String email, String mdp) {
     // Appel du constructeur de la classe parente Employe pour initialiser les attributs hérités
@@ -52,7 +61,18 @@ public class Receptionniste extends Employe
     this.ListeServices = new ArrayList<Service>();
     this.ListeFactures = new ArrayList<Facture>();
     this.listPiecesRechange = new ArrayList<Piece_Rechange>();
-}
+// Création de la connexion à la base de données
+       /*try {
+           Connection connection = DriverManager.getConnection(
+                   "jdbc:oracle:thin:@localhost:49161:xe", "Gestion_Garage_Auto", "123456");
+
+           // Initialisation du clientDAO avec la connexion
+           this.clientDAO = new ClientDAO(connection);
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }*/
+   }
+
 
 public String get_email()
 {
@@ -1110,26 +1130,63 @@ public ArrayList<Employe> getListeEmployes()
 
 
                                /////////// GESTION DES CLIENTS/////////////////////////
-    //**********************CREER UN CLIENT************************************
-public void creerClient(int id, String nom, String prenom, int telephone, String adresse, String statutFinancier) throws ClientExisteException {
-    // Création d'un nouveau client avec les informations fournies
-    Client client = new Client(id, nom, prenom, telephone, adresse, statutFinancier);
 
-    // Vérifier si un client avec le même ID existe déjà dans la liste
-    for (Client c : listeClients) {
-        if (c.get_id() == client.get_id()) {  // Comparaison basée sur l'ID
-            throw new ClientExisteException("Un client avec cet ID existe déjà.");
+    //**********************CREER UN CLIENT************************************
+
+    public void creerClient(int id, String nom, String prenom, int telephone, String adresse, String statutFinancier) throws ClientExisteException {
+        // Création d'un nouveau client avec les informations fournies
+        Client client = new Client(id, nom, prenom, telephone, adresse, statutFinancier);
+
+        // Vérifier si un client avec le même ID existe déjà dans la liste
+        for (Client c : listeClients) {
+            if (c.get_id() == client.get_id()) {  // Comparaison basée sur l'ID
+                throw new ClientExisteException("Un client avec cet ID existe déjà.");
+            }
         }
+
+        // Si le client n'existe pas, on l'ajoute à la liste des clients
+        listeClients.add(client);
+        System.out.println("Client créé et ajouté à la liste des clients. ");
+    }
+    public ArrayList<Client> get_liste_clients()
+    {
+        return this.listeClients;
     }
 
-    // Si le client n'existe pas, on l'ajoute à la liste des clients
-    listeClients.add(client);
-    System.out.println("Client créé et ajouté à la liste des clients. ");
-}
-public ArrayList<Client> get_liste_clients()
-{
-    return this.listeClients;
-}
+
+   /* public void creerClient(int id, String nom, String prenom, int telephone, String adresse, String statutFinancier) throws ClientExisteException, SQLException {
+        // Vérifier si clientDAO est nul et l'initialiser si nécessaire
+        if (clientDAO == null) {
+            // Créer une connexion à la base de données
+            Connection connection = null;
+            try {
+                // Remplacez les paramètres par vos propres valeurs de base de données
+                connection = DriverManager.getConnection(
+                        "jdbc:mysql://localhost:3306/votre_base_de_donnees", "root", "mot_de_passe");
+                clientDAO = new ClientDAO(connection); // Passer la connexion au constructeur
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new SQLException("Erreur de connexion à la base de données.");
+            }
+        }
+
+        // Vérifier si un client avec le même ID existe dans la base de données
+        if (clientDAO.clientExiste(id)) {
+            throw new ClientExisteException("Un client avec cet ID existe déjà.");
+        }
+
+        // Si le client n'existe pas, créer un nouvel objet client
+        Client client = new Client(id, nom, prenom, telephone, adresse, statutFinancier);
+
+        // Ajouter le client à la base de données via le DAO
+        clientDAO.creerClient(id,nom,prenom,telephone,adresse,statutFinancier);
+        System.out.println("Client créé et ajouté à la base de données.");
+    }*/
+
+
+
+
+
 
 
   

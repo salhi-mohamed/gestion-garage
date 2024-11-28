@@ -21,7 +21,7 @@ public class AjouterVoitureClientController {
         // Charger la liste des clients dans le ComboBox
         clientsList = FXCollections.observableArrayList(MenuPrincipaleController.receptionnisteConnecte.get_liste_clients());  // Utiliser receptionnisteConnecte du MenuPrincipaleController
         comboBoxClients.setItems(clientsList);
-        
+
         // Utiliser un cell factory pour personnaliser l'affichage des éléments dans la ComboBox
         comboBoxClients.setCellFactory(listView -> new ListCell<Client>() {
             @Override

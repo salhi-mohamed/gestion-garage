@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-alignment: center; -fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.LoginController">
+<StackPane prefHeight="600.0" prefWidth="800.0" style="-fx-alignment: center; -fx-background-color: linear-gradient(to bottom, #1c1c1c, #434343);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.LoginController">
+    <!-- Conception principale -->
+    <HBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="0">
 
-    <!-- Mise en page en HBox avec une colonne pour le login et une image de fond -->
-    <HBox prefWidth="800" prefHeight="600" style="-fx-background-color: transparent; -fx-padding: 0;">
-    
-        <!-- Partie gauche avec formulaire de connexion -->
-        <VBox alignment="CENTER" spacing="20" style="-fx-background-color: rgba(255, 255, 255, 0.85); -fx-background-radius: 12px; -fx-padding: 30px; -fx-pref-width: 350px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 4, 0, 4);">
-        
-            <!-- Titre de la page -->
-            <Text fx:id="loginTitle"
-                  style="-fx-font-family: 'Roboto', sans-serif;
-                         -fx-font-size: 26px;
-                         -fx-font-weight: bold;
-                         -fx-fill: #2c3e50;
-                         -fx-text-alignment: center;"
-                  text="Connexion AutoMécano" />
+        <!-- Section de gauche : Image et branding -->
+        <StackPane prefWidth="400.0" style="-fx-background-color: linear-gradient(to top, #1c1c1c, #2c3e50);">
+            <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <!-- Remplacez ce chemin par une image pertinente (logo, véhicule, etc.) -->
+                    <Image url="@/Images/Logo.jpg"> </Image>
+                </image>
+            </ImageView>
+            <Text style="-fx-font-size: 22px; -fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-fill: white; -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 4);" />
+        </StackPane>
 
-            <!-- Champ pour l'email -->
-            <TextField fx:id="emailField" promptText="Email" prefWidth="280" style="-fx-background-color: #ecf0f1; -fx-border-radius: 25px; -fx-padding: 10px 20px; -fx-font-size: 14px;" />
+        <!-- Section de droite : Formulaire -->
+        <VBox alignment="CENTER" spacing="20" style="-fx-background-color: #f4f4f4; -fx-padding: 40px; -fx-background-radius: 0 10 10 0;">
 
-            <!-- Champ pour le mot de passe -->
-            <PasswordField fx:id="passwordField" promptText="Mot de passe" prefWidth="280" style="-fx-background-color: #ecf0f1; -fx-border-radius: 25px; -fx-padding: 10px 20px; -fx-font-size: 14px;" />
+            <!-- Titre -->
+            <Text style="-fx-font-size: 28px; -fx-font-family: 'Roboto'; -fx-font-weight: bold; -fx-fill: #2c3e50;" text="Connexion" />
 
-            <!-- Bouton de connexion -->
-            <Button fx:id="loginButton" onAction="#handleLogin" text="Se connecter" prefWidth="280" style="-fx-font-size: 16px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10px 0; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 3, 0, 5);" />
+            <!-- Champ email -->
+            <TextField fx:id="emailField" prefWidth="280" promptText="Email" style="-fx-background-color: #eaeaea; -fx-border-color: #bdc3c7; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px 15px; -fx-font-size: 14px;" />
+
+            <!-- Champ mot de passe -->
+            <PasswordField fx:id="passwordField" prefWidth="280" promptText="Mot de passe" style="-fx-background-color: #eaeaea; -fx-border-color: #bdc3c7; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-padding: 10px 15px; -fx-font-size: 14px;" />
+
+            <!-- Bouton connexion -->
+            <Button fx:id="loginButton" onAction="#handleLogin" prefWidth="280" style="-fx-font-size: 16px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10px 0; -fx-border-radius: 25px; -fx-background-radius: 25px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 3, 0, 5);" text="Se connecter" />
+
+            <!-- Lien mot de passe oublié -->
+            <Text onMouseClicked="#handleForgotPassword" style="-fx-font-size: 14px; -fx-fill: #3498db; -fx-underline: true; -fx-cursor: hand;" text="Mot de passe oublié ?" />
 
         </VBox>
-
-        <!-- Partie droite avec un arrière-plan dynamique -->
-        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: linear-gradient(to bottom right, #3498db, #2c3e50); -fx-pref-width: 450px; -fx-background-radius: 12px;">
-            <!-- Vous pouvez ajouter des effets comme une image floue ou des éléments géométriques ici -->
-        </VBox>
-        
     </HBox>
 </StackPane>

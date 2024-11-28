@@ -45,6 +45,8 @@ public class AjouterClientController {
         } catch (ClientExisteException e) {
             showAlert("Erreur", "Ce client existe déjà.");
         } catch (Exception e) {
+            e.printStackTrace();  // Affiche la trace d'exception dans la console
+
             showAlert("Erreur", "Une erreur est survenue lors de l'ajout du client.");
         }
     }

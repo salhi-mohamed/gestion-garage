@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane prefHeight="879.0" prefWidth="1237.0" style="-fx-alignment: center; -fx-padding: 50px;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.BienvenueController">
+<StackPane prefHeight="879.0" prefWidth="1237.0" stylesheets="@BienvenueStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.BienvenueController">
 
     <!-- Image de fond -->
-    <ImageView fx:id="backgroundImage" fitHeight="600" fitWidth="900" />
+    <ImageView fx:id="backgroundImage" fitHeight="600" fitWidth="900" styleClass="image-view" />
 
-    <!-- Contenu de la page -->
-    <VBox alignment="CENTER" spacing="50" style="-fx-background-color: transparent;">
+    <!-- Contenu principal -->
+    <VBox alignment="CENTER" spacing="30">
+        <!-- Logo -->
+        <ImageView fx:id="logoImage" fitHeight="226.0" fitWidth="250.0" styleClass="logo" />
 
-        <!-- Texte de bienvenue déplacé vers le haut -->
-<Text fx:id="bienvenueText" style="-fx-font-family: 'Montserrat', sans-serif;              -fx-font-size: 36px;              -fx-font-weight: bold;              -fx-fill: linear-gradient(to right, #2c3e50, #34495e);              -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 12, 4, 0, 4);              -fx-text-alignment: center;              -fx-stroke: #fff;              -fx-stroke-width: 1px;" text="Bienvenue dans l'Application AutoMécano" />
+        <!-- Texte de bienvenue -->
+        <Text fx:id="bienvenueText" styleClass="welcome-text" text="Bienvenue dans l'Application AutoMécano" wrappingWidth="852.75" />
 
-        <!-- Espacement dynamique pour garantir que le bouton se trouve en bas -->
-        <VBox VBox.vgrow="ALWAYS" />
+        <!-- Ligne décorative -->
+        <Line endX="600" startX="0" styleClass="line" />
 
-        <!-- Bouton "Commencer" stylisé -->
-        <Button fx:id="startButton" onAction="#commencer" prefHeight="51.0" prefWidth="197.0" style="-fx-font-size: 18px;                         -fx-background-color: linear-gradient(to right, #2C3E50, #34495E);                         -fx-text-fill: white;                         -fx-padding: 15px 30px;                         -fx-border-radius: 30px;                         -fx-background-radius: 30px;                        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);" text="Commencer">
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin></Button>
+        <!-- Texte secondaire -->
+        <Text fx:id="subText" styleClass="sub-text" text="Simplifiez la gestion de votre garage avec AutoMécano." />
 
-        <!-- Espacement pour maintenir le texte en haut -->
-        <VBox.margin>
-            <Insets top="100.0" />
-        </VBox.margin>
+        <!-- Bouton "Commencer" -->
+        <Button fx:id="startButton" onAction="#commencer" styleClass="start-button" text="Commencer" />
     </VBox>
 </StackPane>
