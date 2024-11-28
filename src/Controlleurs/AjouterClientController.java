@@ -1,7 +1,7 @@
 package Controlleurs;
 
-
 import Modeles.Exceptions.ClientExisteException;
+import Modeles.Personnes.Client;
 import Modeles.Personnes.Receptionniste;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 public class AjouterClientController {
 
     private Receptionniste receptionnisteConnecte;  // Référence au réceptionniste connecté
+    private AjouterVoitureController ajouterVoitureController;  // Référence à AjouterVoitureController
 
     private static int dernierIdClient = 0;  // Variable statique pour générer des IDs uniques
 
@@ -25,6 +26,11 @@ public class AjouterClientController {
         } else {
             showAlert("Erreur", "Aucun réceptionniste connecté.");
         }
+    }
+
+    // Méthode pour lier le contrôleur AjouterVoitureController
+    public void setAjouterVoitureController(AjouterVoitureController controller) {
+        this.ajouterVoitureController = controller;
     }
 
     public void ajouterClient() {
@@ -42,6 +48,12 @@ public class AjouterClientController {
             // Utiliser le réceptionniste pour ajouter un client avec le nouvel ID
             receptionnisteConnecte.creerClient(dernierIdClient, nom, prenom, telephone, adresse, statutFinancier);
             showAlert("Succès", "Client ajouté avec succès !");
+
+            // Mettre à jour la TableView dans AjouterVoitureController
+            if (ajouterVoitureController != null) {
+                ajouterVoitureController.updateClientsTable();
+            }
+
         } catch (ClientExisteException e) {
             showAlert("Erreur", "Ce client existe déjà.");
         } catch (Exception e) {

@@ -7,11 +7,18 @@ import java.util.InputMismatchException;
 import java.util.HashSet;
 import Modeles.Gestion_Service.Voiture;
 import Modeles.Exceptions.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Client extends Personne {
     private HashSet<Voiture> voitures;  // Liste des voitures du client
     private String statutFinancier;  
     private ArrayList<Fourniture>  fournitures_achetees ;// Statut financier du client
+     private final IntegerProperty idProperty = new SimpleIntegerProperty();
+    private final StringProperty nomProperty = new SimpleStringProperty();
+    private final StringProperty prenomProperty = new SimpleStringProperty();
 
     // Constructeur
     public Client(int id, String nom, String prenom, int telephone, String adresse, String statutFinancier) {
@@ -256,12 +263,21 @@ public String toString() {
         this.voitures.add(v);
     }
 
-    public Object idProperty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   
+     public IntegerProperty idProperty() {
+        return new SimpleIntegerProperty(this.get_id());
     }
 
-    public void nomProperty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public StringProperty nomProperty() {
+        return new SimpleStringProperty(this.get_nom());
+    }
+
+    public StringProperty prenomProperty() {
+        return new SimpleStringProperty(this.get_prenom());
+    }
+
+    public StringProperty statutFinancierProperty() {
+        return new SimpleStringProperty(this.getStatutFinancier());
     }
 
 

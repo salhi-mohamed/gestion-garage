@@ -129,29 +129,31 @@ public class GestionClientsController {
 
     // Ajouter une voiture à un client
     @FXML
-    private void ajouterVoiture() {
-          try {
-            // Check if the FXML file exists
-            URL fxmlLocation = getClass().getResource("/Vues/AjouterVoitureClient.fxml");
-            if (fxmlLocation == null) {
-                System.out.println("FXML file not found!");
-                showAlert("Erreur", "Le fichier FXML 'AjouterVoitureClient.fxml' n'a pas été trouvé.");
-                return;  // Exit the method if the FXML is not found
-            } else {
-                System.out.println("FXML file loaded successfully.");
-            }
+   private void ajouterVoiture() {
+    try {
+        // Check if the FXML file exists
+        URL fxmlLocation = getClass().getResource("/Vues/AjouterVoitureClient.fxml");
+        if (fxmlLocation == null) {
+            System.out.println("FXML file not found!");
+            showAlert("Erreur", "Le fichier FXML 'AjouterVoitureClient.fxml' n'a pas été trouvé.");
+            return;  // Exit the method if the FXML is not found
+        } else {
+            System.out.println("FXML file loaded successfully.");
+        }
 
-            // Proceed with loading the FXML file
-            FXMLLoader loader = new FXMLLoader(fxmlLocation);
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter Voiture à un client ");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Erreur", "Impossible de charger la page 'Ajouter Voiture '.");
-        } 
+        // Proceed with loading the FXML file
+        FXMLLoader loader = new FXMLLoader(fxmlLocation);
+        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Ajouter Voiture à un client ");
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();  // Print the stack trace for debugging
+        showAlert("Erreur", "Impossible de charger la page 'Ajouter Voiture '.");
     }
+}
+
 
     // Supprimer une voiture d'un client
     @FXML
