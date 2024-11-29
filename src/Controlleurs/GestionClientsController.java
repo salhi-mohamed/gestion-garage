@@ -214,8 +214,30 @@ try {
     // Supprimer une fourniture d'un client
     @FXML
     private void supprimerFourniture() {
-         
-    }
+     try {
+        // Check if the FXML file exists
+        URL fxmlLocation = getClass().getResource("/Vues/SupprimerFournitureClient.fxml");
+        if (fxmlLocation == null) {
+            System.out.println("FXML file not found!");
+            showAlert("Erreur", "Le fichier FXML 'AjouterFournitureClient' n'a pas été trouvé.");
+            return;  // Exit the method if the FXML is not found
+        } else {
+            System.out.println("FXML file loaded successfully.");
+        }
+
+        // Proceed with loading the FXML file
+        FXMLLoader loader = new FXMLLoader(fxmlLocation);
+        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        stage.setTitle("Ajouter une fourniture à un client");
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+        // Afficher l'erreur dans la console
+        e.printStackTrace();  // This will print the full stack trace of the exception
+        showAlert("Erreur", "Impossible de charger la page 'Ajouter Fourniture Client'.");
+        
+    }}
 
     // Méthode pour afficher une alerte
     private void showAlert(String title, String message) {

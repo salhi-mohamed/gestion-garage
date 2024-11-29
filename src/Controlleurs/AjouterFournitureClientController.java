@@ -30,6 +30,9 @@ public class AjouterFournitureClientController {
     private TableColumn<Fourniture, Double> prixColumn;
 
     @FXML
+    private TableColumn<Fourniture, Integer> quantiteColumn;  // Nouvelle colonne pour la quantité
+
+    @FXML
     public void initialize() {
         // Récupérer le réceptionniste connecté depuis MenuPrincipaleController
         receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte;
@@ -71,6 +74,7 @@ public class AjouterFournitureClientController {
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         prixColumn.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        quantiteColumn.setCellValueFactory(new PropertyValueFactory<>("quantiteStock"));  // Nouvelle colonne pour la quantité
 
         fournitureTableView.getItems().setAll(receptionnisteConnecte.getListeFournitures());
     }
@@ -85,9 +89,23 @@ public class AjouterFournitureClientController {
             return;
         }
 
+        // Vérifier si la quantité en stock est suffisante
+        int quantiteDispo = selectedFourniture.getQuantiteStock();
+        if (quantiteDispo <= 0) {
+            showAlert("Erreur", "La fourniture sélectionnée n'est plus en stock.");
+            return;
+        }
+
         // Appeler la méthode pour ajouter la fourniture au client
         try {
             receptionnisteConnecte.ajouter_fourniture_client(selectedFourniture.getIdFourniture(), selectedClient.get_id());
+
+            // Réduire la quantité en stock après ajout
+            selectedFourniture.setQuantiteStock(quantiteDispo - 1);
+
+            // Mettre à jour le TableView
+            fournitureTableView.refresh(); // Rafraîchir le tableau pour afficher la nouvelle quantité
+
             showAlert("Succès", "La fourniture a été ajoutée au client.");
         } catch (Exception e) {
             showAlert("Erreur", "Une erreur est survenue lors de l'ajout de la fourniture au client.");
