@@ -57,12 +57,16 @@
         <Button text="Gestion des Factures" fx:id="btnFactures" onAction="#ouvrirFactures"
                 style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
                 minWidth="250" maxWidth="250" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+
+
         <Button text="Gestion des Services" fx:id="btnServices" onAction="#ouvrirServices"
                 style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
-                minWidth="250" maxWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                minWidth="250" maxWidth="250" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+
         <Button text="Gestion du Stock" fx:id="btnStock" onAction="#ouvrirStock"
                 style="-fx-font-size: 18px; -fx-background-color: linear-gradient(to right, #2C3E50, #34495E); -fx-text-fill: white; -fx-padding: 15px 30px; -fx-border-radius: 30px; -fx-background-radius: 30px; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 5);"
                 minWidth="250" maxWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
 
     </GridPane>
 </StackPane>

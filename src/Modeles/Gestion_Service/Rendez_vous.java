@@ -1,52 +1,27 @@
 package Modeles.Gestion_Service;
+
 import Modeles.Personnes.Client;
-import java.util.ArrayList;
-import java.util.Date;
-import Modeles.Gestion_Service.Service;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Scanner;
-
-
+import java.time.LocalTime;
 
 public class Rendez_vous {
-    //attribut
-   private int id_rendez_vous;
-   private LocalDate Date_rendez_vous;
-   private String Description_rendez_vous;
-   private StatutRendezVous statut;
-   private Voiture voiture;
-   private Client client;
+    private int id_rendez_vous;
+    private LocalDate Date_rendez_vous;
+    private String Description_rendez_vous;
+    private StatutRendezVous statut;
+    private Voiture voiture;
+    private Client client;
 
-
-
-
-
-    // Constructeur
-    public Rendez_vous(int id_rendez_vous, String Description_rendez_vous, Voiture voiture, Client client) {
+    public Rendez_vous(int id_rendez_vous, String Description_rendez_vous, Voiture voiture, Client client, LocalDate Date_rendez_vous, StatutRendezVous statut) {
         this.id_rendez_vous = id_rendez_vous;
         this.Description_rendez_vous = Description_rendez_vous;
         this.voiture = voiture;
         this.client = client;
-        this.statut = StatutRendezVous.EN_ATTENTE;  // Statut initial du rendez-vous
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Scanner scanner = new Scanner(System.in);
-        boolean dateValide = false;
-        while (!dateValide) {
-            System.out.println("Veuillez entrer la date du rendez-vous (format: dd/MM/yyyy) : ");
-            String dateInput = scanner.nextLine();
-            try {
-                this.Date_rendez_vous = LocalDate.parse(dateInput, formatter);
-                dateValide = true;
-            } catch (DateTimeParseException e) {
-                System.out.println("Format de date invalide. Utilisez le format dd/MM/yyyy.");
-            }
-        }
+        this.Date_rendez_vous = Date_rendez_vous;
+        this.statut = statut;
     }
 
-
-   //geter et seter
+    // Getters et setters
     public int getId_rendez_vous() {
         return id_rendez_vous;
     }
@@ -63,10 +38,13 @@ public class Rendez_vous {
         Description_rendez_vous = description_rendez_vous;
     }
 
-   public LocalDate getDate_rendez_vous() {
+    public LocalDate getDate_rendez_vous() {
         return Date_rendez_vous;
     }
 
+    public void setDate_rendez_vous(LocalDate Date_rendez_vous) {
+        this.Date_rendez_vous = Date_rendez_vous;
+    }
 
     public StatutRendezVous getStatut() {
         return statut;
@@ -92,8 +70,6 @@ public class Rendez_vous {
         this.client = client;
     }
 
-                         /////////Mehode */////////////
-
     // Méthode pour annuler le rendez-vous
     public void annulerRendezVous() {
         if (this.statut != StatutRendezVous.ANNULE) {
@@ -104,14 +80,7 @@ public class Rendez_vous {
         }
     }
 
-
-    public void ajouter_client(Client C){
-        
-    {
-        this.client=client;
-    }
-    }
-
+    // Affichage des détails du rendez-vous
     public void afficherRendezVous() {
         System.out.println("=== Détails du Rendez-vous ===");
         System.out.println("ID : " + id_rendez_vous);
@@ -134,7 +103,6 @@ public class Rendez_vous {
         System.out.println("===============================");
     }
 
-
     // Redéfinition de la méthode toString
     @Override
     public String toString() {
@@ -147,18 +115,4 @@ public class Rendez_vous {
     }
 
 
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

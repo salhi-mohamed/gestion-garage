@@ -54,7 +54,7 @@ public class MenuPrincipaleController {
 
     @FXML
     public void ouvrirRendezVous(ActionEvent event) {
-        // ouvrirNouvelleScene("/path/to/RendezVous.fxml", event);
+        ouvrirNouvelleScene("/Vues/GestionRendezVous.fxml", event);
     }
 
     @FXML

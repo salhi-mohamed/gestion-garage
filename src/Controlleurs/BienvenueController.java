@@ -72,14 +72,15 @@ public class BienvenueController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vues/Login.fxml"));
             Parent root = loader.load();
 
-            // Obtenir le stage actuel
+
+            // Obtenir le stage actuel (fenêtre)
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Définir les mêmes dimensions que la scène actuelle
+            // Obtenir les dimensions actuelles du stage (fenêtre)
             double currentWidth = stage.getWidth();
             double currentHeight = stage.getHeight();
 
-            // Définir la nouvelle scène avec la même taille
+            // Créer la nouvelle scène avec les mêmes dimensions
             Scene scene = new Scene(root, currentWidth, currentHeight);
             stage.setScene(scene);
 

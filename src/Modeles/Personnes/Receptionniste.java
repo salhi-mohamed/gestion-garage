@@ -53,7 +53,7 @@ public class Receptionniste extends Employe
     this.mdp = mdp; // Initialisation du mot de passe (à ajouter selon votre logique)
     
     // Initialisation des listes pour gérer les différentes entités associées
-    this.listeRendezVous = new ArrayList<>();
+    this.listeRendezVous = new ArrayList<Rendez_vous>();
     this.listeClients = new ArrayList<>();
     this.ListeVoitures = new ArrayList<Voiture>();
     this.listeFournitures = new ArrayList<Fourniture>();
@@ -95,7 +95,11 @@ public ArrayList<Employe> getListeEmployes()
     return this.ListeEmployes;
 }
 
-                                                    /////////GESTION DES FOURNITURES///////////
+    public ArrayList<Rendez_vous> getListeRendezVous() {
+        return this.listeRendezVous;
+    }
+
+/////////GESTION DES FOURNITURES///////////
 
 
     public ArrayList<Fourniture> getListeFournitures() {
@@ -2219,7 +2223,7 @@ public void modifierEmploye(int id) {
 
 
 
-
+/*
 public void creerRendezVous(int idRendezVous, String description, int idClient, String immatriculationVoiture) {
     // Vérification du client
     Client client = listeClients.stream()
@@ -2264,7 +2268,88 @@ public void creerRendezVous(int idRendezVous, String description, int idClient, 
     System.out.println("ID du rendez-vous : " + idRendezVous);
     rendezVous.toString();
 }
-// Méthode pour afficher le niveau d'un employé par son ID
+*/
+
+
+    public void creerRendezVous(int idRendezVous, String description, int idClient, String immatriculationVoiture, LocalDate date, String statut) {
+        // Vérification du client
+        Client client = listeClients.stream()
+                .filter(c -> c.get_id() == idClient)
+                .findFirst()
+                .orElse(null);
+
+        if (client == null) {
+            System.out.println("Client introuvable !");
+            throw new IllegalArgumentException("Client introuvable");
+        }
+
+        // Vérification de la voiture dans la liste générale des voitures
+        Voiture voitureGenerale = ListeVoitures.stream()
+                .filter(v -> v.get_immatriculation().equals(immatriculationVoiture))
+                .findFirst()
+                .orElse(null);
+
+        if (voitureGenerale == null) {
+            System.out.println("La voiture avec l'immatriculation " + immatriculationVoiture + " n'existe pas dans la liste générale des voitures !");
+            throw new IllegalArgumentException("Voiture non trouvée dans la liste générale");
+        }
+
+        // Vérification que la voiture appartient bien au client
+        Voiture voitureClient = client.getVoitures().stream()
+                .filter(v -> v.get_immatriculation().equals(immatriculationVoiture))
+                .findFirst()
+                .orElse(null);
+
+        if (voitureClient == null) {
+            System.out.println("La voiture avec l'immatriculation " + immatriculationVoiture + " n'appartient pas au client !");
+            throw new IllegalArgumentException("La voiture ne appartient pas au client");
+        }
+
+        // Création du rendez-vous avec l'ID, description, client, voiture, date, heure et statut
+        Rendez_vous rendezVous = new Rendez_vous(idRendezVous, description, voitureClient, client, date, StatutRendezVous.valueOf(statut));
+
+        // Ajout du rendez-vous à la liste globale
+        listeRendezVous.add(rendezVous);
+
+        System.out.println("Rendez-vous créé avec succès !");
+        System.out.println("ID du rendez-vous : " + idRendezVous);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Méthode pour afficher le niveau d'un employé par son ID
       private int calculerExperience(Employe employe) {
         // Logique pour calculer l'expérience en fonction de la date d'embauche
         // (par exemple, en utilisant la date actuelle et la date d'embauche)
@@ -2327,6 +2412,7 @@ public void creerRendezVous(int idRendezVous, String description, int idClient, 
             System.out.println(employe.get_nom() + " " + employe.get_prenom() + " - Expérience : " + calculerExperience(employe) + " années");
         }
     }
+
 
 
 }
