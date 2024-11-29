@@ -17,8 +17,11 @@
             <TableColumn fx:id="nomColumn" text="Nom" prefWidth="150"/>
             <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="150"/>
             <TableColumn fx:id="prixColumn" text="Prix" prefWidth="100"/>
+            <!-- Nouvelle colonne pour la quantité en stock -->
+            <TableColumn fx:id="quantiteColumn" text="Quantité en Stock" prefWidth="100"/>
         </columns>
     </TableView>
 
     <Button text="Ajouter Fourniture au Client" onAction="#ajouterFournitureClient"/>
 </VBox>
+
