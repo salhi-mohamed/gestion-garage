@@ -3,6 +3,7 @@ package Controlleurs;
 import Modeles.Personnes.Client;
 import Modeles.Personnes.Receptionniste;
 import Modeles.Gestion_Service.Voiture;
+import Modeles.Stocks.Fourniture;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -166,7 +167,7 @@ public class AfficherClientsController {
         stage.show();
     }
 
-    private void afficherFournituresClient(Client client) {
+  private void afficherFournituresClient(Client client) {
     Stage stage = new Stage();
     stage.setTitle("Fournitures achetées par " + client.get_nom() + " " + client.get_prenom());
 
@@ -184,9 +185,9 @@ public class AfficherClientsController {
 
     tableFournitures.getColumns().add(colFourniture);
 
-    // Conversion des objets Fourniture en String
+    // Conversion des objets Fourniture en String (sans la quantité)
     List<String> fournituresAsStrings = client.getFournituresAchetees().stream()
-        .map(fourniture -> fourniture.toString()) // Ou utilisez une méthode spécifique, ex. fourniture.getNom()
+        .map(fourniture -> fourniture.getNom()) // Utiliser un attribut comme le nom de la fourniture
         .toList();
 
     tableFournitures.getItems().addAll(fournituresAsStrings);
@@ -205,6 +206,8 @@ public class AfficherClientsController {
     stage.setHeight(450);
     stage.show();
 }
+
+
 
 
   

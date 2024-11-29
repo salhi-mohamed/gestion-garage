@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Pos?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.AjouterFournitureClientController" spacing="20" padding="20">
-
-    <!-- Section pour afficher les clients -->
-    <HBox alignment="CENTER" spacing="20">
-        <Label text="Clients Disponibles:"/>
-    </HBox>
-    <TableView fx:id="tableViewClients" prefHeight="200">
-        <TableColumn fx:id="colonneNomClient" text="Nom du Client" prefWidth="200"/>
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.AjouterFournitureClientController">
+    <Label text="Sélectionner un client"/>
+    <ComboBox fx:id="clientComboBox" prefWidth="200"/>
+    
+    <Label text="Sélectionner une fourniture"/>
+    <TableView fx:id="fournitureTableView" prefHeight="200" prefWidth="400">
+        <columns>
+            <TableColumn fx:id="nomColumn" text="Nom" prefWidth="150"/>
+            <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="150"/>
+            <TableColumn fx:id="prixColumn" text="Prix" prefWidth="100"/>
+        </columns>
     </TableView>
 
-    <!-- Section pour afficher les fournitures -->
-    <HBox alignment="CENTER" spacing="20">
-        <Label text="Fournitures Disponibles:"/>
-    </HBox>
-    <TableView fx:id="tableViewFournitures" prefHeight="200">
-        <TableColumn fx:id="colonneNomFourniture" text="Nom de la Fourniture" prefWidth="200"/>
-        <TableColumn fx:id="colonnePrixFourniture" text="Prix" prefWidth="100"/>
-    </TableView>
-
-    <!-- Bouton pour ajouter la fourniture au client -->
-    <HBox alignment="CENTER" spacing="20">
-        <Button fx:id="boutonAjouterFourniture" text="Ajouter Fourniture" onAction="#ajouterFourniture"/>
-    </HBox>
-
+    <Button text="Ajouter Fourniture au Client" onAction="#ajouterFournitureClient"/>
 </VBox>
