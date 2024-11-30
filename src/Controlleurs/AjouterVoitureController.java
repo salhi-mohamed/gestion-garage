@@ -112,6 +112,7 @@ public class AjouterVoitureController {
             Voiture voiture = new Voiture(marque, modele, annee, kilometrage, immatriculation, selectedClient);
             receptionniste.ListeVoitures.add(voiture);
             selectedClient.ajouterVoiture(voiture);
+            receptionniste.afficherVoitures();
 
             // Afficher un message de succès
             showAlert("Succès", "Voiture ajoutée avec succès !");
