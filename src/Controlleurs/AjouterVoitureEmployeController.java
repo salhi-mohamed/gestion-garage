@@ -1,5 +1,6 @@
 package Controlleurs;
 
+import Modeles.Exceptions.VoitureExistanteDejaPourLavMecException;
 import Modeles.Gestion_Service.Voiture;
 import Modeles.Personnes.Employe;
 import Modeles.Personnes.Receptionniste;
@@ -76,32 +77,39 @@ public class AjouterVoitureEmployeController {
     }
 
     @FXML
-    public void ajouterVoitureEmploye() {
-        Employe selectedEmploye = employeComboBox.getSelectionModel().getSelectedItem();
-        Voiture selectedVoiture = voitureTableView.getSelectionModel().getSelectedItem();
+   
 
-        if (selectedEmploye == null || selectedVoiture == null) {
-            showAlert("Erreur", "Veuillez sélectionner un employé et une voiture.");
-            return;
-        }
+public void ajouterVoitureEmploye() {
+    // Récupérer les sélections dans l'interface
+    Employe selectedEmploye = employeComboBox.getSelectionModel().getSelectedItem();
+    Voiture selectedVoiture = voitureTableView.getSelectionModel().getSelectedItem();
 
-       
-    
-
-        try {
-            receptionnisteConnecte.ajouterVoitureMecLaveur(selectedEmploye.get_id(), selectedVoiture.getImmatriculation());
-
-         
-
-            // Mettre à jour le TableView
-            voitureTableView.refresh(); // Rafraîchir le tableau pour afficher la nouvelle quantité
-
-            showAlert("Succès", "La voiture a été ajoutée à l'employé.");
-        } catch (Exception e) {
-            showAlert("Erreur", "Une erreur est survenue lors de l'ajout de la voiture à l'employé.");
-            e.printStackTrace();
-        }
+    // Vérifier si un employé et une voiture ont été sélectionnés
+    if (selectedEmploye == null || selectedVoiture == null) {
+        showAlert("Erreur", "Veuillez sélectionner un employé et une voiture.");
+        return; // Terminer si aucune sélection
     }
+
+    try {
+        // Appeler la méthode pour associer la voiture à l'employé
+        receptionnisteConnecte.ajouterVoitureMecLaveur(selectedEmploye.get_id(), selectedVoiture.getImmatriculation());
+
+        // Rafraîchir le tableau pour refléter les changements
+        voitureTableView.refresh();
+
+        // Afficher un message de succès
+        showAlert("Succès", "La voiture a été ajoutée à l'employé.");
+    } catch (VoitureExistanteDejaPourLavMecException e) {
+        // Gérer le cas où la voiture existe déjà dans l'historique de l'employé
+        showAlert("Erreur", "Cette voiture existe déjà dans l'historique de l'employé sélectionné.");
+    } catch (Exception e) {
+        // Gérer les autres erreurs inattendues
+        showAlert("Erreur", "Une erreur est survenue lors de l'ajout de la voiture à l'employé.");
+        e.printStackTrace(); // Afficher les détails pour le débogage
+    }
+}
+
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

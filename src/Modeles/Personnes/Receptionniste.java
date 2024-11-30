@@ -1932,11 +1932,11 @@ public void supprimerEmploye(int id) {
     System.out.println("Aucun employé trouvé avec l'ID " + id + ".");
 }
 // ajouter voiture a mecanicien ou laveur 
-public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
+public void ajouterVoitureMecLaveur(int employeId, String voitureId) throws VoitureExistanteDejaPourLavMecException {
     try {
         // Recherche de la voiture par son ID
         Voiture voiture = trouverVoitureParId(voitureId); // Méthode pour récupérer la voiture par son ID
-        
+
         if (voiture == null) {
             System.out.println("Erreur : Aucune voiture trouvée avec l'ID " + voitureId);
             return; // Sortir de la méthode si la voiture n'existe pas
@@ -1950,7 +1950,7 @@ public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
 
         // Recherche de l'employé par son ID
         Employe employe = trouverEmployeParId(employeId); // Méthode pour récupérer l'employé par ID
-        
+
         if (employe == null) {
             System.out.println("Erreur : Aucun employé trouvé avec l'ID " + employeId);
             return;
@@ -1959,10 +1959,22 @@ public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
         // Vérification que l'employé est un mécanicien ou un laveur
         if (employe instanceof Mecanicien) {
             Mecanicien mecanicien = (Mecanicien) employe; // Cast de l'employé en mécanicien
+
+            // Vérifier si la voiture est déjà dans l'historique
+            if (mecanicien.get_historique_voitures().contains(voiture)) {
+                throw new VoitureExistanteDejaPourLavMecException("La voiture est déjà associée à ce mécanicien.");
+            }
+
             mecanicien.ajouter_voiture(voiture); // Appel à la méthode ajouterVoiture du mécanicien
             System.out.println("La voiture a été ajoutée à l'historique du mécanicien.");
         } else if (employe instanceof Laveur) {
             Laveur laveur = (Laveur) employe; // Cast de l'employé en laveur
+
+            // Vérifier si la voiture est déjà dans l'historique
+            if (laveur.get_voitures().contains(voiture)) {
+                throw new VoitureExistanteDejaPourLavMecException("La voiture est déjà associée à ce laveur.");
+            }
+
             laveur.ajouter_voiture(voiture); // Appel à la méthode ajouterVoiture du laveur
             System.out.println("La voiture a été ajoutée à l'historique du laveur.");
         } else {
@@ -1970,9 +1982,10 @@ public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
         }
     } catch (VoitureExistanteDejaPourLavMecException e) {
         // Gestion de l'exception si la voiture est déjà dans l'historique du mécanicien ou laveur
-        System.out.println("Erreur : " + e.getMessage());
+        throw e; // Relancer l'exception pour que le contrôleur puisse la gérer
     }
 }
+
 // supprimer voiture d'un mecanicien /laveur 
 public void supprimerVoitureMecLaveur(int employeId, String voitureId) {
     try {
@@ -2040,31 +2053,28 @@ private Employe trouverEmployeParId(int id) {
 
 
 // ajouter un employe a l equipe d un chef
-public void ajouterEmployeAuChef(int chefId, int employeId) {
+public void ajouterEmployeAuChef(int chefId, int employeId) throws EmployeExistantException {
     try {
-        // Rechercher le chef par son ID
-        Employe chef = trouverEmployeParId(chefId); // Utilise une méthode existante pour trouver un employé par ID
-        if (!(chef instanceof Chef)) {
-            System.out.println("Erreur : Aucun chef trouvé avec l'ID " + chefId);
-            return;
-        }
-        
-        // Rechercher l'employé par son ID
+        // Récupérer le chef et l'employé
+        Employe chef = trouverEmployeParId(chefId);
         Employe employe = trouverEmployeParId(employeId);
-        if (employe == null) {
-            System.out.println("Erreur : Aucun employé trouvé avec l'ID " + employeId);
-            return;
-        }
 
-        // Ajouter l'employé à l'équipe du chef
-        Chef chefInstance = (Chef) chef; // Cast de l'employé en Chef pour accéder à la méthode ajouterEmploye
-        chefInstance.ajouterEmploye(employe); // Appel à la méthode ajouterEmploye
-        System.out.println("L'employé a été ajouté avec succès à l'équipe du chef.");
-        
-    } catch (EmployeExistantException e) {
-        System.out.println("Erreur : " + e.getMessage());
+        // Vérifier si l'employé est déjà dans l'équipe du chef
+        if (chef instanceof Chef) {
+            Chef chefInstance = (Chef) chef;
+            if (chefInstance.getEquipe().contains(employe)) {
+                throw new EmployeExistantException("L'employé est déjà dans l'équipe du chef.");
+            }
+
+            // Ajouter l'employé à l'équipe du chef
+            chefInstance.ajouterEmploye(employe);
+        }
+    } catch (Exception e) {
+        // Gérer d'autres erreurs ici
+        e.printStackTrace();
     }
 }
+
 // afficher les chefs
 public void afficherChefs() {
     boolean chefTrouve = false;
