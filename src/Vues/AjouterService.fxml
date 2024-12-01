@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Controlleurs.AjouterServiceController" spacing="20" padding="20">
+    <!-- Titre de la vue -->
+    <HBox alignment="CENTER">
+        <TextField fx:id="nomServiceField" promptText="Nom du service" />
+    </HBox>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Vues.AjouterService"
-            prefHeight="400.0" prefWidth="600.0">
+    <HBox alignment="CENTER">
+        <TextField fx:id="descriptionField" promptText="Description du service" />
+    </HBox>
 
-</AnchorPane>
+    <HBox alignment="CENTER">
+        <TextField fx:id="tarifField" promptText="Tarif du service" />
+    </HBox>
+
+    <!-- ComboBox pour le type de service -->
+    <HBox alignment="CENTER">
+        <ComboBox fx:id="typeServiceCombo" promptText="Sélectionnez le type de service" />
+    </HBox>
+
+    <!-- ComboBox pour les rendez-vous -->
+    <HBox alignment="CENTER">
+        <ComboBox fx:id="rendezVousCombo" promptText="Sélectionnez un rendez-vous" />
+    </HBox>
+
+    <!-- Bouton pour ajouter le service -->
+    <HBox alignment="CENTER">
+        <Button text="Ajouter Service" onAction="#ajouterService"/>
+    </HBox>
+</VBox>

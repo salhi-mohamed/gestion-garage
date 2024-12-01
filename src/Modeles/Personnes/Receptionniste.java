@@ -99,6 +99,9 @@ public ArrayList<Employe> getListeEmployes()
         return this.listeRendezVous;
     }
 
+    public ArrayList<Service> getListeServices() {
+        return this.ListeServices;
+    }
 /////////GESTION DES FOURNITURES///////////
 
 
@@ -657,6 +660,21 @@ public ArrayList<Employe> getListeEmployes()
     System.out.println("Service créé avec succès :");
     System.out.println(service.toString());
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

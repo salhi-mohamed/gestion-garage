@@ -28,6 +28,10 @@ public class Client extends Personne {
         this.fournitures_achetees=new ArrayList<Fourniture>();
     }
 
+    public Client() {
+        super();
+    }
+
 
     // Getters et setters
     public HashSet<Voiture> getVoitures() {

@@ -38,8 +38,29 @@ public class GestionServicesController {
     // Ajouter un service
     @FXML
     private void ajouterService() {
-        chargerVue("/Vues/AjouterService.fxml", "Ajouter un Service");
-    }
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AjouterService.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AjouterService.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un service");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();  // This will print the full stack trace of the exception
+
+            showAlert("Erreur", "Impossible de charger la page 'Ajouter Service'.");
+        }    }
 
     // Supprimer un service
     @FXML

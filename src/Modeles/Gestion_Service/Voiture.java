@@ -24,6 +24,10 @@ public class Voiture {
 
     }
 
+    public Voiture() {
+
+    }
+
     public String getMarque() {
         return marque;
     }

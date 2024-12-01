@@ -27,6 +27,10 @@ public abstract  class Personne {
         this.adresse=adresse;
     }
 
+    public Personne() {
+
+    }
+
 
     ///////////////////geters & seters//////////////////
 

@@ -21,6 +21,10 @@ public class Rendez_vous {
         this.statut = statut;
     }
 
+    public Rendez_vous() {
+
+    }
+
     // Getters et setters
     public int getId_rendez_vous() {
         return id_rendez_vous;
@@ -102,6 +106,26 @@ public class Rendez_vous {
 
         System.out.println("===============================");
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Redéfinition de la méthode toString
     @Override
