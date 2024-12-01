@@ -1257,7 +1257,7 @@ public void supprimerClient(int idClient) {
         System.out.println("Client non trouvé.");
     }
 }
- private Client chercherClientParId(int idClient) {
+ public Client chercherClientParId(int idClient) {
     for (Client client : listeClients) {
         if (client.get_id() == idClient) {  // Supposons que la méthode getId() existe dans la classe Client
             return client;
