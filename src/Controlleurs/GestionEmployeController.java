@@ -21,6 +21,7 @@ public class GestionEmployeController {
     @FXML private Button btnSupprimerVoiture;
     @FXML private Button btnAjouterFourniture;
     @FXML private Button btnSupprimerFourniture;*/
+    @FXML private Button btnAjouterEmployeChef;
     @FXML private Button btnRetour;
 
     // Ajouter un client
@@ -50,6 +51,60 @@ public class GestionEmployeController {
 
             showAlert("Erreur", "Impossible de charger la page 'Ajouter Employe'.");
         }
+    }
+    @FXML
+    public void ajouterVoitureEmploye()
+    {
+     try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AjouterVoitureEmploye.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AjouterEmploye.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un Client");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+                    e.printStackTrace();  // This will print the full stack trace of the exception
+
+            showAlert("Erreur", "Impossible de charger la page 'Ajouter Employe'.");
+        }   
+    }
+    @FXML
+    private void ajouterEmployeChef()
+    {
+         try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/AjouterEmployeAuChef.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'AjouterEmploye.fxml' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un Client");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+                    e.printStackTrace();  // This will print the full stack trace of the exception
+
+            showAlert("Erreur", "Impossible de charger la page 'Ajouter Employe'.");
+        }  
     }
 
 

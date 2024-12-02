@@ -1,97 +1,132 @@
-package Controlleurs;
+/*package Controlleurs;
 
 import Modeles.Gestion_Service.Service;
-import Modeles.Personnes.Receptionniste;
-import Modeles.Gestion_Service.Voiture;
 import Modeles.Gestion_Service.Rendez_vous;
-import Modeles.Personnes.Client;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import Modeles.Personnes.Employe;
+import Modeles.Personnes.Receptionniste;
+import Modeles.Stocks.Piece_Rechange;
+import Modeles.Stocks.Fourniture;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.*;
+import javafx.collections.FXCollections;
+
+import java.util.List;
 
 public class AjouterServiceController {
 
-    @FXML private TextField nomServiceField;
-    @FXML private TextField descriptionField;
-    @FXML private TextField tarifField;
-    @FXML private ComboBox<String> typeServiceCombo;  // ComboBox pour le type de service
-    @FXML private ComboBox<Rendez_vous> rendezVousCombo;  // ComboBox pour les rendez-vous
+    @FXML
+    private ComboBox<Rendez_vous> rendezVousComboBox;
 
-    private ObservableList<String> typeServiceList;
-    private ObservableList<Rendez_vous> rendezVousList;  // Liste des rendez-vous
+    @FXML
+    private ComboBox<String> typeServiceComboBox;
 
-    private static int idCounter = 0; // Compteur pour l'ID des services
+    @FXML
+    private TableView<Employe> employesTableView;
 
-    private Receptionniste receptionniste;  // Instance de la classe Receptionniste
+    @FXML
+    private TableColumn<Employe, String> colNom;
 
+    @FXML
+    private TableColumn<Employe, String> colPrenom;
+
+    @FXML
+    private TableView<Piece_Rechange> piecesTableView;
+
+    @FXML
+    private TableColumn<Piece_Rechange, String> colPieceNom;
+
+    @FXML
+    private TableColumn<Piece_Rechange, Double> colPiecePrix;
+
+    @FXML
+    private TableView<Fourniture> fournituresTableView;
+
+    @FXML
+    private TableColumn<Fourniture, String> colFournitureNom;
+
+    @FXML
+    private TableColumn<Fourniture, Double> colFourniturePrix;
+
+    @FXML
+    private TextField coutServiceField;
+
+    private Receptionniste receptionnisteConnecte;
+    private static int dernierIdService = 0; // Variable statique pour générer des IDs uniques
+
+    @FXML
     public void initialize() {
-        // Initialisation de la liste des types de services
-        typeServiceList = FXCollections.observableArrayList("Entretien", "Réparation", "Diagnostic");
-        typeServiceCombo.setItems(typeServiceList);
+        // Initialiser le réceptionniste connecté
+        receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte;
 
-        // Récupération des rendez-vous dans la liste du réceptionniste
-        rendezVousList = FXCollections.observableArrayList(receptionniste.getListeRendezVous());
-        rendezVousCombo.setItems(rendezVousList);
+        if (receptionnisteConnecte == null) {
+            throw new IllegalStateException("Aucun réceptionniste connecté trouvé !");
+        }
 
-        // Accès à la référence du réceptionniste connecté
-        this.receptionniste = MenuPrincipaleController.receptionnisteConnecte;
+        // Charger les données pour les ComboBox et les TableView
+        List<Rendez_vous> rendezVousList = receptionnisteConnecte.getListeRendezVous();
+        List<Employe> employesList = receptionnisteConnecte.getListeEmployes();
+        List<Piece_Rechange> piecesList = receptionnisteConnecte.getListPiecesRechange();
+        List<Fourniture> fournituresList = receptionnisteConnecte.getListeFournitures();
+
+        rendezVousComboBox.getItems().setAll(rendezVousList);
+
+        employesTableView.getItems().setAll(employesList);
+        colNom.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().get_nom()));
+        colPrenom.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().get_prenom()));
+
+        piecesTableView.getItems().setAll(piecesList);
+        colPieceNom.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getNom()));
+        colPiecePrix.setCellValueFactory(cellData -> new javafx.beans.property.SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
+
+        fournituresTableView.getItems().setAll(fournituresList);
+        colFournitureNom.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getNom()));
+        colFourniturePrix.setCellValueFactory(cellData -> new javafx.beans.property.SimpleDoubleProperty(cellData.getValue().getPrix()).asObject());
+
+        // Initialiser la liste des types de service
+        typeServiceComboBox.setItems(FXCollections.observableArrayList(
+                "Révision", "Réparation", "Entretien", "Diagnostic", "Lavage", "Vidange"
+        ));
     }
 
-    // Méthode pour ajouter un service
+    @FXML
     public void ajouterService() {
-        // Récupération des données du formulaire
-        String nomService = nomServiceField.getText();
-        String description = descriptionField.getText();
-        String tarifStr = tarifField.getText();
-        String typeService = typeServiceCombo.getValue();
-        Rendez_vous rendezVous = rendezVousCombo.getValue();  // Récupération du rendez-vous sélectionné
+        // Valider les champs
+        Rendez_vous rendezVous = rendezVousComboBox.getSelectionModel().getSelectedItem();
+        String typeService = typeServiceComboBox.getSelectionModel().getSelectedItem();
+        List<Employe> employesSelectionnes = employesTableView.getSelectionModel().getSelectedItems();
+        List<Piece_Rechange> piecesSelectionnees = piecesTableView.getSelectionModel().getSelectedItems();
+        List<Fourniture> fournituresSelectionnees = fournituresTableView.getSelectionModel().getSelectedItems();
+        String coutStr = coutServiceField.getText();
 
-        // Vérification des champs obligatoires
-        if (nomService.isEmpty() || description.isEmpty() || tarifStr.isEmpty() || typeService == null || rendezVous == null) {
-            showAlert("Erreur", "Tous les champs doivent être remplis.");
+        if (rendezVous == null || typeService == null || employesSelectionnes.isEmpty()
+                || piecesSelectionnees.isEmpty() || fournituresSelectionnees.isEmpty() || coutStr.isEmpty()) {
+            showAlert("Erreur", "Veuillez remplir tous les champs.");
             return;
         }
 
-        double tarif;
-
-        // Vérification du format du tarif
         try {
-            tarif = Double.parseDouble(tarifStr);
+            double cout = Double.parseDouble(coutStr);
+            dernierIdService++;
+            // Créer un nouveau service
+            Service nouveauService = new Service(typeService, cout, rendezVous, employesSelectionnes, piecesSelectionnees, fournituresSelectionnees);
+
+            // Ajouter le service via le réceptionniste
+            receptionnisteConnecte.creerService(nouveauService);
+
+            // Afficher un message de succès
+            showAlert("Succès", "Service ajouté avec succès.");
+
         } catch (NumberFormatException e) {
-            showAlert("Erreur", "Veuillez entrer un tarif valide.");
-            return;
+            showAlert("Erreur", "Le coût doit être un nombre valide.");
         }
-
-        // Incrémentation de l'ID pour le nouveau service
-        idCounter++;
-
-        // Supposons que vous ayez une voiture et un client à passer à votre service
-        Voiture voiture = new Voiture();  // Créez une instance de Voiture ici
-        Client client = new Client();  // Créez une instance de Client ici
-
-        // Création du service
-        Service service = new Service(description, tarif, idCounter, voiture, rendezVous, client);
-
-        // Ajout du service à la liste des services du réceptionniste
-        this.receptionniste.getListeServices().add(service);
-
-        // Affichage d'une alerte de succès
-        showAlert("Succès", "Service ajouté avec succès.");
-
-        // Optionnellement, afficher la liste des services après ajout
-        this.receptionniste.afficherTousLesServices();
     }
 
-    // Méthode pour afficher une alerte
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
 }
+*/

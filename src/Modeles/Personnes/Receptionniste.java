@@ -607,7 +607,7 @@ public ArrayList<Employe> getListeEmployes()
 
   //methode pour creer un service
 
-    public void creerService(int idClient, String immatriculationVoiture, int idService, String description, double cout, int idRendezVous) {
+   /* public void creerService(int idClient, String immatriculationVoiture, int idService, String description, double cout, int idRendezVous) {
     // Vérification du client
     Optional<Client> clientOpt = listeClients.stream()
             .filter(client -> client.get_id() == idClient)
@@ -654,18 +654,82 @@ public ArrayList<Employe> getListeEmployes()
     }
 
     // Création du service avec le bon constructeur
-    Service service = new Service(description, cout, idService, voitureGlobale, rendezVous, client);
+    Service service = new Service(idService,description, cout, idService, voitureGlobale, rendezVous, client);
     ListeServices.add(service);
     // Affichage des informations du service créé
     System.out.println("Service créé avec succès :");
     System.out.println(service.toString());
+    }*/
+
+
+
+    /*public void creerService(int idClient, String immatriculationVoiture, String typeService, double cout, int idRendezVous) {
+        // Vérification du client
+        Optional<Client> clientOpt = listeClients.stream()
+                .filter(client -> client.get_id() == idClient)
+                .findFirst();
+
+        if (clientOpt.isEmpty()) {
+            System.out.println("Erreur : Client avec l'ID " + idClient + " introuvable.");
+            return;
+        }
+        Client client = clientOpt.get();
+
+        // Vérification de l'existence de la voiture dans la liste globale de voitures
+        Optional<Voiture> voitureGlobaleOpt = ListeVoitures.stream()
+                .filter(voiture -> voiture.get_immatriculation().equals(immatriculationVoiture))
+                .findFirst();
+
+        if (voitureGlobaleOpt.isEmpty()) {
+            System.out.println("Erreur : La voiture avec l'immatriculation " + immatriculationVoiture + " n'existe pas dans la liste des voitures.");
+            return;
+        }
+        Voiture voitureGlobale = voitureGlobaleOpt.get();
+
+        // Vérification que la voiture appartient bien au client spécifié
+        if (!client.getVoitures().contains(voitureGlobale)) {
+            System.out.println("Erreur : La voiture avec l'immatriculation " + immatriculationVoiture + " n'appartient pas au client avec l'ID " + idClient + ".");
+            return;
+        }
+
+        // Vérification du rendez-vous
+        Optional<Rendez_vous> rendezVousOpt = listeRendezVous.stream()
+                .filter(rdv -> rdv.getId_rendez_vous() == idRendezVous)
+                .findFirst();
+
+        if (rendezVousOpt.isEmpty()) {
+            System.out.println("Erreur : Rendez-vous avec l'ID " + idRendezVous + " introuvable.");
+            return;
+        }
+        Rendez_vous rendezVous = rendezVousOpt.get();
+
+        // Vérification que le rendez-vous appartient bien au client
+        if (rendezVous.getClient().get_id() != client.get_id()) {
+            System.out.println("Erreur : Le rendez-vous avec l'ID " + idRendezVous + " n'appartient pas au client avec l'ID " + idClient + ".");
+            return;
+        }
+
+        // Initialisation des listes nécessaires pour le constructeur
+        List<Employe> employesSelectionnes = new ArrayList<>();
+        List<Piece_Rechange> piecesSelectionnees = new ArrayList<>();
+        List<Fourniture> fournituresSelectionnees = new ArrayList<>();
+
+        // Création du service avec le bon constructeur
+        Service service = new Service(typeService, cout, rendezVous, employesSelectionnes, piecesSelectionnees, fournituresSelectionnees);
+        if (ListeServices == null) {
+            ListeServices = new ArrayList<>();
+        }
+        ListeServices.add(service);
+        System.out.println("Service ajouté à la liste interne du réceptionniste : " + service);
+
+
+        // Affichage des informations du service créé
+        System.out.println("Service créé avec succès :");
+        System.out.println(service.toString());
     }
 
 
-
-
-
-
+*/
 
 
 
@@ -1950,11 +2014,11 @@ public void supprimerEmploye(int id) {
     System.out.println("Aucun employé trouvé avec l'ID " + id + ".");
 }
 // ajouter voiture a mecanicien ou laveur 
-public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
+public void ajouterVoitureMecLaveur(int employeId, String voitureId) throws VoitureExistanteDejaPourLavMecException {
     try {
         // Recherche de la voiture par son ID
         Voiture voiture = trouverVoitureParId(voitureId); // Méthode pour récupérer la voiture par son ID
-        
+
         if (voiture == null) {
             System.out.println("Erreur : Aucune voiture trouvée avec l'ID " + voitureId);
             return; // Sortir de la méthode si la voiture n'existe pas
@@ -1968,7 +2032,7 @@ public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
 
         // Recherche de l'employé par son ID
         Employe employe = trouverEmployeParId(employeId); // Méthode pour récupérer l'employé par ID
-        
+
         if (employe == null) {
             System.out.println("Erreur : Aucun employé trouvé avec l'ID " + employeId);
             return;
@@ -1977,10 +2041,22 @@ public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
         // Vérification que l'employé est un mécanicien ou un laveur
         if (employe instanceof Mecanicien) {
             Mecanicien mecanicien = (Mecanicien) employe; // Cast de l'employé en mécanicien
+
+            // Vérifier si la voiture est déjà dans l'historique
+            if (mecanicien.get_historique_voitures().contains(voiture)) {
+                throw new VoitureExistanteDejaPourLavMecException("La voiture est déjà associée à ce mécanicien.");
+            }
+
             mecanicien.ajouter_voiture(voiture); // Appel à la méthode ajouterVoiture du mécanicien
             System.out.println("La voiture a été ajoutée à l'historique du mécanicien.");
         } else if (employe instanceof Laveur) {
             Laveur laveur = (Laveur) employe; // Cast de l'employé en laveur
+
+            // Vérifier si la voiture est déjà dans l'historique
+            if (laveur.get_voitures().contains(voiture)) {
+                throw new VoitureExistanteDejaPourLavMecException("La voiture est déjà associée à ce laveur.");
+            }
+
             laveur.ajouter_voiture(voiture); // Appel à la méthode ajouterVoiture du laveur
             System.out.println("La voiture a été ajoutée à l'historique du laveur.");
         } else {
@@ -1988,9 +2064,10 @@ public void ajouterVoitureMecLaveur(int employeId, String voitureId) {
         }
     } catch (VoitureExistanteDejaPourLavMecException e) {
         // Gestion de l'exception si la voiture est déjà dans l'historique du mécanicien ou laveur
-        System.out.println("Erreur : " + e.getMessage());
+        throw e; // Relancer l'exception pour que le contrôleur puisse la gérer
     }
 }
+
 // supprimer voiture d'un mecanicien /laveur 
 public void supprimerVoitureMecLaveur(int employeId, String voitureId) {
     try {
@@ -2058,31 +2135,28 @@ private Employe trouverEmployeParId(int id) {
 
 
 // ajouter un employe a l equipe d un chef
-public void ajouterEmployeAuChef(int chefId, int employeId) {
+public void ajouterEmployeAuChef(int chefId, int employeId) throws EmployeExistantException {
     try {
-        // Rechercher le chef par son ID
-        Employe chef = trouverEmployeParId(chefId); // Utilise une méthode existante pour trouver un employé par ID
-        if (!(chef instanceof Chef)) {
-            System.out.println("Erreur : Aucun chef trouvé avec l'ID " + chefId);
-            return;
-        }
-        
-        // Rechercher l'employé par son ID
+        // Récupérer le chef et l'employé
+        Employe chef = trouverEmployeParId(chefId);
         Employe employe = trouverEmployeParId(employeId);
-        if (employe == null) {
-            System.out.println("Erreur : Aucun employé trouvé avec l'ID " + employeId);
-            return;
-        }
 
-        // Ajouter l'employé à l'équipe du chef
-        Chef chefInstance = (Chef) chef; // Cast de l'employé en Chef pour accéder à la méthode ajouterEmploye
-        chefInstance.ajouterEmploye(employe); // Appel à la méthode ajouterEmploye
-        System.out.println("L'employé a été ajouté avec succès à l'équipe du chef.");
-        
-    } catch (EmployeExistantException e) {
-        System.out.println("Erreur : " + e.getMessage());
+        // Vérifier si l'employé est déjà dans l'équipe du chef
+        if (chef instanceof Chef) {
+            Chef chefInstance = (Chef) chef;
+            if (chefInstance.getEquipe().contains(employe)) {
+                throw new EmployeExistantException("L'employé est déjà dans l'équipe du chef.");
+            }
+
+            // Ajouter l'employé à l'équipe du chef
+            chefInstance.ajouterEmploye(employe);
+        }
+    } catch (Exception e) {
+        // Gérer d'autres erreurs ici
+        e.printStackTrace();
     }
 }
+
 // afficher les chefs
 public void afficherChefs() {
     boolean chefTrouve = false;
@@ -2432,16 +2506,13 @@ public void creerRendezVous(int idRendezVous, String description, int idClient, 
     }
 
 
-
+        /*public void creerService(Service nouveauService) {
+            if (nouveauService != null) {
+                ListeServices.add(nouveauService); // Ajouter le service à la liste
+                System.out.println("Service ajouté : " + nouveauService);
+            } else {
+                System.out.println("Service invalide. Aucune action effectuée.");
+            }
+        }*/
 }
 
-// here
-//
-
-
-//
-
-
-
-
-//
