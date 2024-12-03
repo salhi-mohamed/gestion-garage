@@ -215,3 +215,17 @@ public class AfficherClientsController {
         alert.showAndWait();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
