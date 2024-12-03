@@ -1,17 +1,25 @@
 package Modeles.Gestion_Service;
+
 import Modeles.Personnes.Client;
-import java.util.ArrayList;
+import javafx.beans.property.*;
 
 public class Voiture {
 
-    // Attributs
+    // Attributs classiques
     private String marque;
     private String modele;
     private int annee;
     private long kilometrage;
-    private String immatriculation; // Ajout de l'attribut immatriculation
+    private String immatriculation;
     private Client client;
 
+    // Propriétés JavaFX pour liaison avec l'interface graphique
+    private StringProperty marqueProperty;
+    private StringProperty modeleProperty;
+    private IntegerProperty anneeProperty;
+    private LongProperty kilometrageProperty;
+    private StringProperty immatriculationProperty;
+    private ObjectProperty<Client> clientProperty;
 
     // Constructeur
     public Voiture(String marque, String modele, int annee, long kilometrage, String immatriculation , Client client ) {
@@ -20,14 +28,43 @@ public class Voiture {
         this.annee = annee;
         this.kilometrage = kilometrage;
         this.immatriculation = immatriculation;
-        this.client=client;
+        this.client = client;
 
+        // Initialisation des propriétés JavaFX
+        this.marqueProperty = new SimpleStringProperty(marque);
+        this.modeleProperty = new SimpleStringProperty(modele);
+        this.anneeProperty = new SimpleIntegerProperty(annee);
+        this.kilometrageProperty = new SimpleLongProperty(kilometrage);
+        this.immatriculationProperty = new SimpleStringProperty(immatriculation);
+        this.clientProperty = new SimpleObjectProperty<>(client);
     }
 
-    public Voiture() {
-
+    // Getters pour les propriétés JavaFX
+    public StringProperty marqueProperty() {
+        return marqueProperty;
     }
 
+    public StringProperty modeleProperty() {
+        return modeleProperty;
+    }
+
+    public IntegerProperty anneeProperty() {
+        return anneeProperty;
+    }
+
+    public LongProperty kilometrageProperty() {
+        return kilometrageProperty;
+    }
+
+    public StringProperty immatriculationProperty() {
+        return immatriculationProperty;
+    }
+
+    public ObjectProperty<Client> clientProperty() {
+        return clientProperty;
+    }
+
+    // Getters classiques pour les attributs
     public String getMarque() {
         return marque;
     }
@@ -76,10 +113,7 @@ public class Voiture {
         this.client = client;
     }
 
-
-////////////////////////// Méthodes //////////////////////////
-
-    // Méthode pour afficher les informations de la voiture
+    // Méthodes pour afficher les informations de la voiture et du client
     public void afficher() {
         System.out.println("=== Informations de la Voiture ===");
         System.out.println("Marque : " + marque);
@@ -88,17 +122,12 @@ public class Voiture {
         System.out.println("Kilométrage : " + kilometrage);
         System.out.println("Immatriculation : " + immatriculation);
         System.out.println("Client : " + client.get_id());
-
     }
 
-
-    // Méthode pour afficher le client propriétaire de la voiture
     public void afficherClient() {
         System.out.println("=== Informations du Client Propriétaire ===");
         System.out.println(client);
     }
-
-
 
     @Override
     public String toString() {
@@ -109,24 +138,22 @@ public class Voiture {
                 ", kilometrage=" + kilometrage +
                 ", immatriculation='" + immatriculation + '\'' +
                 ", client=" + client.get_id() +
-       //         ", services=" + services +
                 '}';
     }
-    public String get_immatriculation()
-    {
+
+    public String get_immatriculation() {
         return this.immatriculation;
     }
 
-    public void modeleProperty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void marqueProperty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Object anneeProperty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }
+
+
+
+
+
+
+
+
+
+
+//
