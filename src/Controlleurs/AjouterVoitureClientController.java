@@ -13,7 +13,7 @@ public class AjouterVoitureClientController {
     private ComboBox<Client> comboBoxClients;  // Pour sélectionner un client
 
     @FXML
-    private TextField textFieldMarque, textFieldModele, textFieldKilometrage, textFieldImmatriculation;
+    private TextField textFieldMarque, textFieldModele, textFieldKilometrage, textFieldImmatriculation , textFieldAnnee;
 
     private ObservableList<Client> clientsList;
 
@@ -57,6 +57,7 @@ public class AjouterVoitureClientController {
         String marque = textFieldMarque.getText();
         String modele = textFieldModele.getText();
         String kilometrageStr = textFieldKilometrage.getText();
+        String anneeStr=textFieldAnnee.getText();
         String immatriculation = textFieldImmatriculation.getText();
 
         // Vérifier si un client est sélectionné
@@ -66,14 +67,15 @@ public class AjouterVoitureClientController {
         }
 
         // Vérifier si tous les champs sont remplis
-        if (marque.isEmpty() || modele.isEmpty() || kilometrageStr.isEmpty() || immatriculation.isEmpty()) {
+        if (marque.isEmpty() || modele.isEmpty() || kilometrageStr.isEmpty() || immatriculation.isEmpty() || anneeStr.isEmpty()) {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
             return;
         }
 
         try {
             int kilometrage = Integer.parseInt(kilometrageStr); // Convertir le kilométrage en entier
-            Voiture nouvelleVoiture = new Voiture(marque, modele, 2024, kilometrage, immatriculation, selectedClient);
+            int annee=Integer.parseInt(anneeStr);
+            Voiture nouvelleVoiture = new Voiture(marque, modele, annee, kilometrage, immatriculation, selectedClient);
 
             // Appeler la méthode pour ajouter la voiture au client
             MenuPrincipaleController.receptionnisteConnecte.ajouterVoitureAuClient(selectedClient.get_id(), nouvelleVoiture); // Utiliser receptionnisteConnecte du MenuPrincipaleController

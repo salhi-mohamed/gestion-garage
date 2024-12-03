@@ -15,8 +15,10 @@
           prefHeight="879.0" prefWidth="1237.0">
 
     <!-- Image de fond -->
-    <ImageView fx:id="backgroundImage" fitWidth="1237.0" fitHeight="879.0">
-        <Image url="https://cdn.pixabay.com/photo/2017/08/30/07/51/car-2698879_960_720.jpg"/>
+   <ImageView fx:id="backgroundImage" fitWidth="1237.0" fitHeight="879.0">
+        <image>
+            <Image url="@../Images/background.png"/>
+        </image>
     </ImageView>
 
     <!-- Conteneur principal avec un StackPane pour le titre en haut -->

@@ -7,14 +7,16 @@
 <?import javafx.scene.text.*?>
 
 <StackPane prefHeight="879.0" prefWidth="1237.0" stylesheets="@BienvenueStyle.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.BienvenueController">
-
+ <ImageView fx:id="backgroundImage" fitWidth="1237.0" fitHeight="879.0">
+        <image>
+            <Image url="@../Images/background.png"/>
+        </image>
+    </ImageView>
     <!-- Image de fond -->
-    <ImageView fx:id="backgroundImage" fitHeight="600" fitWidth="900" styleClass="image-view" />
 
     <!-- Contenu principal -->
     <VBox alignment="CENTER" spacing="30">
         <!-- Logo -->
-        <ImageView fx:id="logoImage" fitHeight="226.0" fitWidth="250.0" styleClass="logo" />
 
         <!-- Texte de bienvenue -->
         <Text fx:id="bienvenueText" styleClass="welcome-text" text="Bienvenue dans l'Application AutoMécano" wrappingWidth="852.75" />
