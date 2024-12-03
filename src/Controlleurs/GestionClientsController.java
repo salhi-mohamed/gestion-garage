@@ -124,6 +124,8 @@ public class GestionClientsController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
+                    e.printStackTrace();  // Print the stack trace for debugging
+
             showAlert("Erreur", "Impossible de charger la page 'Afficher Client'.");
         }    }
 
