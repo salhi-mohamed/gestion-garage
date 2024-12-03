@@ -13,9 +13,9 @@
            prefHeight="879.0" prefWidth="1237.0">
 
     <!-- Image de fond -->
-    <ImageView fx:id="backgroundImage" fitWidth="1237.0" fitHeight="879.0">
+   <ImageView fx:id="backgroundImage" fitWidth="1237.0" fitHeight="879.0">
         <image>
-            <Image url="https://assets.newatlas.com/dims4/default/89191df/2147483647/strip/true/crop/4508x3005+0+0/resize/2880x1920!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2F24%2F6f%2F92f2defe4a4998c6bcaa9c2cfb3f%2Fabt-audi-rs6-gr-22-glossyblack-4.jpg"/>
+            <Image url="@../Images/background.png"/>
         </image>
     </ImageView>
 
