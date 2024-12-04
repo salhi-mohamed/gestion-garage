@@ -1,4 +1,4 @@
-/*package Controlleurs;
+package Controlleurs;
 
 import Modeles.Exceptions.VoitureExistanteDejaPourLavMecException;
 import Modeles.Gestion_Service.Voiture;
@@ -70,7 +70,7 @@ public class AjouterVoitureEmployeController {
         modeleColumn.setCellValueFactory(cellData -> cellData.getValue().modeleProperty());
         immatriculationColumn.setCellValueFactory(cellData -> cellData.getValue().immatriculationProperty());
 
-        voitureTableView.getItems().setAll(receptionnisteConnecte.get_liste_voitures());
+        voitureTableView.getItems().setAll(receptionnisteConnecte.getListeVoitures());
     }
 
     @FXML
@@ -103,4 +103,3 @@ public class AjouterVoitureEmployeController {
         alert.showAndWait();
     }
 }
-*/

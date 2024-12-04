@@ -92,7 +92,7 @@ public class AfficherEmployesController {
         // Si l'employé est un Laveur
         else if (employe instanceof Laveur) {
             Laveur laveur = (Laveur) employe;
-            tableVoitures.getItems().addAll(laveur.get_voitures());
+            tableVoitures.getItems().addAll(laveur.getVoitures());
         }
         // Si l'employé est un Chef
         else if (employe instanceof Chef) {

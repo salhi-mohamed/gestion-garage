@@ -54,7 +54,7 @@ public class SupprimerVoitureController {
         }
 
         // Charger la liste des voitures associées au réceptionniste connecté
-        voitures = FXCollections.observableArrayList(receptionnisteConnecte.get_liste_voitures());
+        voitures = FXCollections.observableArrayList(receptionnisteConnecte.getListeVoitures());
 
         // Configurer les colonnes de la TableView
         columnImmatriculation.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().getImmatriculation()));
@@ -75,7 +75,7 @@ public class SupprimerVoitureController {
         String filterText = searchField.getText().toLowerCase();
         ObservableList<Voiture> filteredVoitures = FXCollections.observableArrayList();
 
-        for (Voiture voiture : receptionnisteConnecte.get_liste_voitures()) {
+        for (Voiture voiture : receptionnisteConnecte.getListeVoitures()) {
             if (voiture.getImmatriculation().toLowerCase().contains(filterText)) {
                 filteredVoitures.add(voiture);
             }

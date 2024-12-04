@@ -15,11 +15,11 @@ import java.util.Scanner;
  */
 public class Employe extends Personne{
 
-    //Attributs
+    //--------------------Attributs--------------------
     private  LocalDate  date_embauche;//consider putting final
     private double salaire;
 
-    //constructeur
+    //--------------------constructeur--------------------
    public Employe(int id, String nom, String prenom, int telephone, String adresse, double salaire, String dateEmbaucheStr) {
         super(id, nom, prenom, telephone, adresse);
         this.salaire = salaire;
@@ -38,20 +38,38 @@ public class Employe extends Personne{
         }
     }
 
-                                //***********/Methodes////////////////
+                                //---------------------Methodes--------------------
+
+    
+                      //--------------------geters & seters---------------------
 
 
+    public LocalDate getDate_embauche() {
+        return date_embauche;
+    }
 
+    public void setDate_embauche(LocalDate date_embauche) {
+        this.date_embauche = date_embauche;
+    }
+
+    public double getSalaire() {
+        return salaire;
+    }
+
+    public void setSalaire(double salaire) {
+        this.salaire = salaire;
+    }
+   
+ 
+   
+ //méthode pour afficher un employe
     public void afficher()
     {
         super.afficher();
-        System.out.println("Salaire : " + this.get_salaire());
-        System.out.println("Date d embauche : " + this.get_date_embauche());
+        System.out.println("Salaire : " + this.getSalaire());
+        System.out.println("Date d embauche : " + this.getDate_embauche());
     }
-    public void set_salaire(double salaire)
-    {
-        this.salaire=salaire;
-    }
+
     public void set_date_embauche(LocalDate date_embauche) {
     this.date_embauche = date_embauche;
     }   
@@ -60,7 +78,7 @@ public class Employe extends Personne{
 
 
 
-
+//Méthode pour modifier un employé
 @Override    
   public void modifier() {
     int choice;
@@ -128,7 +146,7 @@ public class Employe extends Personne{
                 System.out.println("Saisir le nouveau salaire : ");
                 double new_salary = sc.nextDouble();  // Utiliser double pour les salaires
                 sc.nextLine(); // Consommer le retour de ligne
-                set_salaire(new_salary);  // Utiliser une méthode set_salaire()
+                setSalaire(new_salary);  // Utiliser une méthode set_salaire()
                 System.out.println("Salaire mis à jour.");
                 break;
 
@@ -168,12 +186,13 @@ public class Employe extends Personne{
 
 
 
-
+// Méthode toString() 
+  
     @Override
-    
   public String toString() {
     return super.toString() + "\n" + "Salaire de l'employé : " + this.salaire + "\n" + "Date d'embauche de l'employé : " + this.date_embauche;
     }
+  //Méthode pour calculer l'expérience d'un employé
   public int calcul_anciennette()
   {
       LocalDate today=LocalDate.now();
@@ -181,43 +200,13 @@ public class Employe extends Personne{
       int experience=current_year-date_embauche.getYear();
       return experience;
   }
-  public double get_salaire()
-  {
-      return this.salaire;
-              
-  }
-  public LocalDate get_date_embauche()
-  {
-      return this.date_embauche;
-  }
+  
 
 
 
 
 
 
-                       ///////////geters & seters /////////////
-
-
-    public LocalDate getDate_embauche() {
-        return date_embauche;
-    }
-
-    public void setDate_embauche(LocalDate date_embauche) {
-        this.date_embauche = date_embauche;
-    }
-
-    public double getSalaire() {
-        return salaire;
-    }
-
-    public void setSalaire(double salaire) {
-        this.salaire = salaire;
-    }
-
-    public void set_poste(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 
 
