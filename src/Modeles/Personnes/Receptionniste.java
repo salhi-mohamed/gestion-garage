@@ -44,7 +44,7 @@ public class Receptionniste extends Employe
     this.numeroBureau = numeroBureau;
     this.email = email;
     this.mdp = mdp; // Initialisation du mot de passe (à ajouter selon votre logique)
-    
+
     // Initialisation des listes pour gérer les différentes entités associées
     this.listeRendezVous = new ArrayList<Rendez_vous>();
     this.listeClients = new ArrayList<>();
