@@ -1,64 +1,72 @@
-/* Style général pour la page */
-.root {
-    -fx-background-color: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-    -fx-padding: 40px;
+/* BienvenueStyle.css */
+
+/* Définition générale des polices et marges */
+* {
+    -fx-font-family: "Verdana", sans-serif;
+    -fx-font-size: 16px;
+    -fx-base: #fafafa; /* Arrière-plan très clair */
 }
 
-/* Effet pour l'image de fond */
-.image-view {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 20, 0.7, 0, 5);
+/* Style de la zone principale */
+StackPane {
+    -fx-background-color: transparent; /* L'arrière-plan est transparent pour laisser apparaître l'image */
+    -fx-padding: 0; /* Aucun padding pour utiliser tout l'espace */
 }
 
 /* Texte principal (Bienvenue) */
-#bienvenueText {
-    -fx-font-family: 'Montserrat', sans-serif;
-    -fx-font-size: 36px;
+.welcome-text {
+    -fx-font-size: 28px; /* Augmenté pour plus de visibilité */
     -fx-font-weight: bold;
-    -fx-fill: linear-gradient(to right, #ffffff, #bdc3c7);
-    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.7), 12, 0.5, 0, 3);
+    -fx-text-fill: #2c3e50; /* Couleur gris foncé */
     -fx-text-alignment: center;
+    -fx-line-spacing: 5px; /* Espacement entre les lignes */
+    -fx-padding-bottom: 10px; /* Espacement entre le titre et la ligne */
 }
 
-/* Sous-texte */
-#subText {
-    -fx-font-family: 'Roboto', sans-serif;
-    -fx-font-size: 18px;
-    -fx-fill: #bdc3c7;
-    -fx-text-alignment: center;
-}
-
-/* Bouton principal (Commencer) */
-#startButton {
-    -fx-font-size: 16px;
-    -fx-font-family: 'Roboto', sans-serif;
-    -fx-background-color: linear-gradient(to right, #3498db, #2ecc71);
-    -fx-text-fill: white;
-    -fx-border-radius: 25px;
-    -fx-background-radius: 25px;
-    -fx-padding: 10px 20px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 3, 0, 5);
-    -fx-cursor: hand;
-}
-
-#startButton:hover {
-    -fx-background-color: linear-gradient(to right, #2ecc71, #3498db);
-    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.6), 12, 0.5, 0, 3);
-}
-
-/* Ligne décorative */
+/* Ligne décorative sous le titre */
 .line {
-    -fx-stroke: #3498db;
+    -fx-stroke: #2c3e50; /* Couleur gris foncé, identique à celle du texte */
     -fx-stroke-width: 2;
-    -fx-effect: dropshadow(gaussian, rgba(46, 204, 113, 0.3), 10, 0.5, 0, 5);
+    -fx-opacity: 1; /* Pleine opacité pour le trait */
 }
 
-/* Cercles décoratifs */
-.circle {
-    -fx-fill: rgba(52, 152, 219, 0.3);
+/* Texte secondaire */
+.sub-text {
+    -fx-font-size: 18px;
+    -fx-text-fill: #7f8c8d; /* Gris moyen */
+    -fx-font-style: italic;
+    -fx-text-alignment: center;
+    -fx-padding: 10px;
 }
 
-/* Logo */
-.logo {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 3);
-    -fx-background-color: transparent;
+/* Style du bouton */
+.start-button {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #34495e; /* Gris-bleu profond */
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 12 30;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 3, 0.5, 0, 2);
+    -fx-cursor: hand; /* Change le curseur en pointeur */
+}
+
+.start-button:hover {
+    -fx-background-color: #2c3e50; /* Bleu-gris plus foncé au survol */
+}
+
+/* VBox central (fond plus transparent pour laisser l'image visible) */
+VBox {
+    -fx-background-color: rgba(255, 255, 255, 0.65); /* Fond encore plus transparent pour laisser l'image de fond visible */
+    -fx-background-radius: 10px;
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 1;
+    -fx-padding: 40px;
+    -fx-alignment: center;
+}
+
+/* Image de fond */
+ImageView {
+    -fx-opacity: 0.9; /* Image de fond encore plus opaque */
 }

@@ -15,13 +15,13 @@ import Modeles.Exceptions.*;
  */
 public class Laveur extends Employe implements GestionExperience{
 
-    //Attributs
+    //-------------------Attributs-----------------------------
     private boolean specialise_interieur;
     private boolean specialise_exterieur;
     private ArrayList<Voiture> voitures;
 
 
-    //constructeur
+    //------------------------constructeur-------------------------------
 
    public Laveur(int id, String nom, String prenom, int telephone, String adresse, double salaire, String dateEmbaucheStr) {
         // Call the parent constructor (Employe) to initialize the shared attributes
@@ -78,7 +78,7 @@ public class Laveur extends Employe implements GestionExperience{
 
 
 
-    //geters & seters
+    //-----------------------geters & seters-------------------------------
 
     public void set_specialise_interieur(boolean spec )
     {
@@ -108,12 +108,13 @@ public class Laveur extends Employe implements GestionExperience{
     public void setVoitures(ArrayList<Voiture> voitures) {
         this.voitures = voitures;
     }
+           
 
 
 
     //////////Methodes////////////////
 
-
+//Méthode toString()
     @Override
     public String toString()
     {
@@ -126,7 +127,7 @@ public class Laveur extends Employe implements GestionExperience{
 
 
 
-
+//Méthode pour afficher un laveur 
   public void afficher() {
     super.afficher();
     if (this.specialise_exterieur)
@@ -145,8 +146,8 @@ public class Laveur extends Employe implements GestionExperience{
 
 
 
-             //////Methode modifier////////////////
-
+            
+  //Méthode pour modifier un laveur
    @Override
 public void modifier() {
     int choice;
@@ -204,7 +205,7 @@ public void modifier() {
                 break;
             case 5:
                 System.out.println("Saisir le nouveau salaire : ");
-                set_salaire(sc.nextDouble());
+                setSalaire(sc.nextDouble());
                 sc.nextLine();
                 System.out.println("Salaire mis à jour.");
                 break;
@@ -255,33 +256,31 @@ public void modifier() {
 
 
 
-                  ///////Methode ajouter-voiture//////
+                  //---------------------Gestion des voitures------------------------
 
+//Méthode pour ajouter une voiture à l'historique des voitures du laveur 
  public void ajouter_voiture(Voiture voiture) throws VoitureExistanteDejaPourLavMecException {
     // Vérifier si la voiture existe déjà dans la liste
-    if (this.get_voitures().contains(voiture)) {
+    if (this.getVoitures().contains(voiture)) {
         throw new VoitureExistanteDejaPourLavMecException("La voiture existe déjà pour ce laveur.");
     }
     this.voitures.add(voiture);  // Ajouter la voiture à la liste si elle n'existe pas déjà
     System.out.println("Voiture ajoutée avec succès !");
 }
+ //Méthode pour supprimer une voiture de l'historique des voitures du laveur 
+
  public void supprimer_voiture(Voiture voiture) throws VoitureNonTrouveePourLavMecException {
     // Vérifier si la voiture existe dans la liste
-    if (!this.get_voitures().contains(voiture)) {
+    if (!this.getVoitures().contains(voiture)) {
         throw new VoitureNonTrouveePourLavMecException("La voiture n'a pas été trouvée pour ce laveur.");
     }
     this.voitures.remove(voiture);  // Supprimer la voiture de la liste
     System.out.println("Voiture supprimée avec succès !");
 }
-
-
-
-
-
-                      //////methode afficher_historique_voitures////////////
-
-   public void afficher_historique_voitures() throws HistoriqueVoituresVideLavMecException {
-        if (this.get_voitures().isEmpty()) {
+ //Méthode pour afficher l'histrique des voitures d'un laveur 
+ 
+ public void afficher_historique_voitures() throws HistoriqueVoituresVideLavMecException {
+        if (this.getVoitures().isEmpty()) {
             throw new HistoriqueVoituresVideLavMecException("Aucune voiture lavée dans l'historique.");
         } else {
             System.out.println("Historique des voitures lavées :");
@@ -290,10 +289,7 @@ public void modifier() {
             }
         }
     }
-   public ArrayList<Voiture> get_voitures()
-           {
-               return this.voitures;
-           }
+   
    @Override
     public void afficherNiveau(int experience) {
         if (experience < 2) {
@@ -305,3 +301,12 @@ public void modifier() {
         }
     } 
 }
+
+
+
+
+
+
+                     
+
+   

@@ -69,7 +69,7 @@ public class SupprimerEmployeController {
         columnPrenom.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_prenom()));
         columnTelephone.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().get_telephone()).asObject());
         columnAdresse.setCellValueFactory(cellData -> Bindings.createStringBinding(() -> cellData.getValue().get_adresse()));
-        columnSalaire.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().get_salaire()).asObject());
+        columnSalaire.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getSalaire()).asObject());
     }
 
     // Méthode pour charger les employés en fonction du type sélectionné

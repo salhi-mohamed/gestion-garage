@@ -8,8 +8,9 @@ package Modeles.Personnes;
  *
  * @author LENOVO
  */
+//Classe Personne abstraite
 public abstract  class Personne {
-    //attributs
+    //---------------------attributs--------------------
     private int id;
     private String nom;
     private String prenom;
@@ -17,7 +18,7 @@ public abstract  class Personne {
     private String adresse;
 
 
-    //constructeur
+    //--------------------constructeurs--------------------
     public Personne(int id , String nom , String prenom , int telephone , String adresse)
     {
         this.id=id;
@@ -32,7 +33,7 @@ public abstract  class Personne {
     }
 
 
-    ///////////////////geters & seters//////////////////
+    //--------------------geters & seters--------------------
 
     public void set_id(int id)
     {
@@ -83,20 +84,11 @@ public abstract  class Personne {
     {
         return this.adresse;
     }
-
-
-
-
-
-
-    /////////////methodes////////////////////
-
+    //--------------------methodes--------------------
+    
+//Methode abstraite pour modifier une personne
    public abstract void modifier();
-    @Override
-   public String toString()
-    {
-        return("Id : "+this.id+ "\n" +"Nom : "+this.nom+ "\n" +"Prenom : "+this.prenom+ "\n"  +"téléphone : "+this.telephone+ "\n" +"adresse : "+this.adresse);
-    }
+//Méthode pour afficher une personne 
    public void afficher()
    {
        System.out.println("ID : "+this.get_id());
@@ -106,6 +98,12 @@ public abstract  class Personne {
                    System.out.println("Adresse : "+this.get_adresse());
 
    }
+    @Override
+   public String toString()
+    {
+        return("Id : "+this.id+ "\n" +"Nom : "+this.nom+ "\n" +"Prenom : "+this.prenom+ "\n"  +"téléphone : "+this.telephone+ "\n" +"adresse : "+this.adresse);
+    }
+   
     
        
     
