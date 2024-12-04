@@ -139,7 +139,7 @@ public class GestionEmployeController {
     private void modifierEmploye() {
         try {
             // Check if the FXML file exists
-            URL fxmlLocation = getClass().getResource("/Vues/ModifierEmploye.fxml");
+            URL fxmlLocation = getClass().getResource("/Vues/modifierEmploye.fxml");
             if (fxmlLocation == null) {
                 System.out.println("FXML file not found!");
                 showAlert("Erreur", "Le fichier FXML 'ModifierEmploye' n'a pas été trouvé.");
@@ -156,6 +156,8 @@ public class GestionEmployeController {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
+                                e.printStackTrace();  // This will print the full stack trace of the exception
+
             showAlert("Erreur", "Impossible de charger la page 'Modifier Employe'.");
         }     }
 

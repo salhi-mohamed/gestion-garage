@@ -2,9 +2,13 @@ package Controlleurs;
 
 import Modeles.Gestion_Service.Voiture;
 import Modeles.Personnes.*;
+import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -212,9 +216,25 @@ public class AfficherEmployesController {
         tableEquipe.getColumns().add(colActionsEquipe);
     }
 
-    private void modifierEmploye(Employe employe) {
-        // Méthode de modification existante (non modifiée)
+   private void modifierEmploye(Employe employe) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vues/ModifierEmploye.fxml"));
+        Parent root = loader.load();
+
+        ModifierEmployeController controller = loader.getController();
+        controller.setEmployeAModifier(employe);
+
+        Stage stage = new Stage();
+        stage.setTitle("Modifier Employé");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+
+        tableEmployes.refresh(); // Rafraîchir les données après modification
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
 
     private void supprimerEmploye(Employe employe) {
         Receptionniste receptionniste = MenuPrincipaleController.receptionnisteConnecte;
