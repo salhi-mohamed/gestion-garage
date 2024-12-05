@@ -61,6 +61,7 @@ public class AjouterServiceController {
         dernierIdService = receptionnisteConnecte.getListeServices().size();
     }
 
+
     private <T> void configureComboBox(ComboBox<T> comboBox) {
         comboBox.setCellFactory(param -> new ListCell<T>() {
             @Override

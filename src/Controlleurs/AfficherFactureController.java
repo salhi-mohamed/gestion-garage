@@ -2,15 +2,15 @@ package Controlleurs;
 
 import Modeles.Gestion_Service.Facture;
 import Modeles.Gestion_Service.Service;
-import Modeles.Personnes.Client;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AfficherFactureController {
@@ -22,7 +22,15 @@ public class AfficherFactureController {
     @FXML
     private Label labelDateFacture;
     @FXML
-    private ListView<String> listViewServices;
+    private TableView<Service> tableViewServices;  // TableView pour afficher les services
+    @FXML
+    private TableColumn<Service, String> colService;
+    @FXML
+    private TableColumn<Service, String> colPieceRechange;
+    @FXML
+    private TableColumn<Service, String> colEmploye;
+    @FXML
+    private TableColumn<Service, Double> colCout;
     @FXML
     private Label labelMontantTotal;
     @FXML
@@ -33,8 +41,14 @@ public class AfficherFactureController {
 
     // Méthode pour initialiser le contrôleur et récupérer les factures à afficher
     public void initialize() {
-        // Récupérer la liste des factures pour l'utilisateur connecté (similaire à la récupération des rendez-vous)
-        listeFactures = MenuPrincipaleController.receptionnisteConnecte.getListeFactures(); // Récupérer la liste des factures
+        // Initialisation des colonnes
+        colService.setCellValueFactory(new PropertyValueFactory<>("description")); // Description du service
+        colPieceRechange.setCellValueFactory(new PropertyValueFactory<>("piecesUtilisees")); // Pièces utilisées
+        colEmploye.setCellValueFactory(new PropertyValueFactory<>("effecteurs")); // Employé(s) effectuant le service
+        colCout.setCellValueFactory(new PropertyValueFactory<>("cout")); // Coût du service
+
+        // Récupérer la liste des factures
+        listeFactures = MenuPrincipaleController.receptionnisteConnecte.getListeFactures(); // Récupérer les factures
 
         if (listeFactures == null || listeFactures.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -44,7 +58,7 @@ public class AfficherFactureController {
             alert.showAndWait();
         } else {
             // Si on a des factures, afficher la première facture (ou tu peux ajuster selon ton besoin)
-            facture = listeFactures.get(0); // On prend ici la première facture comme exemple. Tu peux l'adapter.
+            facture = listeFactures.get(0); // On prend ici la première facture comme exemple
             afficherFacture();
         }
     }
@@ -56,21 +70,18 @@ public class AfficherFactureController {
             labelNumeroFacture.setText(String.valueOf(facture.getNumeroFacture()));
 
             // Affichage du client
-            labelClient.setText(facture.getClient().toString()); // Afficher les détails du client (tu peux personnaliser l'affichage)
+            labelClient.setText(facture.getClient().toString()); // Afficher les détails du client
 
             // Formatage de la date de facture
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             labelDateFacture.setText(dateFormat.format(facture.getDateFacture()));
 
-            // Affichage des services dans la ListView
-            listViewServices.getItems().clear();
-            ArrayList<Service> services = facture.getServices();
-            for (Service service : services) {
-                listViewServices.getItems().add(String.valueOf(service));
-            }
+            // Ajouter les services à la TableView
+            tableViewServices.getItems().clear();
+            tableViewServices.getItems().addAll(facture.getServices());
 
             // Affichage du montant total de la facture
-            labelMontantTotal.setText(String.format("%.2f", facture.totalFacture())); // Affiche le total avec 2 décimales
+            labelMontantTotal.setText(String.format("%.2f", facture.totalFacture()));
 
             // Affichage si une remise a été appliquée
             labelAvecRemise.setText(facture.isAvecRemise() ? "Oui" : "Non");

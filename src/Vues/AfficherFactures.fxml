@@ -2,14 +2,25 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
 
 <VBox alignment="CENTER" spacing="10" stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="Controlleurs.AfficherFactureController">
-   <TextField text="                         FACTURE " />
+    <TextField text="                         FACTURE " />
     <Label fx:id="labelNumeroFacture" text="Numéro de Facture:" />
-   <TextField text="                           CLIENT" />
+    <TextField text="                           CLIENT" />
     <Label fx:id="labelClient" text="Client:" />
     <Label fx:id="labelDateFacture" text="Date de Facture:" />
-    <ListView fx:id="listViewServices" prefHeight="200" prefWidth="300" />
+
+    <!-- TableView pour afficher les services -->
+    <TableView fx:id="tableViewServices" prefHeight="200" prefWidth="300">
+        <columns>
+            <TableColumn fx:id="colService" text="Service" prefWidth="100" />
+            <TableColumn fx:id="colPieceRechange" text="Pièce de Rechange" prefWidth="100" />
+            <TableColumn fx:id="colEmploye" text="Employé" prefWidth="100" />
+            <TableColumn fx:id="colCout" text="Coût" prefWidth="100" />
+        </columns>
+    </TableView>
+
     <Label fx:id="labelMontantTotal" text="Montant Total:" />
     <Label fx:id="labelAvecRemise" text="Remise Appliquée:" />
     <Button onAction="#retour" text="Retour" />
