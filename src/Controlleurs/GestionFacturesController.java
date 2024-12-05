@@ -54,32 +54,14 @@ public class GestionFacturesController {
     // Modifier une facture
     @FXML
     private void modifierFacture() {
-        try {
-            // Vérification de l'existence du fichier FXML
-            URL fxmlLocation = getClass().getResource("/Vues/ModifierFacture.fxml");
-            if (fxmlLocation == null) {
-                System.out.println("FXML file not found!");
-                showAlert("Erreur", "Le fichier FXML 'ModifierFacture.fxml' n'a pas été trouvé.");
-                return;
-            } else {
-                System.out.println("FXML file loaded successfully.");
-            }
+        chargerVue("/Vues/ModiferFacture.fxml", "Supprimer une Facture");
 
-            // Charger le fichier FXML
-            FXMLLoader loader = new FXMLLoader(fxmlLocation);
-            Scene scene = new Scene(loader.load());
-            Stage stage = new Stage();
-            stage.setTitle("Modifier une facture");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            showAlert("Erreur", "Impossible de charger la page 'Modifier Facture'.");
-        }
     }
 
     // Supprimer une facture
     @FXML
     private void supprimerFacture() {
+
         chargerVue("/Vues/SupprimerFacture.fxml", "Supprimer une Facture");
     }
 

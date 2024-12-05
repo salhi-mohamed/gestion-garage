@@ -6,6 +6,7 @@ import Modeles.Personnes.Employe;
 import Modeles.Personnes.Receptionniste;
 import Modeles.Stocks.Fourniture;
 import Modeles.Stocks.Piece_Rechange;
+import Modeles.TypeService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AjouterServiceController {
 
@@ -46,7 +48,11 @@ public class AjouterServiceController {
         employeComboBox.setItems(FXCollections.observableArrayList(receptionnisteConnecte.getListeEmployes()));
 
         // Remplir le ComboBox de type de service avec des valeurs prédéfinies
-        serviceTypeComboBox.setItems(FXCollections.observableArrayList("Entretien", "Réparation", "Diagnostic","Lavage"));
+        serviceTypeComboBox.setItems(FXCollections.observableArrayList(
+                Arrays.stream(TypeService.values())
+                        .map(TypeService::getName)
+                        .toList()
+        ));
 
         configureComboBox(rendezVousComboBox);
         configureComboBox(pieceRechangeComboBox);
