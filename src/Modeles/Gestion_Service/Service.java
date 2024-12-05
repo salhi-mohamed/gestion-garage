@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import Modeles.Stocks.Piece_Rechange;
 import Modeles.Personnes.Employe;
 import Modeles.Personnes.Client;
-import jdk.internal.icu.text.UTF16;
 
 public class Service {
-    public static UTF16 TypeService;
+    public static Modeles.TypeService typeService;
     // Attributs
     private int idService;
     private String description;

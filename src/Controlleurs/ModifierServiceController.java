@@ -2,7 +2,6 @@ package Controlleurs;
 
 import Modeles.Gestion_Service.Service;
 import Modeles.Gestion_Service.Rendez_vous;
-import Modeles.Stocks.Piece_Rechange;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -42,7 +41,7 @@ public class ModifierServiceController {
         // Validation des données et mise à jour du service
         service.setRendezVous(comboRendezVous.getValue());
         // Convertir le type du service si nécessaire (par exemple, avec un enum)
-        service.setTypeService(Service.TypeService.valueOf(Integer.parseInt(comboTypeService.getValue())));
+        service.setTypeService(comboTypeService.getValue());
        // service.setPiecesUtilisees(comboPiece.getValue());
         service.setDescription(textDescription.getText());
         service.setCout(Double.parseDouble(textCout.getText()));
