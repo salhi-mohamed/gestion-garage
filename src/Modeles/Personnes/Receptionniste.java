@@ -35,6 +35,8 @@ public class Receptionniste extends Employe
    // private ClientDAO clientDAO;
 
 
+
+
     // --------------------Constructeur--------------------
    public Receptionniste(int id, String nom, String prenom, int telephone, String adresse, double salaire, String date_embauche, int numeroBureau, String email, String mdp) {
     // Appel du constructeur de la classe parente Employe pour initialiser les attributs hérités
@@ -65,7 +67,13 @@ public class Receptionniste extends Employe
            e.printStackTrace();
        }*/
    }
-  //---------------------Getters et Setters--------------------   
+  //---------------------Getters et Setters--------------------
+
+    public ArrayList<Facture> getListeFactures() {
+        return ListeFactures;
+    }
+
+
  public ArrayList<Piece_Rechange> getListePieces()
 {
         return this.listPiecesRechange;

@@ -2,8 +2,6 @@ package Controlleurs;
 
 import Modeles.Gestion_Service.Rendez_vous;
 import Modeles.Gestion_Service.Service;
-import Modeles.Gestion_Service.Voiture;
-import Modeles.Personnes.Client;
 import Modeles.Personnes.Employe;
 import Modeles.Personnes.Receptionniste;
 import Modeles.Stocks.Fourniture;
@@ -11,10 +9,7 @@ import Modeles.Stocks.Piece_Rechange;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -28,7 +23,7 @@ public class AjouterServiceController {
     @FXML
     private ComboBox<Rendez_vous> rendezVousComboBox;
     @FXML
-    private ComboBox<Fourniture> fournitureComboBox;
+    private ComboBox<String> serviceTypeComboBox;
     @FXML
     private ComboBox<Piece_Rechange> pieceRechangeComboBox;
     @FXML
@@ -39,26 +34,24 @@ public class AjouterServiceController {
 
     @FXML
     public void initialize() {
-        // Initialisation du réceptionniste connecté
         receptionnisteConnecte = MenuPrincipaleController.receptionnisteConnecte;
 
         if (receptionnisteConnecte == null) {
             throw new IllegalStateException("Aucun réceptionniste connecté trouvé !");
         }
 
-        // Remplissage des ComboBox avec les données
+        // Remplir les ComboBox
         rendezVousComboBox.setItems(FXCollections.observableArrayList(receptionnisteConnecte.getListeRendezVous()));
-        fournitureComboBox.setItems(FXCollections.observableArrayList(receptionnisteConnecte.getListeFournitures()));
         pieceRechangeComboBox.setItems(FXCollections.observableArrayList(receptionnisteConnecte.getListePieces()));
         employeComboBox.setItems(FXCollections.observableArrayList(receptionnisteConnecte.getListeEmployes()));
 
-        // Configuration des ComboBox pour un affichage personnalisé
+        // Remplir le ComboBox de type de service avec des valeurs prédéfinies
+        serviceTypeComboBox.setItems(FXCollections.observableArrayList("Entretien", "Réparation", "Diagnostic","Lavage"));
+
         configureComboBox(rendezVousComboBox);
-        configureComboBox(fournitureComboBox);
         configureComboBox(pieceRechangeComboBox);
         configureComboBox(employeComboBox);
 
-        // Initialisation du dernier ID pour les services
         dernierIdService = receptionnisteConnecte.getListeServices().size();
     }
 
@@ -67,23 +60,14 @@ public class AjouterServiceController {
             @Override
             protected void updateItem(T item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.toString());
-                }
+                setText(empty || item == null ? null : item.toString());
             }
         });
-
-        comboBox.setButtonCell(new ListCell<T>() {
+        comboBox.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(T item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.toString());
-                }
+                setText(empty || item == null ? null : item.toString());
             }
         });
     }
@@ -93,11 +77,11 @@ public class AjouterServiceController {
         String description = descriptionField.getText();
         String coutText = coutField.getText();
         Rendez_vous rendezVous = rendezVousComboBox.getSelectionModel().getSelectedItem();
-        Fourniture fourniture = fournitureComboBox.getSelectionModel().getSelectedItem();
+        String serviceType = serviceTypeComboBox.getSelectionModel().getSelectedItem();
         Piece_Rechange pieceRechange = pieceRechangeComboBox.getSelectionModel().getSelectedItem();
         Employe employe = employeComboBox.getSelectionModel().getSelectedItem();
 
-        if (description.isEmpty() || coutText.isEmpty() || rendezVous == null || fourniture == null || pieceRechange == null || employe == null) {
+        if (description.isEmpty() || coutText.isEmpty() || rendezVous == null || serviceType == null || pieceRechange == null || employe == null) {
             showAlert("Erreur", "Tous les champs doivent être remplis.");
             return;
         }
@@ -112,7 +96,6 @@ public class AjouterServiceController {
 
         dernierIdService++;
         try {
-            // Création d'un nouveau service
             ArrayList<Employe> effecteurs = new ArrayList<>();
             effecteurs.add(employe);
 
@@ -121,11 +104,11 @@ public class AjouterServiceController {
 
             Service nouveauService = new Service(
                     dernierIdService,
-                    description,
+                    serviceType + ": " + description, // Inclure le type dans la description
                     cout,
                     effecteurs,
-                    null, // Pas besoin de client ici
-                    null, // Pas besoin de voiture ici
+                    null,
+                    null,
                     rendezVous,
                     piecesUtilisees
             );

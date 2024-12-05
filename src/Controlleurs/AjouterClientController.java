@@ -37,9 +37,22 @@ public class AjouterClientController {
         // Récupérer les données depuis les champs de texte
         String nom = nomField.getText();
         String prenom = prenomField.getText();
-        int telephone = Integer.parseInt(telephoneField.getText());
+        String telephoneText = telephoneField.getText();  // Texte du champ téléphone
         String adresse = adresseField.getText();
         String statutFinancier = statutField.getText();
+
+        // Validation de l'entrée du numéro de téléphone
+        int telephone = 0;
+        try {
+            if (!telephoneText.isEmpty()) {
+                telephone = Integer.parseInt(telephoneText);
+            } else {
+                throw new NumberFormatException("Le numéro de téléphone ne peut pas être vide.");
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Erreur", "Numéro de téléphone invalide. Veuillez entrer un nombre valide.");
+            return;  // Sortir de la méthode si l'entrée est invalide
+        }
 
         // Générer un nouvel ID unique en l'incrémentant
         dernierIdClient++;  // Incrémente l'ID à chaque ajout
@@ -58,10 +71,10 @@ public class AjouterClientController {
             showAlert("Erreur", "Ce client existe déjà.");
         } catch (Exception e) {
             e.printStackTrace();  // Affiche la trace d'exception dans la console
-
             showAlert("Erreur", "Une erreur est survenue lors de l'ajout du client.");
         }
     }
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.INFORMATION);

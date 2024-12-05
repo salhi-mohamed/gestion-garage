@@ -2,12 +2,13 @@ package Modeles.Gestion_Service;
 
 import java.util.ArrayList;
 
-import Modeles.Stocks.Fourniture;
 import Modeles.Stocks.Piece_Rechange;
 import Modeles.Personnes.Employe;
 import Modeles.Personnes.Client;
+import jdk.internal.icu.text.UTF16;
 
 public class Service {
+    public static UTF16 TypeService;
     // Attributs
     private int idService;
     private String description;
@@ -18,20 +19,25 @@ public class Service {
     private Rendez_vous rendezVous; // Rendez-vous associé au service
     private ArrayList<Piece_Rechange> piecesUtilisees; // Liste des pièces de rechange utilisées dans le service
 
+    // La méthode getPiecesUtilisees() doit retourner une chaîne de caractères représentant les pièces utilisées
+    public String getPiecesUtilisees() {
+        return piecesUtilisees.stream()
+                .map(Piece_Rechange::toString)  // Si Piece_Rechange a une méthode toString() lisible
+                .reduce((p1, p2) -> p1 + ", " + p2)  // Combine toutes les pièces de rechange
+                .orElse("Aucune pièce de rechange");
+    }
+
+
+
+    public String getEffecteurs() {
+        return effecteurs.stream()
+                .map(Employe::toString)  // Si Employe a une méthode toString() qui est lisible
+                .reduce((e1, e2) -> e1 + ", " + e2)  // Combine tous les employés en une seule chaîne
+                .orElse("Aucun employé");
+    }
+
+
     //constructeur
-
-
-    /*public Service(String description, double cout,int idService,  Voiture voiture, Rendez_vous rendezVous , Client client) {
-        this.description = description;
-        this.cout = cout;
-        this.idService = idService;
-        this.voiture = voiture;
-        this.rendezVous = rendezVous;
-        this.client=client;
-        effecteurs=new ArrayList<Employe>();
-        piecesUtilisees=new ArrayList<Piece_Rechange>();
-    }*/
-
 
     public Service(int idService, String description, double cout, ArrayList<Employe> effecteurs, Client client, Voiture voiture, Rendez_vous rendezVous, ArrayList<Piece_Rechange> piecesUtilisees) {
         this.idService = idService;
@@ -72,10 +78,6 @@ public class Service {
         this.cout = cout;
     }
 
-    public ArrayList<Employe> getEffecteurs() {
-        return effecteurs;
-    }
-
     public void setEffecteurs(ArrayList<Employe> effecteurs) {
         this.effecteurs = effecteurs;
     }
@@ -96,9 +98,6 @@ public class Service {
         this.voiture = voiture;
     }
 
-    public ArrayList<Piece_Rechange> getPiecesUtilisees() {
-        return piecesUtilisees;
-    }
 
     public void setPiecesUtilisees(ArrayList<Piece_Rechange> piecesUtilisees) {
         this.piecesUtilisees = piecesUtilisees;
@@ -149,7 +148,7 @@ public class Service {
 
 
 
-    @Override
+  /*  @Override
     public String toString() {
         return "Service{" +
                 "idService=" + idService +
@@ -161,7 +160,22 @@ public class Service {
                 ", rendezVous=" + rendezVous.getId_rendez_vous() +
                 ", piecesUtilisees=" + piecesUtilisees +
                 '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "idService=" + idService +
+                ", description='" + description + '\'' +
+                ", cout=" + cout +
+                ", effecteurs=" + effecteurs +
+                ", client=" + client +
+                ", voiture=" + voiture +
+                ", rendezVous=" + rendezVous +
+                ", piecesUtilisees=" + piecesUtilisees +
+                '}';
     }
+
     public void afficher()
     {
         System.out.println("Affichage du service : ");
@@ -193,7 +207,12 @@ public class Service {
     }
 
 
+    public Object getTypeService() {
+        return null;
+    }
 
+    public void setTypeService(String s) {
+    }
 };
 
 

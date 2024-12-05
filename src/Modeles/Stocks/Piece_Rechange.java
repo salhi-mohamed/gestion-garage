@@ -113,4 +113,15 @@ public class Piece_Rechange {
                 .collect(Collectors.toList());
     }
 
+
+    @Override
+    public String toString() {
+        return "Piece_Rechange{" +
+                "idPiece=" + idPiece +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                ", prix=" + prix +
+                ", quantiteStock=" + quantiteStock +
+                '}';
+    }
 }

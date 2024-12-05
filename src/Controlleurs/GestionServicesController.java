@@ -71,8 +71,27 @@ public class GestionServicesController {
     // Modifier un service
     @FXML
     private void modifierService() {
-        chargerVue("/Vues/ModifierService.fxml", "Modifier un Service");
-    }
+        try {
+            // Check if the FXML file exists
+            URL fxmlLocation = getClass().getResource("/Vues/ModifierService.fxml");
+            if (fxmlLocation == null) {
+                System.out.println("FXML file not found!");
+                showAlert("Erreur", "Le fichier FXML 'ModifierService' n'a pas été trouvé.");
+                return;  // Exit the method if the FXML is not found
+            } else {
+                System.out.println("FXML file loaded successfully.");
+            }
+
+            // Proceed with loading the FXML file
+            FXMLLoader loader = new FXMLLoader(fxmlLocation);
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Modifier ");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page 'Modifier Service'.");
+        }    }
 
     // Afficher les services
     @FXML
@@ -80,42 +99,10 @@ public class GestionServicesController {
         chargerVue("/Vues/AfficherServices.fxml", "Afficher les Services");
     }
 
-    @FXML
-    private void ajouterFournitureService() {
-        chargerVue("/Vues/AjouterFournitureService.fxml", "Ajouter Fourniture au Service");
-    }
-
-    @FXML
-    private void ajouterPieceService() {
-        chargerVue("/Vues/AjouterPieceService.fxml", "Ajouter Fourniture au Service");
-    }
 
 
 
 
-    // Ajouter un rendez-vous
-    @FXML
-    private void ajouterRendezVous() {
-        chargerVue("/Vues/AjouterRendezVous.fxml", "Ajouter un Rendez-Vous");
-    }
-
-    // Supprimer un rendez-vous
-    @FXML
-    private void supprimerRendezVous() {
-        chargerVue("/Vues/SupprimerRendezVous.fxml", "Supprimer un Rendez-Vous");
-    }
-
-    // Modifier un rendez-vous
-    @FXML
-    private void modifierRendezVous() {
-        chargerVue("/Vues/ModifierRendezVous.fxml", "Modifier un Rendez-Vous");
-    }
-
-    // Afficher les rendez-vous
-    @FXML
-    private void afficherRendezVous() {
-        chargerVue("/Vues/AfficherRendezVous.fxml", "Afficher les Rendez-Vous");
-    }
 
     // Retourner au menu principal
     @FXML

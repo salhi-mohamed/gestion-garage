@@ -59,7 +59,7 @@ public class MenuPrincipaleController {
 
     @FXML
     public void ouvrirFactures(ActionEvent event) {
-        //ouvrirNouvelleScene("/path/to/Factures.fxml", event);
+        ouvrirNouvelleScene("/Vues/GestionFactures.fxml", event);
     }
     @FXML
     public void ouvrirServices(ActionEvent event) {
