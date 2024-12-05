@@ -4,6 +4,7 @@ import Modeles.Personnes.Client;
 import Modeles.Personnes.Receptionniste;
 import Modeles.Gestion_Service.Voiture;
 import Modeles.Stocks.Fourniture;
+import java.io.IOException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -16,6 +17,8 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 public class AfficherClientsController {
 
@@ -35,9 +38,9 @@ public class AfficherClientsController {
     private TableColumn<Client, Void> colActions;
 
     @FXML
-    private ComboBox<String> comboBoxAffichage; // ComboBox for selecting Voitures or Fournitures
+    private ComboBox<String> comboBoxAffichage; // ComboBox pour sélectionner Voitures ou Fournitures
     @FXML
-    private VBox containerTableView; // VBox to hold dynamic content (either cars or supplies)
+    private VBox containerTableView; // VBox pour contenir le contenu dynamique (voitures ou fournitures)
 
     @FXML
     private Button btnAnnuler; // Bouton Annuler
@@ -98,7 +101,7 @@ public class AfficherClientsController {
     private void initializeComboBox() {
         ObservableList<String> options = FXCollections.observableArrayList("Afficher Voitures", "Afficher Fournitures");
         comboBoxAffichage.setItems(options);
-        comboBoxAffichage.getSelectionModel().selectFirst(); // Default to "Afficher Voitures"
+        comboBoxAffichage.getSelectionModel().selectFirst(); // Par défaut, "Afficher Voitures"
         comboBoxAffichage.setOnAction(event -> changerAffichage());
     }
 
@@ -110,16 +113,16 @@ public class AfficherClientsController {
 
     @FXML
     private void onClientSelected() {
-        // When a client is selected, make the ComboBox visible and the "Annuler" button visible
+        // Lorsque l'on sélectionne un client, rendre visible le ComboBox et le bouton "Annuler"
         if (tableClients.getSelectionModel().getSelectedItem() != null) {
             comboBoxAffichage.setVisible(true);
-            btnAnnuler.setVisible(true); // Make the "Annuler" button visible
+            btnAnnuler.setVisible(true); // Rendre visible le bouton "Annuler"
         }
     }
 
     @FXML
     private void handleAnnuler() {
-        // Hide the ComboBox and "Annuler" button, and show the clients' TableView again
+        // Cacher le ComboBox et le bouton "Annuler", et afficher à nouveau la TableView des clients
         comboBoxAffichage.setVisible(false);
         btnAnnuler.setVisible(false);
         containerTableView.getChildren().clear();
@@ -129,7 +132,7 @@ public class AfficherClientsController {
     private void changerAffichage() {
         String selectedOption = comboBoxAffichage.getSelectionModel().getSelectedItem();
 
-        // Clear current table display
+        // Effacer l'affichage actuel
         containerTableView.getChildren().clear();
 
         Client selectedClient = tableClients.getSelectionModel().getSelectedItem();
@@ -143,16 +146,16 @@ public class AfficherClientsController {
         } else if ("Afficher Fournitures".equals(selectedOption)) {
             afficherFournitures(selectedClient);
         } else {
-            // Revert back to the TableView showing clients if no option is selected
+            // Revenir à la TableView montrant les clients si aucune option n'est sélectionnée
             containerTableView.getChildren().add(tableClients);
         }
     }
 
     private void afficherVoitures(Client client) {
-        // Create TableView for Voitures
+        // Créer TableView pour les Voitures
         TableView<Voiture> voituresTableView = new TableView<>();
 
-        // Columns for Voitures
+        // Colonnes pour les Voitures
         TableColumn<Voiture, String> immatriculationColumn = new TableColumn<>("Immatriculation");
         immatriculationColumn.setCellValueFactory(cellData -> cellData.getValue().immatriculationProperty());
         TableColumn<Voiture, String> marqueColumn = new TableColumn<>("Marque");
@@ -164,12 +167,12 @@ public class AfficherClientsController {
         TableColumn<Voiture, Integer> anneeColumn = new TableColumn<>("Année");
         anneeColumn.setCellValueFactory(cellData -> cellData.getValue().anneeProperty().asObject());
 
-        // Kilométrage column - converted from Long to Integer
+        // Kilométrage column - converti de Long à Integer
         TableColumn<Voiture, Integer> kilometrageColumn = new TableColumn<>("Kilométrage");
         kilometrageColumn.setCellValueFactory(cellData -> 
             new SimpleIntegerProperty((int) cellData.getValue().kilometrageProperty().get()).asObject());
 
-        voituresTableView.getColumns().addAll(immatriculationColumn,marqueColumn, modeleColumn, anneeColumn, kilometrageColumn);
+        voituresTableView.getColumns().addAll(immatriculationColumn, marqueColumn, modeleColumn, anneeColumn, kilometrageColumn);
 
         ObservableList<Voiture> voituresList = FXCollections.observableArrayList(client.getVoitures());
         voituresTableView.setItems(voituresList);
@@ -178,10 +181,10 @@ public class AfficherClientsController {
     }
 
     private void afficherFournitures(Client client) {
-        // Create TableView for Fournitures
+        // Créer TableView pour les Fournitures
         TableView<Fourniture> fournituresTableView = new TableView<>();
 
-        // Columns for Fournitures
+        // Colonnes pour les Fournitures
         TableColumn<Fourniture, String> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
 
@@ -199,33 +202,55 @@ public class AfficherClientsController {
         containerTableView.getChildren().add(fournituresTableView);
     }
 
-    private void afficherFormulaireModification(Client client) {
-        // Your existing form for modifying a client (no changes here)
-    }
+   private void afficherFormulaireModification(Client client) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vues/FormulaireModificationClient.fxml"));
+        Parent root = loader.load();
+        
+        // Obtenir le contrôleur du formulaire et définir le client
+        FormulaireModificationClientController controller = loader.getController();
+        controller.setClient(client);
 
-    private void supprimerClient(int idClient) {
-        // Your existing delete client functionality (no changes here)
+        // Créer une nouvelle fenêtre pour le formulaire
+        Stage stage = new Stage();
+        stage.setTitle("Modifier Client");
+        stage.setScene(new Scene(root));
+        stage.setOnHiding(event -> {
+            // Rafraîchir la TableView après la modification
+            afficherTousLesClients(receptionniste);
+        });
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        showAlert("Erreur", "Impossible d'ouvrir le formulaire de modification.");
     }
+}
+
+   private void supprimerClient(int idClient) {
+    // Demander confirmation avant de supprimer le client
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirmer la suppression");
+    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce client ?");
+    alert.setContentText("Cette action est irréversible.");
+
+    // Si l'utilisateur confirme la suppression
+    alert.showAndWait().ifPresent(response -> {
+        if (response == ButtonType.OK) {
+            // Appeler la méthode supprimerClient de la classe Receptionniste
+            receptionniste.supprimerClient(idClient);
+
+            // Rafraîchir la table des clients après suppression
+            afficherTousLesClients(receptionniste);
+            showAlert("Succès", "Client supprimé avec succès.");
+        }
+    });
+}
 
     private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
