@@ -1,59 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controlleurs.ModifierEmployeController">
-    <center>
-        <GridPane hgap="10" vgap="10">
-            <VBox spacing="20">
-                <GridPane hgap="10" vgap="10">
-                    <!-- Row 1: Nom -->
-                    <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-
-                    <!-- Row 2: Prénom -->
-                    <Label text="Prénom:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="prenomField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-                    <!-- Row 3: Téléphone -->
-                    <Label text="Téléphone:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                    <TextField fx:id="telephoneField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-                    <!-- Row 4: Adresse -->
-                    <Label text="Adresse:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-                    <TextField fx:id="adresseField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
-                    <!-- Row 5: Salaire -->
-                    <Label text="Salaire:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                    <TextField fx:id="salaireField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-
-                    <!-- Row 6: Date d'embauche -->
-                    <Label text="Date d'embauche:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-                    <DatePicker fx:id="dateEmbaucheField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-
-                    <!-- Row 7: Type d'employé -->
-                    <Label text="Type d'employé:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-                    <ComboBox fx:id="typeEmployeCombo" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-
-                    <!-- Row 8: Spécialité (Mécanicien uniquement) -->
-                    <Label text="Spécialité:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-                    <ComboBox fx:id="specialiteCombo" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-
-                    <!-- Row 9: Expertise (Mécanicien uniquement) -->
-                    <Label text="Expertise:" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-                    <ComboBox fx:id="expertiseCombo" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-
-                    <!-- Row 10: Spécialisation Laveur -->
-                    <Label text="Spécialisation Laveur:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
-                    <CheckBox fx:id="specialisationExterieurCheckBox" text="Exterieur" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                    <CheckBox fx:id="specialisationInterieurCheckBox" text="Intérieur" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-
-                    <!-- Buttons Row -->
-                    <Button text="Enregistrer" onAction="#enregistrerModifications" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
-                    <Button text="Annuler" onAction="#annuler" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-                </GridPane>
-            </VBox>
-        </GridPane>
-    </center>
-</BorderPane>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Controlleurs.ModifierEmployeController" spacing="10" padding="20">
+    <Label text="Nom"/>
+    <TextField fx:id="txtNom" />
+    
+    <Label text="Prénom"/>
+    <TextField fx:id="txtPrenom" />
+    
+    <Label text="Salaire"/>
+    <TextField fx:id="txtSalaire" />
+    
+    <Label text="Spécialité"/>
+    <TextField fx:id="txtSpecialite" />
+    
+    <Label text="Expertise"/>
+    <TextField fx:id="txtExpertise" />
+    
+    <Button text="Sauvegarder" onAction="#sauvegarderModification"/>
+    <Button text="Annuler" onAction="#fermerFenetre"/>
+</VBox>
