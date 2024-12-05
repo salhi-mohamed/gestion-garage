@@ -5,13 +5,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Rendez_vous {
+    //---------Attributs--------------------//
+
     private int id_rendez_vous;
     private LocalDate Date_rendez_vous;
     private String Description_rendez_vous;
     private StatutRendezVous statut;
     private Voiture voiture;
     private Client client;
-
+     //-------------------Constructeur----------------------//
     public Rendez_vous(int id_rendez_vous, String Description_rendez_vous, Voiture voiture, Client client, LocalDate Date_rendez_vous, StatutRendezVous statut) {
         this.id_rendez_vous = id_rendez_vous;
         this.Description_rendez_vous = Description_rendez_vous;
@@ -21,11 +23,8 @@ public class Rendez_vous {
         this.statut = statut;
     }
 
-    public Rendez_vous() {
 
-    }
-
-    // Getters et setters
+    // ----------------------Getters et setters----------------------------//
     public int getId_rendez_vous() {
         return id_rendez_vous;
     }
@@ -74,6 +73,9 @@ public class Rendez_vous {
         this.client = client;
     }
 
+
+
+    //----------------------METHODES--------------------//
     // Méthode pour annuler le rendez-vous
     public void annulerRendezVous() {
         if (this.statut != StatutRendezVous.ANNULE) {
@@ -107,26 +109,6 @@ public class Rendez_vous {
         System.out.println("===============================");
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Redéfinition de la méthode toString
     @Override
     public String toString() {
@@ -137,6 +119,4 @@ public class Rendez_vous {
                 "\n client concerné : " + this.client.get_id() +
                 "\n statut : " + this.statut;
     }
-
-
 }

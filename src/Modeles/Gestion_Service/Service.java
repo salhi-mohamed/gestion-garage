@@ -7,7 +7,7 @@ import Modeles.Personnes.Employe;
 import Modeles.Personnes.Client;
 
 public class Service {
-    public static Modeles.TypeService typeService;
+    public static TypeService typeService;
     // Attributs
     private int idService;
     private String description;
@@ -17,24 +17,6 @@ public class Service {
     private Voiture voiture; // Voiture associée au service
     private Rendez_vous rendezVous; // Rendez-vous associé au service
     private ArrayList<Piece_Rechange> piecesUtilisees; // Liste des pièces de rechange utilisées dans le service
-
-    // La méthode getPiecesUtilisees() doit retourner une chaîne de caractères représentant les pièces utilisées
-    public String getPiecesUtilisees() {
-        return piecesUtilisees.stream()
-                .map(Piece_Rechange::toString)  // Si Piece_Rechange a une méthode toString() lisible
-                .reduce((p1, p2) -> p1 + ", " + p2)  // Combine toutes les pièces de rechange
-                .orElse("Aucune pièce de rechange");
-    }
-
-
-
-    public String getEffecteurs() {
-        return effecteurs.stream()
-                .map(Employe::toString)  // Si Employe a une méthode toString() qui est lisible
-                .reduce((e1, e2) -> e1 + ", " + e2)  // Combine tous les employés en une seule chaîne
-                .orElse("Aucun employé");
-    }
-
 
     //constructeur
 
@@ -97,7 +79,12 @@ public class Service {
         this.voiture = voiture;
     }
 
+    public Object getTypeService() {
+        return null;
+    }
 
+    public void setTypeService(String s) {
+    }
     public void setPiecesUtilisees(ArrayList<Piece_Rechange> piecesUtilisees) {
         this.piecesUtilisees = piecesUtilisees;
     }
@@ -110,7 +97,24 @@ public class Service {
         this.rendezVous = rendezVous;
     }
 
+    public String getPiecesUtilisees() {
+        return piecesUtilisees.stream()
+                .map(Piece_Rechange::toString)  // Si Piece_Rechange a une méthode toString() lisible
+                .reduce((p1, p2) -> p1 + ", " + p2)  // Combine toutes les pièces de rechange
+                .orElse("Aucune pièce de rechange");
+    }
 
+
+
+    public String getEffecteurs() {
+        return effecteurs.stream()
+                .map(Employe::toString)  // Si Employe a une méthode toString() qui est lisible
+                .reduce((e1, e2) -> e1 + ", " + e2)  // Combine tous les employés en une seule chaîne
+                .orElse("Aucun employé");
+    }
+
+
+    ///-----------------METHODE---------------------------//
     // Méthode Afficher_Service : affiche les informations du service
     public void afficherService() {
         System.out.println(this.toString());
@@ -144,22 +148,6 @@ public class Service {
             System.out.println("Aucun rendez-vous associé à ce service.");
         }
     }
-
-
-
-  /*  @Override
-    public String toString() {
-        return "Service{" +
-                "idService=" + idService +
-                ", description='" + description + '\'' +
-                ", cout=" + cout +
-                ", effecteurs=" + effecteurs +
-                ", client=" + client.get_id() +
-                ", voiture=" + voiture.get_immatriculation() +
-                ", rendezVous=" + rendezVous.getId_rendez_vous() +
-                ", piecesUtilisees=" + piecesUtilisees +
-                '}';
-    }*/
 
     @Override
     public String toString() {
@@ -206,11 +194,5 @@ public class Service {
     }
 
 
-    public Object getTypeService() {
-        return null;
-    }
 
-    public void setTypeService(String s) {
-    }
 };
-//

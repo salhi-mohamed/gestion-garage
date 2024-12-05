@@ -5,7 +5,7 @@ import javafx.beans.property.*;
 
 public class Voiture {
 
-    // Attributs classiques
+    // Attributs
     private String marque;
     private String modele;
     private int annee;
@@ -113,6 +113,8 @@ public class Voiture {
         this.client = client;
     }
 
+
+    //-----------------------METHODES--------------------------//
     // Méthodes pour afficher les informations de la voiture et du client
     public void afficher() {
         System.out.println("=== Informations de la Voiture ===");

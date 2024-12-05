@@ -1,4 +1,4 @@
-package Modeles;
+package Modeles.Gestion_Service;
 
 public enum TypeService {
     ENTRETIEN("Entretien"),

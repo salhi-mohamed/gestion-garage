@@ -11,13 +11,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import Modeles.Exceptions.*;
-
-
-
-/**
- *
- * @author LENOVO
- */
 public class Mecanicien extends Employe implements GestionExperience{
 
     //--------------------Attributs--------------------
@@ -27,10 +20,6 @@ public class Mecanicien extends Employe implements GestionExperience{
     private ArrayList<Voiture> historique_voitures;
 
     //--------------------constructeur--------------------
-
-    
-  
-     
   public Mecanicien(int id, String nom, String prenom, int telephone, String adresse, double salaire, String specialite, Expertise expertise, String date_embauche) {
     // Appel du constructeur de la classe Employe avec la date d'embauche
     super(id, nom, prenom, telephone, adresse, salaire, date_embauche);
@@ -43,8 +32,6 @@ public class Mecanicien extends Employe implements GestionExperience{
     this.historique_voitures = new ArrayList<Voiture>(); // Important : spécifier le type Voiture
 }   
     //--------------------Methodes--------------------
-
-  
       //--------------------Geters & seters--------------------
 
     public void set_specialite(String specialite)
@@ -87,8 +74,6 @@ public void afficher()
     {
         System.out.println( e.getMessage());
     }
-    
-    
 }
 //Méthode pour modifier un mécanicien
 public void modifier() {
@@ -263,14 +248,7 @@ public void supprimer_voiture(Voiture voiture) throws VoitureNonTrouveePourLavMe
         if (!found) {
             throw new VoitureNonTrouveePourLavMecException("La voiture spécifiée n'a pas été trouvée dans l'historique.");
         }
-    }
-
-
-
-
-
-
-
+  }
 //Méthode pour afficher l'historique des voitures du mécanicien
     public void afficher_historique_voitures() throws HistoriqueVoituresVideLavMecException {
         if (this.get_historique_voitures().isEmpty()) {

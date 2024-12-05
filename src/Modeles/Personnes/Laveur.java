@@ -7,22 +7,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import Modeles.Exceptions.*;
-
-
-/**
- *
- * @author LENOVO
- */
 public class Laveur extends Employe implements GestionExperience{
-
     //-------------------Attributs-----------------------------
     private boolean specialise_interieur;
     private boolean specialise_exterieur;
     private ArrayList<Voiture> voitures;
-
-
     //------------------------constructeur-------------------------------
-
    public Laveur(int id, String nom, String prenom, int telephone, String adresse, double salaire, String dateEmbaucheStr) {
         // Call the parent constructor (Employe) to initialize the shared attributes
         super(id, nom, prenom, telephone, adresse, salaire, dateEmbaucheStr);
@@ -74,10 +64,6 @@ public class Laveur extends Employe implements GestionExperience{
         // Initialize the list of voitures
         voitures = new ArrayList<Voiture>();
     }
-
-
-
-
     //-----------------------geters & seters-------------------------------
 
     public void set_specialise_interieur(boolean spec )
@@ -89,7 +75,6 @@ public class Laveur extends Employe implements GestionExperience{
     {
         return this.specialise_interieur;
     }
-
 
     public void set_specialise_exterieur(boolean spec)
     {
@@ -108,9 +93,6 @@ public class Laveur extends Employe implements GestionExperience{
     public void setVoitures(ArrayList<Voiture> voitures) {
         this.voitures = voitures;
     }
-           
-
-
 
     //////////Methodes////////////////
 
@@ -123,9 +105,6 @@ public class Laveur extends Employe implements GestionExperience{
         else
             return super.toString()+" spécialité : intérieur";
     }
-
-
-
 
 //Méthode pour afficher un laveur 
   public void afficher() {
@@ -141,12 +120,6 @@ public class Laveur extends Employe implements GestionExperience{
         System.out.println(e.getMessage()); // Affiche le message de l'exception si l'historique est vide
     }
 }
-
-
-
-
-
-            
   //Méthode pour modifier un laveur
    @Override
 public void modifier() {
@@ -252,10 +225,6 @@ public void modifier() {
 
     sc.close();  // Fermer le scanner après utilisation
 }
-
-
-
-
                   //---------------------Gestion des voitures------------------------
 
 //Méthode pour ajouter une voiture à l'historique des voitures du laveur 

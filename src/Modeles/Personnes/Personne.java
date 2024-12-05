@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Modeles.Personnes;
 
-/**
- *
- * @author LENOVO
- */
 //Classe Personne abstraite
 public abstract  class Personne {
     //---------------------attributs--------------------
