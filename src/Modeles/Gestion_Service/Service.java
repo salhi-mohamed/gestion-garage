@@ -1,11 +1,10 @@
 package Modeles.Gestion_Service;
+//import jdk.internal.icu.text.UTF16;
 
 import java.util.ArrayList;
-
 import Modeles.Stocks.Piece_Rechange;
 import Modeles.Personnes.Employe;
 import Modeles.Personnes.Client;
-import jdk.internal.icu.text.UTF16;
 
 public class Service {
     public static UTF16 TypeService;
@@ -214,14 +213,3 @@ public class Service {
     public void setTypeService(String s) {
     }
 };
-
-
-
-
-
-
-
-
-
-
-
