@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.AjouterFactureController" stylesheets="@AjouterFactureStyle.css" styleClass="anchor-pane">
+    <children>
+        <!-- Titre de la fenêtre -->
+        <Label text="Ajouter une Facture" layoutX="150" layoutY="20" styleClass="label-title"/>
+
+        <!-- Champ pour sélectionner le client -->
+        <Label text="Client :" layoutX="20" layoutY="70" styleClass="label"/>
+        <ComboBox fx:id="comboClients" layoutX="150" layoutY="70" prefWidth="200" styleClass="combo-box"/>
+
+        <!-- Champ pour sélectionner les services -->
+        <Label text="Services :" layoutX="20" layoutY="120" styleClass="label"/>
+        <ListView fx:id="listServices" layoutX="150" layoutY="120" prefWidth="200" prefHeight="100" styleClass="list-view"/>
+
+        <!-- Champ pour sélectionner la date -->
+        <Label text="Date :" layoutX="20" layoutY="240" styleClass="label"/>
+        <DatePicker fx:id="datePicker" layoutX="150" layoutY="240" styleClass="date-picker"/>
+
+        <!-- Case à cocher pour la remise -->
+        <Label text="Avec remise :" layoutX="20" layoutY="290" styleClass="label"/>
+        <CheckBox fx:id="checkRemise" layoutX="150" layoutY="290" styleClass="check-box"/>
+        <Label text="Coût Total :" layoutX="20" layoutY="320" styleClass="label"/>
+        <Label fx:id="labelTotal" text="0.0" layoutX="150" layoutY="320" styleClass="label"/>
+
+        <!-- Boutons -->
+        <Button text="Créer Facture" layoutX="150" layoutY="340" onAction="#creerFacture" styleClass="button-create"/>
+        <Button text="Annuler" layoutX="250" layoutY="340" onAction="#annuler" styleClass="button-cancel"/>
+    </children>
+</AnchorPane>

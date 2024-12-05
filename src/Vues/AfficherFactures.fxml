@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlleurs.AfficherFactureController">
+    <Label fx:id="labelNumeroFacture" text="Numéro de Facture:"/>
+    <Label fx:id="labelClient" text="Client:"/>
+    <Label fx:id="labelDateFacture" text="Date de Facture:"/>
+    <ListView fx:id="listViewServices" prefHeight="200" prefWidth="300"/>
+    <Label fx:id="labelMontantTotal" text="Montant Total:"/>
+    <Label fx:id="labelAvecRemise" text="Remise Appliquée:"/>
+    <Button text="Retour" onAction="#retour"/>
+</VBox>
